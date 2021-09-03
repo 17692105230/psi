@@ -1,0 +1,6 @@
+/* pages/my/index.wxss */
+.avatarUrl{
+  width: 80rpx;
+  height: 80rpx;
+  border-radius: 50%;
+}

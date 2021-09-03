@@ -1,0 +1,46 @@
+page{
+  background-color: white;
+}
+.title{
+	/* display: inline-block !important;
+  text-align: justify !important;
+ 
+  text-align-last:justify !important; */
+  width: 5em;
+}
+.nodeBox{
+  margin-top: -20rpx;
+  padding-right: 30rpx;
+  font-size: 24rpx;
+}
+.itemBox{
+  display: flex;
+  align-items: center;
+  position: relative;
+
+}
+.textarea{
+  padding: 10rpx !important;
+}
+.yiji{
+  border-bottom: 1px solid #eee;
+}
+.yiji:last-child{
+  padding-bottom: 30rpx;
+}
+.yiji,.erji,.sanji{
+  padding: 30rpx;
+  padding-bottom: 0;
+}
+
+.cuIcon-roundcheck,.cuIcon-round {
+  margin-right: 20rpx;
+  font-size: 36rpx;
+}
+.rightIcon{
+  font-size: 24rpx;
+  position: absolute;
+  right: 30rpx;
+  top: 50%;
+  transform: translateY(-50%);
+}

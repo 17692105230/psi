@@ -1,0 +1,56 @@
+<cu-custom id="navbar" bgColor="bg-gold-new" isCustom="{{true}}">
+  <view slot="content">会员详情</view>
+</cu-custom>
+<view class="cu-bar bg-white solid-bottom">
+  <view class="action">
+    <text class="cuIcon-titles text-blue"></text>会员基本信息
+  </view>
+</view>
+
+<view class="cu-card article no-card margin-bottom-sm">
+  <view class="cu-item shadow">
+    <view class="margin-left">
+      <view class="margin-tb-xs text-black text-bold">{{base.member_name}}</view>
+      <view class="">{{base.member_phone}}</view>
+    </view>
+    <view class="margin-left">
+      <view class="margin-top-xs ">累计积分: {{account.account_points}}</view>
+      <!-- <view class="margin-top-xs ">账户金额: {{account.account_money}}</view> -->
+      <view class="margin-top-xs ">购物总额: {{account.total_sum}}</view>
+      <!-- <view class="margin-top-xs ">购物总数: {{account.total_number}}</view> -->
+      <view class="margin-top-xs ">订单总数: {{account.total_orders_count}}</view>      
+    </view>
+  </view>
+</view>
+
+
+
+
+<view class="cu-bar bg-white solid-bottom">
+  <view class="action">
+    <text class="cuIcon-titles text-blue"></text>会员消费记录
+  </view>
+</view>
+<view class="cu-card article no-card margin-bottom-sm box"   wx:for="{{data_list}}" wx:key="orders_id" data-id="{{item.orders_id}}" data-type="{{item.orders_type}}" catchtap="to" >
+  <view class="cu-item shadow c_arrow">
+    <view class="margin-left margin-top">
+      <view class="margin-tb-xs text-black text-bold">订单编号: {{item.orders_code}}</view>
+    </view>
+    <view class="margin-left">
+      <view class="margin-top-xs ">订单金额: {{item.orders_rmoney}}</view>      
+      <view class="margin-top-xs ">商品数量: {{item.goods_number}}</view>     
+      <view class="margin-top-xs ">订单日期: {{item.create_time}}</view>      
+
+         
+    </view>
+  </view>
+</view>
+<view wx:if="{{loadOk&&data_list.length==0}}" class="zwsjBox padding" style="padding-top:200rpx">
+  <image src="/images/my/zwsj.png"></image>
+  <view class="text-center margin text-gray zwsjTxt">暂无数据</view>
+</view>
+<view class="text-center padding text-gray" wx:if="{{nomore&&data_list.length}}">没有更多了</view>
+<!-- <view style="height:300px">
+  {{item.orders_code}}
+</view> -->
+<!-- pages/sale/sale_order/index?id=130&orders_type=1    -->

@@ -1,0 +1,276 @@
+/* ==================
+         表单
+ ==================== */
+
+ .hr-form-group {
+  background-color: var(--white);
+  padding: 1rpx 30rpx;
+  display: flex;
+  align-items: center;
+  min-height: 85rpx;
+  justify-content: space-between;
+}
+
+.hr-form-group+.hr-form-group {
+  border-top: 1rpx solid #eee;
+}
+
+.hr-form-group .title {
+  text-align: justify;
+  padding-right: 30rpx;
+  font-size: 30rpx;
+  position: relative;
+  height: 60rpx;
+  line-height: 60rpx;
+}
+
+.hr-form-group input {
+  flex: 1;
+  font-size: 30rpx;
+  color: #555;
+  padding-right: 20rpx;
+}
+
+.hr-form-group>text[class*="cuIcon-"] {
+  font-size: 36rpx;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.hr-form-group textarea {
+  margin: 32rpx 0 30rpx;
+  height: 4.6em;
+  width: 100%;
+  line-height: 1.2em;
+  flex: 1;
+  font-size: 28rpx;
+  padding: 0;
+}
+
+.hr-form-group.align-start .title {
+  height: 1em;
+  margin-top: 32rpx;
+  line-height: 1em;
+}
+
+.hr-form-group picker {
+  flex: 1;
+  padding-right: 40rpx;
+  overflow: hidden;
+  position: relative;
+}
+
+.hr-form-group picker .picker {
+  line-height: 85rpx;
+  font-size: 28rpx;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+  width: 100%;
+  text-align: right;
+}
+
+.hr-form-group picker::after {
+  font-family: "cuIcon";
+  display: block;
+  content: "\e6a3";
+  position: absolute;
+  font-size: 34rpx;
+  color: var(--grey);
+  line-height: 85rpx;
+  width: 60rpx;
+  text-align: center;
+  top: 0;
+  bottom: 0;
+  right: -20rpx;
+  margin: auto;
+}
+
+.hr-form-group textarea[disabled],
+.hr-form-group textarea[disabled] .placeholder {
+  color: transparent;
+}
+
+.hr-solid-top {
+  border-top: 1rpx solid #eee;
+}
+
+/* ==================
+          操作条
+ ==================== */
+
+.hr-bar {
+  display: flex;
+  position: relative;
+  align-items: center;
+  min-height: 90rpx;
+  justify-content: space-between;
+  border-top: 1rpx solid #ddd;
+  border-bottom: 1rpx solid #ddd;
+  background-color: #eee;
+}
+
+.hr-bar .action {
+  display: flex;
+  align-items: center;
+  height: 100%;
+  justify-content: center;
+  max-width: 100%;
+}
+
+.hr-bar .hr-avatar:first-child {
+  margin-left: 20rpx;
+}
+
+.hr-bar .action:last-child {
+  margin-right: 30rpx;
+}
+
+.hr-bar>text[class*="cuIcon-"], .hr-bar>view[class*="cuIcon-"],
+.hr-bar>button[class*="cuIcon-"], .hr-bar .action>text[class*="cuIcon-"],
+.hr-bar .action>view[class*="cuIcon-"], .hr-bar .action>button[class*="cuIcon-"] {
+  font-size: 36rpx;
+}
+
+.hr-avatar {
+  font-variant: small-caps;
+  margin: 0;
+  padding: 0;
+  display: inline-flex;
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+  background-color: #ccc;
+  white-space: nowrap;
+  position: relative;
+  width: 60rpx;
+  height: 60rpx;
+  background-size: cover;
+  background-position: center;
+  vertical-align: middle;
+  font-size: 1.5em;
+  font-weight: bold;
+}
+
+.hr-bar .search-form {
+  background-color: #fff;
+  padding: 0 15rpx;
+  line-height: 60rpx;
+  height: 60rpx;
+  font-size: 24rpx;
+  color: var(--black);
+  flex: 1;
+  display: flex;
+  align-items: center;
+  margin: 0 30rpx;
+}
+
+.hr-bar .search-form+.action {
+  margin-right: 20rpx;
+}
+
+.hr-bar .search-form input {
+  flex: 1;
+  padding-right: 30rpx;
+  height: 64rpx;
+  line-height: 64rpx;
+  font-size: 26rpx;
+  background-color: transparent;
+}
+
+.hr-bar .search-form [class*="cuIcon-"] {
+  margin: 0 0.5em 0 0.8em;
+}
+
+.hr-bar .search-form [class*="cuIcon-"]::before {
+  top: 0rpx;
+}
+
+.hr-avatar+.hr-avatar {
+  margin-left: 10rpx;
+}
+
+.cu-bar.tabbar .action.add-action [class*="cuIcon-"] {
+  position: absolute;
+  width: 90rpx;
+  z-index: 2;
+  height: 90rpx;
+  border-radius: 50%;
+  line-height: 90rpx;
+  font-size: 50rpx;
+  top: -35rpx;
+  left: 0;
+  right: 0;
+  margin: auto;
+  padding: 0;
+}
+
+.cu-bar.tabbar .action.add-action::after {
+  content: "";
+  position: absolute;
+  width: 120rpx;
+  height: 120rpx;
+  top: -50rpx;
+  left: 0;
+  right: 0;
+  margin: auto;
+  box-shadow: 0 -3rpx 8rpx rgba(0, 0, 0, 0.08);
+  border-radius: 70rpx;
+  background-color: inherit;
+  z-index: 0;
+}
+
+/*header 下拉选择*/
+
+.tui-scroll-box {
+  width: 100%;
+  height: 480rpx;
+  box-sizing: border-box;
+  position: relative;
+  z-index: 99;
+  color: #fff;
+  font-size: 30rpx;
+  word-break: break-all;
+}
+
+.tui-drop-item {
+  color: #333;
+  height: 80rpx;
+  font-size: 28rpx;
+  padding: 20rpx 40rpx 20rpx 40rpx;
+  box-sizing: border-box;
+  display: inline-block;
+  width: 50%;
+}
+
+.tui-drop-btnbox {
+  width: 100%;
+  height: 100rpx;
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  box-sizing: border-box;
+  display: flex;
+}
+
+.tui-drop-btn {
+  width: 100% !important;
+  border-radius: 0 !important;
+  font-size: 32rpx !important;
+  text-align: center;
+  height: 100rpx;
+  line-height: 100rpx;
+  border: 0;
+}
+
+.tui-btn-white {
+  border-radius: 0;
+}
+
+/*header 下拉选择*/
+
+/* zll */
+.z-relative{
+  position: relative;
+  z-index: 1110;
+}

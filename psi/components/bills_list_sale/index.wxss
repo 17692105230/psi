@@ -1,0 +1,16 @@
+/* components/bills_list/index.wxss */
+.icon-time{
+  font-size: 56rpx;
+  background: #f8e9d2;
+  border-radius: 16rpx;
+  width: 80rpx;
+  height: 80rpx;
+}
+.btn{
+  position: absolute;
+  bottom: 20rpx;
+  right: 20rpx;
+}
+.active{
+  background-color: #f7f7f9 !important;
+}

@@ -1,0 +1,95 @@
+<wxs module="num">
+  module.exports = {
+    toFix: function(value) {
+      value = !value ? 0 : value;
+      return value.toFixed(2)
+    }
+  }
+</wxs>
+<cu-custom id="navbar" bgColor="bg-gradual-red" isCustom="{{true}}">
+  <view slot="content">结算确认</view>
+</cu-custom>
+<form bindsubmit="formSubmit" report-submit="true">
+  <view class="text-center padding-top-xl margin-bottom-lg">
+    <text>应收金额:</text>
+    <text class="text-price margin-left"></text>
+    <text class="text-xxl">{{should_income}}</text>
+  </view>
+  <view class="bg-white padding-lr-xs margin radius shadow">
+    <view class="cu-form-group ">
+      <view class="title m-tw text-bold text-red">会员姓名</view>
+      <input value="{{member_name}}" disabled="{{true}}" ></input>
+    </view>
+    <view class="cu-form-group" bindtap="showHrNumber" data-target="remove_zero" data-title="抹零金额">
+      <view class="title m-tw text-bold text-red">抹零金额</view>
+      <input name="goods[goods_name]" type="digit" placeholder="￥0.00" disabled="{{true}}" model:value="{{remove_zero}}"></input>
+      <!-- <button class="cu-btn cuIcon-sponsor bg-green shadow padding-sm" /> -->
+    </view>
+    <view class="cu-form-group" bindtap="showHrNumber" data-target="real_income" data-title="实收金额">
+      <view class="title m-tw text-bold text-red">实收金额</view>
+      <input name="goods[goods_name]" type="digit" placeholder="￥0.00"  disabled="{{true}}" model:value="{{real_income}}"></input>
+    </view>
+    <view class="cu-form-group">
+      <view class="title m-tw text-bold text-red">商品数量</view>
+      <input name="goods[goods_name]" type="number" model:value="{{goodsCount}}" disabled="{{true}}" placeholder="0"></input>
+    </view>
+    <view class="cu-form-group margin-top-xs">
+      <view class="title m-tw text-bold text-red">结算账户</view>
+      <picker bindchange="onPayChange" value="{{pay.index}}" range="{{pay.list}}" range-key="name">
+        <view class="picker">
+          <!-- {{pay.index?pay.list[pay.index].name:'选择结算账户'}} -->
+          {{pay.list[pay.index].name}}
+        </view>
+      </picker>
+    </view>
+  </view>
+
+  <view class="bg-white padding-lr-xs margin radius shadow">
+
+    <!-- <view class="cu-form-group">
+      <view class="title m-tw text-bold text-red">销售日期</view>
+      <picker mode="date" value="{{date}}" start="2015-09-01" end="2030-09-01" bindchange="onDateChange">
+        <view class="picker">
+          {{date == '' ? '选择销售日期' : date}}
+        </view>
+      </picker>
+    </view> -->
+    <!-- <view class="cu-form-group">
+      <view class="title m-tw text-bold text-red">导购员</view>
+      <picker bindchange="onWaiterChange" value="{{waiter.index}}" range="{{waiter.list}}">
+        <view class="picker">
+          {{waiter.index?waiter.list[waiter.index]:'选择导购员'}}
+        </view>
+      </picker>
+    </view> -->
+  </view>
+  <view class="cu-bar foot bg-white" style="height:100rpx;">
+    <view class="action flex-sub" catchtap="onGoBack">取消</view>
+    <view class="action" style="width:1px;background-color:#eee;max-height:60rpx;" />
+    <view class="action flex-sub" bindtap="onConfirm">确定</view>
+  </view>
+</form>
+
+
+<hr-number showModal="{{hrnum.show}}" bindConfirm="onNumberConfirm" title="{{hrnum.content}}" value="{{hrnum.value}}" />
+<!-- 完成结账 -->
+<view class="cu-modal {{settlementModal?'show':''}}" >
+  <view class="cu-dialog" catchtap>
+    <view class="cu-bar bg-white justify-end">
+      <view class="content text-gray">
+        <text class="text-df">交易成功</text>
+      </view>
+      <view class="action"></view>
+    </view>
+    <view class="padding-tb">本单实收:￥{{real_income}}元</view>
+    <view class="padding-xs">会员姓名:{{member_name}}</view>
+    <view class="padding-xs">账户余额:￥{{account_money}}元</view>
+    <view class="padding-xs">本次积分:{{now_points}}</view>
+    <view class="padding-xs margin-bottom-sm">积分总计:{{account_points}}</view>
+    <view class="cu-bar bg-white" style="height:100rpx;">
+      <!-- <view class="action flex-sub" catchtap="onHideSettlementModal">打印小票</view> -->
+      <!-- <view class="action" style="width:1px;background-color:#eee;max-height:60rpx;" /> -->
+      <view class="action flex-sub" catchtap="onHideSettlementModal">完成销售</view>
+    </view>
+  </view>
+</view>

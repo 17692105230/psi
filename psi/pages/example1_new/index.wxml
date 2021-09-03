@@ -1,0 +1,340 @@
+<wxs module="num">
+  module.exports = {
+    toFix: function(value) {
+      value = !value ? 0 : value;
+      return value.toFixed(2)
+    }
+  }
+</wxs>
+<view id="header" class="bg-white shadow-warp text-black text-bold " style="">
+  <!-- 顶部栏 顶部卡片 容器 -->
+  <view class="bg-gold-white-180">
+    <!-- 顶部栏 -->
+    <cu-custom id="navbar" isCustom="{{true}}">
+      <view slot="content">收银台</view>
+    </cu-custom>
+    <!-- <view class="cu-custom" style="height:{{CustomBar}}px;">
+      <view class="cu-bar fixed" style="height:{{CustomBar}}px;padding-top:{{StatusBar}}px;">
+        <view class="action border-custom"
+          style="width:{{Custom.width}}px;height:{{Custom.height}}px;margin-left:calc(750rpx - {{Custom.right}}px);">
+          <text class="cuIcon-back" catchtap="tapUser"></text>
+          <text class="cuIcon-settings" catchtap="tapSetting"></text>
+        </view>
+        <view class="content flex justify-center" style="top:{{StatusBar}}px;">
+          收银台
+        </view>
+      </view>
+    </view> -->
+
+
+    <!-- 顶部卡片 -->
+    <view class="cu-card text-white">
+      <view class="cu-item bg-gold-light-180"
+        style="border-radius:20rpx;margin-bottom:12rpx;margin-left:10rpx;margin-right:10rpx;">
+        <view class="flex">
+          <view class="basis-70 padding padding-bottom-xs">
+            <view class="">总交易额（元）</view>
+            <view class="text-60 margin-top text-bold-100">{{sum_money||0}}</view>
+          </view>
+          <view class="basis-30 flex flex-direction align-end">
+            <view bindtap="showShopList"
+              class="padding-15 padding-left-sm margin-top-sm bg-brown text-bold textOverflow"
+              style="border-radius:50rpx 0 0 50rpx;">
+              {{shopList[shopIndex].name}}
+              <text class="cuIconNew cuIconNew-qiehuan margin-left-xs"></text>
+            </view>
+          </view>
+        </view>
+        <!-- zll 门店列表 -->
+        <view>
+          <scroll-view id="shopListBox" scroll-x class="bg-white slide-top guodu"
+            style="white-space:nowrap;overflow:hidden;height:{{shopListHeight}}rpx;background-color:rgb(191,158,113);"
+            scroll-with-animation>
+            <view wx:for="{{shopList}}" wx:key="index" bindtap="checkShop" data-id="{{item.id}}" data-index="{{index}}"
+              class="cu-item scroll-item cu-left cur {{index==shopIndex?'bg-white':'bg-autumn'}} height-120 margin-xs shadow-blur">
+              <view class="cuIcon-shop text-bold-100" style="font-size:50rpx;padding-top:20rpx;"></view>
+              <view class="text-22 textOverflow" style="margin-top:20rpx; ">
+                {{item.name}}
+              </view>
+            </view>
+          </scroll-view>
+        </view>
+        <view class="flex text-center toolbar text-26" style="align-items:center;">
+          <view class="flex flex-sub flex-direction solid-right" bindtap="onShowSearchMember">
+            <view class="text-xxl">
+              <text class="cuIcon-friendfavor"></text>
+            </view>
+            <view class="margin-top-xs text-df">{{select_member_name||'会员'}}</view>
+          </view>
+          <view class="flex flex-sub flex-direction solid-right">
+            <view class="margin-top-xs text-xxl">{{memberJf||'0'}}</view>
+            <view class="text-df">积分</view>
+
+          </view>
+          <!-- <view class="flex flex-sub flex-direction solid-right">
+            <view class="text-bold-100">储值</view>
+            <view class="margin-top-xs ">{{memberCz||'0'}}</view>
+          </view>
+          <view class="flex flex-sub flex-direction solid-right">
+            <view class="text-bold-100">促销</view>
+            <view class="margin-top-xs ">{{memberCx||'0'}}</view>
+          </view> -->
+          <view class="flex flex-sub flex-direction">
+            <view class="margin-top-xs text-xxl">
+              {{memberYg||'0'}}</view>
+            <view class="text-df">已购</view>
+
+          </view>
+        </view>
+      </view>
+    </view>
+    <!-- 顶部卡片 end-->
+  </view>
+
+  <!-- 功能按钮 样式2 -->
+  <view class="padding-lr-xs padding-bottom-15">
+    <view class="">
+      <view class="padding-tb-sm flex text-center text-white"
+        style="border-radius:20rpx;width:100%;height:130rpx;font-weight:100;background-color:rgb(206,162,101);">
+
+        <!-- <view class="flex flex-sub flex-direction solid-right" bindtap="onNavigateToLogin">
+          <view class="text-xxl">
+            <text class="cuIcon-ticket"></text>
+          </view>
+          <view class="margin-top-xs text-df">优惠券</view>
+        </view> -->
+        <view class="flex flex-sub flex-direction solid-right" bindtap="onShowSearchGoods">
+          <view class="text-xxl">
+            <text class="cuIcon-goods"></text>
+          </view>
+          <view class="margin-top-xs text-df">商品</view>
+        </view>
+        <view class="flex flex-sub flex-direction solid-right" bindtap="onScanGoods">
+          <view class="text-xxl">
+            <text class="cuIcon-scan"></text>
+          </view>
+          <view class="margin-top-xs text-df">扫码</view>
+        </view>
+      </view>
+    </view>
+  </view>
+  <!-- 功能按钮 样式2 end -->
+</view>
+
+
+<scroll-view class="bg-white" scroll-y="true" style="height:{{saleScrollViewHeight-shopListCutHeight}}px;">
+  <!-- 商品列表 -->
+  <view class="cu-card goods">
+    <block wx:if="{{goodsList.length>0}}">
+      <!-- 商品样式1 -->
+      <view class="cu-item bg-white shadow margin-xs" wx:for="{{goodsList}}" wx:key="index">
+        <image src="{{item.img}}" mode="aspectFill" class="goods-img"></image>
+        <view class="content flex-sub">
+          <view class="title">
+            <view class="text-line2cut">{{item.goods_name}}</view>
+          </view>
+          <view class="margin-top-xs">
+            <text>零售价：</text>
+            <text class="text-price text-red text-xl">{{item.sale_price}}</text>
+            <text class="margin-lr-xs">×</text>
+            <text class="text-bold text-black text-xl">{{item.number}}</text>
+          </view>
+          <!-- <view class="margin-top-xs">
+            <text>零售价：</text>
+            <text class="text-price text-gray text-del text-xl">{{item.price}}</text>
+          </view> -->
+          <view class="flex justify-between align-end">
+            <view class="flex align-center flex-sub">
+              <view class="cu-tag radius bg-gradual-red">{{item.sizeName}}</view>
+              <view class="cu-tag radius bg-gradual-blue">{{item.colorName}}</view>
+            </view>
+            <view class="padding-left-xl text-right">
+              <button class="cu-btn bg-orange round shadow" bindtap="delGoods" data-goodsid="{{item.goods_id}}"
+                data-index="{{index}}">
+                <text class="cuIcon-delete"></text>
+              </button>
+            </view>
+          </view>
+        </view>
+      </view>
+      <!-- 商品样式1 end -->
+    </block>
+    <block wx:else>
+      <view class="null-content text-sl text-gray padding-xl text-shadow" style="height:500rpx;">
+        <text class="cuIcon-bad"></text>
+        <text class="text-sm margin-top-xs">暂无商品</text>
+        <button class="cu-btn round bg-autumn button-hover margin-top padding-lr-lg" style="color:white;"
+          bindtap="onShowSearchGoods">添加商品</button>
+      </view>
+    </block>
+  </view>
+  <view style="height:50rpx;"></view>
+</scroll-view>
+
+
+
+<!-- 商品选择 -->
+<goods words="{{words}}" goods="{{goods}}" list="{{listGoods}}" mSelectIndex="{{mSelectIndex}}"
+  mSelectType="{{mSelectType}}" mIsDisplay="{{mIsDisplay}}" bindReturnGoodsData="onReturnGoodsData"
+  bindReturnRealTimeData="onReturnRealTimeData" />
+
+<!-- 商品查询列表 -->
+<view class="cu-modal {{isGoodsSearchShow?'show':''}} selectGoodsLst" style="z-index:10000;"
+  bindtap="onHideSearchGoods">
+  <view class="cu-dialog" catchtap style="padding-bottom:10rpx;">
+    <view class="cu-bar bg-goldb search" style="border-top-left-radius:6rpx;border-top-right-radius:6rpx;">
+      <view class="search-form radius" style="margin-right:0rpx;">
+        <text class="cuIcon-search"></text>
+        <input type="text" model:value="{{searchGoodsName}}" placeholder="使用货号、名称搜索商品" class="text-left"
+          confirm-type="search"></input>
+        <text class="cuIcon-roundclose lg text-gray" wx:if="{{searchGoodsName}}" catchtap="clearV"
+          data-clearkey="searchGoodsName"></text>
+      </view>
+      <view class="action" style="margin-right:0rpx;">
+        <button class="cu-btn bg-goldb" bindtap="searchGoods">搜索</button>
+      </view>
+    </view>
+    <scroll-view scroll-y style="min-height:500rpx;max-height:860rpx;">
+      <view class="cu-list menu-avatar" style="min-height:500rpx;">
+        <view class="cu-item cur item-goods-selset" wx:for="{{searchGoodsList}}" wx:if="{{searchGoodsList.length>0}}" wx:key="index"
+          catchtap="onSelectGoods" data-index="{{index}}">
+          <view class="cu-avatar radius lg" style="background-image:url({{item.images[0].assist_url}});">
+            <view class="cu-tag badge" wx:if="{{item.stockQuantity||item.stockQuantity===0}}">
+              {{item.stockQuantity>99?'99+':item.stockQuantity}}</view>
+          </view>
+          <view class="content">
+            <view>
+              <text class="text-cut">{{item.goods_name}}</text>
+            </view>
+            <view class="text-gray text-sm flex">
+              <!-- <view class="cu-tag radius bg-gradual-red">{{item.}}</view>
+              <view class="cu-tag radius bg-gradual-blue">{{item.colorName}}</view> -->
+              <view class="cu-capsule radius cu-capsule-border-goldb">
+                <view class="cu-tag margin-left-0" id="discount">
+                  采购价
+                </view>
+                <view class="cu-tag margin-left-0 text-price" id="discount-val">
+                  {{item.goods_pprice}}
+                </view>
+              </view>
+              <view class="cu-capsule radius cu-capsule-border-7DB8F8">
+                <view class="cu-tag" id="balance">
+                  零售价
+                </view>
+                <view class="cu-tag margin-left-0 text-price" id="balance-val">
+                  {{item.goods_rprice}}
+                </view>
+              </view>
+            </view>
+          </view>
+          <!-- <view class="action">
+            <view class="text-grey text-xs">22:20</view>
+            <view class="cuIcon-notice_forbid_fill text-gray"></view>
+          </view> -->
+        </view>
+        <!-- <view class="text-center padding text-gray" wx:if="{{searchGoodsList.length==0}}">暂无数据</view> -->
+        <view wx:if="{{searchGoodsListOk&&searchGoodsList.length==0}}" class="zwsjBox goodsSearch">
+          <image src="/images/my/zwsj.png"></image>
+          <view class="text-center margin text-gray zwsjTxt">暂无数据</view>
+        </view>
+      </view>
+    </scroll-view>
+  </view>
+</view>
+
+
+<!-- 会员查询列表 -->
+<view class="cu-modal {{isMemberShow?'show':''}} selectGoodsLst" style="z-index:10000;" bindtap="onHideMember">
+  <view class="cu-dialog" catchtap>
+    <view class="cu-bar bg-goldb search" style="border-top-left-radius:6rpx;border-top-right-radius:6rpx;">
+      <view class="search-form radius" style="margin-right:0rpx;">
+        <text class="cuIcon-search"></text>
+        <input type="text" model:value="{{searchMemberName}}" placeholder="使用姓名,电话搜索会员" class="text-left"
+          confirm-type="search"></input>
+        <text class="cuIcon-roundclose lg text-gray" wx:if="{{searchMemberName}}" catchtap="clearV"
+          data-clearkey="searchMemberName"></text>
+      </view>
+      <view class="action" style="margin-right:0rpx;">
+        <button class="cu-btn bg-goldb" bindtap="searchMember">搜索</button>
+      </view>
+    </view>
+    <scroll-view scroll-y style="min-height:500rpx;max-height:860rpx;">
+      <view class="cu-list menu-avatar member_list" style="min-height:500rpx;">
+        <view class="cu-item solid-bottom member_list_item" wx:for="{{searchMemberList}}"
+          wx:if="{{searchMemberList.length>0}}" wx:key="index" catchtap="onSelectMember" data-index="{{index}}"
+          data-id="{{item.member_id}}">
+          <view class="content member_content" style="left:30rpx">
+            <view class="magrin-bottom-xs">
+              <text class="text-cut">{{item.member_name}}</text>
+            </view>
+            <view class="text-gray text-sm flex member_list_msg">
+              <view class="cu-capsule radius">
+                <view class="cu-tag bg-blue margin-left-0">
+                  电话
+                </view>
+                <view class="cu-tag line-grey margin-left-0">
+                  {{item.member_phone}}
+                </view>
+              </view>
+              <view class="cu-capsule radius">
+                <view class="cu-tag bg-red margin-left-0">
+                  积分
+                </view>
+                <view class="cu-tag line-grey margin-left-0">
+                  {{item.accounts[0].account_points||0}}
+                </view>
+              </view>
+
+              <view class="cu-capsule radius member_detail" data-id="{{item.member_id}}" catchtap="toMemberDetail">
+                <view class="cu-tag bg-red margin-left-0">
+                  详情
+                </view>
+              </view>
+            </view>
+          </view>
+
+        </view>
+        <view wx:if="{{searchMemberListOk&&searchMemberList.length==0}}" class="zwsjBox goodsSearch">
+          <image src="/images/my/zwsj.png"></image>
+          <view class="text-center margin text-gray zwsjTxt">暂无数据</view>
+        </view>
+      </view>
+    </scroll-view>
+  </view>
+</view>
+<hr-sheet show="{{tipShow}}" tips="{{tips}}" item-list="{{tipItemList}}" mask-closable="{{tipMaskClosable}}"
+  color="{{tipColor}}" size="{{tipSize}}" is-cancel="{{tipIsCancel}}" bind:click="{{tipItemClickName}}"
+  bind:cancel="tipCloseActionSheet"></hr-sheet>
+
+
+
+
+
+
+<!-- 底部导航 -->
+<view id="tabBar" class="cu-bar tabbar foot bg-white">
+  <view class="action text-gray">
+    <view data-url="/pages/home/index" data-index="index" catchtap="toUrl" data-qx="{{sytQx}}">
+      <view class="cuIcon-home"></view> 首页
+    </view>
+  </view>
+  <view class="action text-gray" wx:if="{{qxList[0].haveQx}}">
+    <view data-url="/pages/example6/index" catchtap="toUrl" data-qx="{{qxList[0].haveQx}}">
+      <view class="cuIcon-clothes"></view> 商品
+    </view>
+  </view>
+  <view class="action text-gray add-action">
+    <button class="cu-btn cuIcon-recharge bg-gradual-blue" bindtap="onSettlement"></button>
+    结算
+  </view>
+  <view class="action text-gray" wx:if="{{qxList[1].haveQx}}">
+    <view data-url="/pages/reportform/index" catchtap="toUrl" data-qx="{{qxList[1].haveQx}}">
+      <view class="cuIcon-form"></view> 报表
+    </view>
+  </view>
+  <view class="action text-gray">
+    <view data-url="/pages/my/index" catchtap="toUrl" data-qx="{{sytQx}}">
+      <view class="cuIcon-people"></view> 我的
+    </view>
+  </view>
+</view>

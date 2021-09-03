@@ -1,0 +1,14 @@
+<view class="cu-custom" style="height:{{CustomBar}}px;">
+  <view class="cu-bar fixed {{bgColor}}" style="height:{{CustomBar}}px;padding-top:{{StatusBar}}px;">
+    <view class="action border-custom" style="width:40px;height:{{Custom.height}}px;margin-left:calc(750rpx - {{Custom.right}}px)">
+      <text class="cuIcon-homefill" bindtap="toHome"></text>
+    </view>
+    <view class="search-form round" style="margin-left:10px;margin-right:5px;max-height:30px;">
+      <text class="cuIcon-search"></text>
+      <input type="text" placeholder="搜索商品" confirm-type="search" bindconfirm="onSearch"></input>
+    </view>
+    <!--view class="action" style="margin:0px;padding:0px;">
+      <button class="cu-btn bg-green shadow-blur round sx">搜索</button>
+    </view-->
+  </view>
+</view>

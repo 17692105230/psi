@@ -1,0 +1,61 @@
+<wxs module="num">
+  module.exports = {
+    toFix: function (value) {
+      value = !value ? 0 : value;
+      return value.toFixed(2)
+    }
+  }
+</wxs>
+<cu-custom id="navbar" bgColor="bg-gold-new" isCustom="{{true}}">
+  <view slot="content">会员管理</view>
+</cu-custom>
+<view>
+  <view class="cu-list menu" wx:if="{{cardList.length > 0}}">
+    <view class="cu-item {{item.isDefault?'cur':''}}" wx:for="{{cardList}}" wx:key="index"
+      data-address-id="{{item.oid}}">
+      <view class='content padding-top-sm padding-bottom-xs'>
+        <view class='margin-bottom-xs flex' style="align-items: center;">
+          <view class="cu-capsule radius margin-right-sm">
+            <view class="cu-tag bg-cyan">会员卡号</view>
+            <view class="cu-tag line-cyan text-price">{{item.usercardcode}}</view>
+          </view>
+        </view>
+        <view class='margin-bottom-xs flex' style="align-items: center;">
+          <view class="cu-capsule radius margin-right-sm">
+            <view class="cu-tag bg-cyan">姓名</view>
+            <view class="cu-tag line-cyan">{{item.member_name}}</view>
+          </view>
+
+          <view class="cu-capsule radius margin-right-sm">
+            <view class="cu-tag bg-cyan">手机号</view>
+            <view class="cu-tag line-cyan">{{item.member_phone}}</view>
+          </view>
+        </view>
+
+        <view class='text-sm text-cut' wx:if="{{item.member_address}}">
+          <view class="cu-capsule radius margin-right-sm">
+            <view class="cu-tag bg-cyan">地址</view>
+            <view class="cu-tag line-cyan">{{item.member_address}}</view>
+          </view>
+        </view>
+
+      </view>
+      <view class='action flex flex-direction text-xl'>
+        <text class='cuIcon-delete text-red padding-bottom-sm' data-index="{{index}}"
+          data-version="{{item.lock_version}}" data-oid="{{item.oid}}" catchtap="delClientTip"></text>
+        <text class='cuIcon-edit text-green margin-top-sm' data-index="{{index}}"
+          data-lock_version="{{item.lock_version}}" data-oid="{{item.oid}}" catchtap="onEdit"></text>
+      </view>
+    </view>
+  </view>
+  <view style="height:110rpx"></view>
+  <view class="cu-bar bg-white foot justify-center">
+    <button class='cu-btn bg-orange round shadow' data-address-id="0" bindtap="onAdd">
+      <text class='cuIcon-add'> </text> 新建会员卡
+    </button>
+  </view>
+</view>
+
+<hr-sheet show="{{tipShow}}" tips="{{tips}}" item-list="{{tipItemList}}" mask-closable="{{tipMaskClosable}}"
+  color="{{tipColor}}" size="{{tipSize}}" is-cancel="{{tipIsCancel}}" bind:click="{{tipItemClickName}}"
+  bind:cancel="tipClose"></hr-sheet>

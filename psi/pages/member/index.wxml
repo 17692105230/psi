@@ -1,0 +1,67 @@
+<cu-custom bgColor="bg-gold-new" isCustom="{{true}}">
+  <view slot="content">会员管理</view>
+</cu-custom>
+<view id="searchBar" class="bg-gray padding-sm relative">
+  <view class="bg-white flex padding-xs align-center radius">
+    <view class="flex-sub">
+      <input model:value="{{search}}" maxlength="11" placeholder="请输入会员姓名、手机号等" confirm-type="search"/>
+    </view>
+    <text class="cuIcon-roundclose lg text-gray padding-lr" style="margin-right:-30rpx" wx:if="{{search}}"
+      data-clearkey="search" catchtap="clearV"></text>
+
+    <view class="margin-left-sm cuIcon-search text-bold" bindtap="search" style="font-size:36rpx"></view>
+  </view>
+</view>
+
+<scroll-view scroll-y wx:if="{{saleScrollViewHeight}}" style="height:{{saleScrollViewHeight}}px;"
+  refresher-enabled="{{true}}" refresher-triggered="{{triggered}}" bindrefresherrefresh="onRefresh"
+  bindscrolltolower="tolower">
+  <view style="height:{{saleScrollViewHeight}}px;">
+    <view style="height:2rpx"></view>
+
+    <view class="cu-list menu">
+      <view class="cu-item" wx:for="{{data_list}}" wx:key="index" data-member_id="{{item.member_id}}"
+        catchtap="onDetail">
+        <view class='content padding-top-sm padding-bottom-xs'>
+          <view>
+            <text class='text-bold'>{{item.member_name}}</text>
+          </view>
+          <view class='margin-bottom-xs text-gray text-sm text-cut'>
+            {{item.member_phone}}
+          </view>
+          <view class='margin-tb-xs flex' style="align-items: center;">
+            <view class="cu-capsule radius margin-right-sm cu-capsule-border-goldb">
+              <view class="cu-tag bg-cyan" id="discount">积分</view>
+              <view class="cu-tag" id="discount-val">{{item.accounts[0].account_points}}</view>
+            </view>
+            <view class="cu-capsule radius margin-right-sm cu-capsule-border-EB2020">
+              <view class="cu-tag bg-red" id="balance">已购</view>
+              <view class="cu-tag text-price" id="balance-val">{{item.accounts[0].total_sum}}</view>
+            </view>
+          </view>
+          <view class='text-gray text-sm text-cut' wx:if="{{item.member_address}}">
+            {{item.member_address}}
+          </view>
+          <view class='text-gray text-sm text-cut' wx:if="{{item.member_story}}">
+            {{item.member_story}}
+          </view>
+        </view>
+        <view class='action flex flex-direction text-xl'>
+          <text class='cuIcon-edit text-green margin-top-sm' data-member_id="{{item.member_id}}" catchtap="onEdit"
+            data-qx="{{qxList[1].haveQx}}"></text>
+        </view>
+      </view>
+    </view>
+    <view class="text-center padding text-gray" wx:if="{{nomore&&data_list.length}}">没有更多了</view>
+    <view wx:if="{{loadOk&&data_list.length==0}}" class="zwsjBox padding">
+      <image src="/images/my/zwsj.png"></image>
+      <view class="text-center margin text-gray zwsjTxt">暂无会员</view>
+    </view>
+  </view>
+
+</scroll-view>
+<view id="footBar" class="cu-bar bg-white foot justify-center flex-direction padding-sm" bindtap="add" wx:if="{{qxList[0].haveQx}}" style="align-items:inherit;">
+  <button class='cu-btn bg-goldb solid shadow block lg' data-address-id="0" bindtap="onAdd">
+    <text class='cuIcon-add'> </text> 新建会员
+  </button>
+</view>

@@ -1,0 +1,19 @@
+<cu-custom id="navbar" bgColor="bg-gold-new" isCustom="{{true}}">
+  <view slot="content">报表中心</view>
+</cu-custom>
+<block wx:for="{{list}}" wx:key="index" wx:if="{{item.qx}}">
+  <view class="padding-lr padding-tb-xs text-sm">
+    {{item.title}}
+  </view>
+  <tui-list-view >
+    <tui-list-cell wx:for="{{item.items}}"  wx:if="{{subitem.qx}}" wx:key="subindex" wx:for-item="subitem" arrow="{{subitem.arrow}}" data-url="{{subitem.url}}" bindtap="goUrl">
+      <view>
+        <view class="text-xl">
+          <text class="{{subitem.icon}} margin-right-xs"></text>
+          <text class="text-30">{{subitem.name}}</text>
+        </view>
+        <view class="text-sm text-gray">{{subitem.introduce}}</view>
+      </view>
+    </tui-list-cell>
+  </tui-list-view>
+</block>

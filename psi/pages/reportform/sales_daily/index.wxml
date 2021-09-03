@@ -1,0 +1,117 @@
+<wxs module="arrHandle">
+  var arrIndexOf = function(arr,item){
+    return arr.indexOf(item) >=0 ? true : false;
+  }
+  module.exports = {
+    arrIndexOf : arrIndexOf
+  }
+</wxs>
+<cu-custom id="navbar" bgColor="bg-gold-new" isCustom="{{true}}">
+  <view slot="content">销售日报</view>
+</cu-custom>
+
+<!-- 顶部内容 -->
+<view id="header">
+  <!-- 日期选择 -->
+  <view class="padding-lr-sm padding-top-sm">
+    <view class="bg-white flex flex-direction justify-center align-center">
+      <view class="solid-bottom line-greyLight text-center padding-top padding-bottom-sm text-black" style="width:90%;" bindtap="onShowMore">
+        {{date_list[date_index]}}<text class="cuIcon-triangledownfill"></text>
+      </view>
+      <view style="width:100%;height:98rpx;display:flex;align-items:center;">
+        <scroll-view scroll-x class="bg-white nav">
+          <view class="flex text-center" style="height:100%; padding: 25rpx 0; justify-content: space-around; padding: 0 24rpx; align-items:center;">
+            <view class="date-cu-item  {{index==tabDatesIndex?'date-active':''}}" wx:for="{{tabDates}}" wx:key="index" bindtap="tabDtaeSelect" data-id="{{index}}">
+              {{tabDates[index]}}
+            </view>
+          </view>
+        </scroll-view>
+      </view>
+    </view>
+  </view>
+  <!-- 图表 -->
+  <view class="padding-sm" wx:if="{{!dropShow}}">
+    <view class="bg-white" style="height:400rpx;">
+      <ec-canvas id="mychart-dom-line" canvas-id="mychart-line" ec="{{ ec }}"></ec-canvas>
+    </view>
+  </view>
+</view>
+<!-- 顶部内容 end -->
+
+<!-- 滚动内容 -->
+<scroll-view class="" scroll-y="true" style="height:{{saleScrollViewHeight}}px;" refresher-enabled="{{!isRefresher}}">
+  <!-- 列表 -->
+  <view class="padding-lr-sm">
+    <view>
+      <view class="flex padding-tb-sm padding-lr bg-green light" style="position:sticky;top:0;z-index:1000">
+        <view class="flex-sub">时间</view>
+        <view class="flex-sub text-center">实际销量</view>
+        <view class="flex-sub text-right">销售额</view>
+        <view class="flex-sub text-right">毛利</view>
+      </view>
+      <tui-list-view >
+        <tui-list-cell wx:for="{{dataList}}" wx:key="index" >
+          <view class="flex text-black" style="width:100%;">
+            <view class="flex-sub date">{{item.date}}</view>
+            <view class="flex-sub text-center">{{item.goods_number}}</view>
+            <view class="flex-sub text-right">{{item.orders_pmoney}}</view>
+            <view class="flex-sub text-right">{{item.profit}}</view>
+          </view>
+        </tui-list-cell>
+        <view wx:if="{{dataList.length==0}}" class="zwsjBox" style="height:100%;dsplay:flex;align-items:center;padding-top:50rpx; transform: scale(.8);">
+            <image src="/images/my/zwsj.png"></image>
+            <view class="text-center margin text-gray zwsjTxt">暂无数据</view>
+          </view>
+      </tui-list-view>
+    </view>
+    <view class="padding text-center" wx:if="{{more}}">没有更多了</view>
+  </view>
+</scroll-view>
+<!-- 滚动内容 end -->
+
+<!-- 合计-底部栏 -->
+<view id="tabBar" class="flex padding-tb-sm padding-lr cu-bar tabbar bg-white shadow foot">
+  <view class="padding-lr flex flex-sub text-bold">
+    <view class="flex-sub">合计</view>
+    <view class="flex-sub text-center">{{totalGoodsNumber}}</view>
+    <view class="flex-sub text-right">{{totalOrdersPmoney}}</view>
+    <view class="flex-sub text-right">{{totalProfit}}</view>
+  </view>
+</view>
+<!-- 合计-底部栏 end -->
+
+
+<!-- -------------------选择日期控件 -->
+<!-- 日期 下拉框 -->
+<hr-top-dropdown show="{{dropShow}}" paddingbtm="110" translatey="{{CustomBar}}" translateyCompany="px">
+  <scroll-view class="tui-scroll-box" scroll-y scroll-top="{{scrollTop}}">
+    <view class="padding-sm">
+      <view class="grid col-3 text-center">
+        <view class="padding-lr padding-tb-sm" wx:for="{{date_list}}" wx:key="index">
+          <button class="cu-btn {{index==date_index ? 'bg-blue' : 'bg-grey'}}" style="width:100%;" data-index="{{index}}" data-dateindex="{{tabsIndex}}" bindtap="change_purchase_date">{{item}}</button>
+        </view>
+      </view>
+      <!-- 自定义日期 -->
+      <view class="padding-lr-lg padding-tb-sm flex text-black justify-between bg-white" wx:if="{{date_index==7}}">
+        <view>
+          <picker mode="date" value="{{start_date}}" bindchange="bindDateStart">
+            <view class="solid line-blue padding-lr padding-tb-sm">
+              {{start_date}}
+            </view>
+          </picker>
+        </view>
+        <view class="padding-lr padding-tb-sm">至</view>
+        <view>
+          <picker mode="date" value="{{end_date}}" bindchange="bindDateEnd">
+            <view class="solid line-blue padding-lr padding-tb-sm">
+              {{end_date}}
+            </view>
+          </picker>
+        </view>
+      </view>
+    </view>
+  </scroll-view>
+  <view class="tui-drop-btnbox">
+    <view class="tui-drop-btn btn-primary" hover-class="btn-hover" hover-stay-time="150" bindtap="btnCloseDrop">确定</view>
+  </view>
+</hr-top-dropdown>

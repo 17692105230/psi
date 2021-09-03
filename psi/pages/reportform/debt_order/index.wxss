@@ -1,0 +1,14 @@
+/* pages/reportform/debt_order/index.wxss */
+.bg-fdfdfd{
+  background: rgba(240, 240, 240, .3);
+}
+.bg-b2f0f2{
+  background: #d6f2dc;
+}
+.foot{
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  padding: 40rpx 104rpx 40rpx 70rpx;
+}

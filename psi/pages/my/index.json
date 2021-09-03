@@ -1,0 +1,5 @@
+{
+  "usingComponents": {
+    "tui-list-cell": "/components/list-cell/list-cell"
+  }
+}

@@ -1,0 +1,20 @@
+<!--pages/purchase/purchase_order_list/index.wxml-->
+<cu-custom id="navbar" bgColor="bg-c99a58" isCustom="{{true}}">
+  <view slot="content">销售单列表</view>
+</cu-custom>
+<scroll-view scroll-x class="bg-white nav" id="navBar">
+  <view class="flex text-center">
+    <view class="cu-item flex-sub {{item.index==TabCur?'text-orange cur':''}}" wx:for="{{statusList}}" wx:key="index"
+      bindtap="tabSelect" data-status="{{item.index}}">
+      {{item.item}}
+    </view>
+  </view>
+</scroll-view>
+
+
+<scroll-view scroll-y wx:if="{{saleScrollViewHeight}}" style="height:{{saleScrollViewHeight}}px;" refresher-enabled="{{true}}"
+  refresher-triggered="{{triggered}}" bindrefresherrefresh="onRefresh" bindscrolltolower="tolower">
+  <view style="height:20rpx"></view>
+  <bills_list_sale binddetails="details" binddelete="delete" dataList="{{dataList}}" loadOk="{{loadOk}}" class=" flex flex-direction align-center" />
+  <view class="text-center padding text-gray" wx:if="{{nomore&&dataList.length}}">没有更多了</view>
+</scroll-view>

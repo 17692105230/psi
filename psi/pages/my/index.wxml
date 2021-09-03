@@ -1,0 +1,36 @@
+<cu-custom id="navbar" bgColor="bg-goldb" isCustom="{{true}}" arrData="{{searchData}}">
+  <view slot="content">个人中心</view>
+</cu-custom>
+
+<tui-list-view style="background-color:#000;">
+  <tui-list-cell arrow="{{false}}">
+    <view class="flex align-center">
+      <open-data  class="avatarUrl margin-right-xs" type="userAvatarUrl"></open-data>
+      <view class="text-df margin-left-xs">
+        <view>{{user_phone}}</view>
+        <view>{{user_name}}</view>
+      </view>
+    </view>
+  </tui-list-cell>
+  <block wx:for="{{list}}" wx:key="index" wx:if="{{item.haveQx}}">
+    <view class="padding-xs bg-gray"></view>
+    <tui-list-cell arrow bindtap="goUrl" data-url="{{item.url}}">
+      <view class="{{item.icon}} margin-right-xs"></view>
+      <view class="flex justify-between flex-sub align-center">
+        <view class="text-df">{{item.name}}</view>
+        <view class="margin-right text-26 text-gray">{{item.introduce}}</view>
+      </view>
+    </tui-list-cell>
+  </block>
+
+
+  <view class="padding-xs bg-gray"></view>
+    <tui-list-cell arrow bindtap="clearStorage">
+      <view class="cuIcon-refresh margin-right-xs"></view>
+      <view class="flex justify-between flex-sub align-center">
+        <view class="text-df">清除缓存</view>
+        <view class="margin-right text-26 text-gray">清除小程序的所有缓存</view>
+      </view>
+    </tui-list-cell>
+</tui-list-view>
+  

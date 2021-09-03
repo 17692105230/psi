@@ -1,0 +1,22 @@
+/* components/slide_list/index.wxss */
+.cu-item{
+  width: 180rpx;
+  padding: 0!important;
+  margin: 0!important;
+  overflow: hidden;text-overflow:ellipsis;white-space:nowrap;
+}
+.bg-f5dfdf{
+  background: #f5dfdf;
+}
+.reciprocal{
+  width: 300rpx;
+}
+
+.filex-bottom{
+  width:100%;
+  position: fixed;
+  bottom: 0;
+}
+.none{
+  display: none;
+}

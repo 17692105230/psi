@@ -1,0 +1,79 @@
+<!--pages/reportform/Inventory_query/Inventory_details/index.wxml-->
+<cu-custom id="navbar" bgColor="bg-gold-new" isCustom="{{true}}" arrData="{{searchData}}">
+  <view slot="content">出入库历史详情</view>
+</cu-custom>
+<!-- 仓库选择 -->
+<view class="cu-form-group solid-bottom line-gray text-black">
+  <picker bindchange="warehouseChange" value="{{warehouse_index}}" range="{{warehouse}}" range-key="name">
+    <view class="picker">
+      <view class="text-left">{{warehouse[warehouse_index].name}}</view>
+    </view>
+  </picker>
+</view>
+<!-- 商品 -->
+<view class="flex padding bg-white align-center solid-bottom line-gray text-black">
+  <view>
+    <image src="{{assist_url}}" mode="aspectFill" class="cu-avatar xl radius"></image>
+  </view>
+  <view class="flex-sub margin-left">
+    <view class="text-lg text-bold margin-bottom-xs">{{goods_name}}</view>
+    <view class="">{{goods_code}}</view>
+    <view class="text-gray">单位：{{goods_unit}}</view>
+  </view>
+</view>
+<!-- 导航栏 -->
+<scroll-view scroll-x class="bg-white nav">
+  <view class="flex text-center">
+    <view class="cu-item flex-sub {{index==navListIndex?'text-orange cur':''}}" wx:for="{{navList}}" wx:key="index"
+      bindtap="navListTab" data-id="{{index}}">
+      {{item}}
+    </view>
+  </view>
+</scroll-view>
+<!-- 自定义时间选择 -->
+<view class="bg-white padding-sm margin-sm radius flex justify-center align-center text-center"
+  wx:if="{{navListIndex==navList.length-1}}">
+  <view class="bg-gray padding-xs flex-sub radius">
+    <picker mode="date" value="{{strDate}}" bindchange="strDateChange">
+      {{strDate}}
+      <text class="picker cuIcon-calendar text-green margin-left"></text>
+    </picker>
+  </view>
+  <view class="margin-left-sm margin-right-sm">至</view>
+  <view class="bg-gray padding-xs flex-sub radius">
+    <picker mode="date" value="{{endDate}}" bindchange="endDateChange">
+      {{endDate}}
+      <text class="picker cuIcon-calendar text-green margin-left"></text>
+    </picker>
+  </view>
+  <button class="cu-btn cuIcon-search bg-orange sm round margin-left-sm" style="font-size:32rpx" bindtap="getData"></button>
+</view>
+<!-- 库存情况 -->
+<view class="flex bg-white margin-top-sm padding-top padding-bottom text-center">
+  <view class="flex-sub {{index==0?'':'solid-left'}} line-gray" wx:for="{{inventory}}" wx:key="index">
+    <view class="margin-bottom-xs text-black text-bold">{{item.num}}</view>
+    <view>{{item.name}}</view>
+  </view>
+</view>
+<!-- 列表 -->
+<scroll-view id="scroll-box" scroll-y="true" style="height:{{scroll_height}}px;">
+  <view wx:for="{{list}}" wx:key="index">
+    <view class="padding-sm text-grey">{{index}}</view>
+    <view class="bg-white padding-sm {{ind==0?'margin-to-no':''}} margin-sm box-radius" wx:for="{{item}}"
+      wx:key="ind" wx:for-index="ind" wx:for-item="v">
+      <view class="flex align-center solid-bottom line-gray padding-bottom-sm margin-bottom-sm">
+        <view class="cuIcon-titles text-orange"></view>
+        <view class="text-black margin-right text-lg flex-sub">{{v.name}}</view>
+        <view class="text-black">{{v.orders_code}}</view>
+      </view>
+      <view class="flex margin-bottom-xs">
+        <view class="flex-sub">{{v.name == '出货单' ? '本次出库：' : '本次入库：'}}<text class="text-red">{{v.goods_number}}</text></view>
+      </view>
+      <!-- <view class="flex text-grey">
+        <view class="flex-sub">操作前库存：{{items.before}}</view>
+        <view class="flex-sub">操作后库存：{{items.after}}</view>
+      </view> -->
+    </view>
+  </view>
+  <view  class="padding text-center">没有更多了</view>
+</scroll-view>

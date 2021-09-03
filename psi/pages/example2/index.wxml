@@ -1,0 +1,181 @@
+<wxs module="num">
+  module.exports = {
+    toFix: function (value) {
+      value = !value ? 0 : value;
+      return value.toFixed(2)
+    } 
+  }
+</wxs>
+<cu-custom id="navbar" bgColor="bg-gold-new" isCustom="{{true}}">
+  <view slot="content">{{headerName}}商品</view>
+</cu-custom>
+<form bindsubmit="formSubmit" report-submit="true">
+  <!-- 图片上传 -->
+  <goods-up-img bindchooseImg="chooseImg" binddeleteImg="deleteImg" editImgList="{{editImgList}}"/>
+
+  <view class="cu-form-group margin-top-xs">
+    <view class="title m-tw text-bold">商品分类</view>
+    <view class="hr-picker" catchtap="onSingleShowPanel" data-type="type">
+      <view class="text">{{checkData.type.text == ''?'选择商品分类':checkData.type.text}}</view>
+    </view>
+  </view>
+  <view class="cu-form-group">
+    <view class="title m-tw text-bold">商品名称</view>
+    <input name="goods[goods_name]" model:value="{{goods_name}}" placeholder="请输入商品名称" placeholder-class="text-right" ></input>
+    <text class="cuIcon-roundclose lg text-gray padding-lr margin-right-xs" wx:if="{{goods_name}}" data-clearkey="goods_name" catchtap="clearV" ></text>
+
+  </view>
+  <view class="cu-form-group">
+    <view class="title m-tw text-bold">商品货号</view>
+    <input name="goods[goods_code]" model:value="{{goods_code}}" placeholder="请输入商品货号"></input>
+    <text class="cuIcon-roundclose lg text-gray padding-lr margin-right-xs" wx:if="{{goods_code}}" data-clearkey="goods_code" catchtap="clearV" ></text>
+
+    <button class="cu-btn cuIcon-scan padding-sm text-black bg-white before-text-xl" data-name="submit.goods_code" bindtap="onScanCode" />
+
+  </view>
+  <view class="cu-form-group">
+    <view class="title m-tw text-bold">商品条码</view>
+    <input name="goods[goods_code]" model:value="{{goods_barcode}}" placeholder="请输入商品条码"></input>
+    <text class="cuIcon-roundclose lg text-gray padding-lr margin-right-xs" wx:if="{{goods_barcode}}" data-clearkey="goods_barcode" catchtap="clearV" ></text>
+
+    <button class="cu-btn cuIcon-scan padding-sm text-black bg-white before-text-xl" data-name="submit.goods_code" bindtap="onScanCode2" />
+  </view>
+  <!-- <view class="cu-form-group">
+    <view class="title m-tw">工厂货号</view>
+    <input name="goods[factory_code]" value="{{submit.factory_code}}" placeholder="请输入工厂货号"></input>
+    <button class="cu-btn cuIcon-scan bg-green shadow padding-sm" data-name="submit.factory_code"
+      bindtap="onScanCode" />
+  </view> -->
+  <view class="cu-form-group margin-top-xs" bindtap="showHrNumber" data-target="goods_pprice" data-title="进货价">
+    <view class="title m-tw text-bold">进货价</view>
+    <input name="goods[goods_name]" disabled="{{true}}" model:value="{{goods_pprice}}" type="digit" placeholder="请输入进货价"></input>
+    <text class="cuIcon-roundclose lg text-gray padding-lr margin-right-xs" wx:if="{{goods_pprice}}" data-clearkey="goods_pprice" catchtap="clearV" ></text>
+
+    <view class="cu-capsule radius">
+      <view class="cu-tag bg-gray xian-gray">单位</view>
+      <view class="cu-tag bg-white line-gray">元</view>
+    </view>
+  </view>
+  <view class="cu-form-group" bindtap="showHrNumber"  data-target="goods_rprice" data-title="销售价">
+    <view class="title m-tw text-bold">销售价</view>
+    <input name="goods[goods_name]" disabled="{{true}}" model:value="{{goods_rprice}}" type="digit" placeholder="请输入销售价"></input>
+    <text class="cuIcon-roundclose lg text-gray padding-lr margin-right-xs" wx:if="{{goods_rprice}}" data-clearkey="goods_rprice" catchtap="clearV" ></text>
+
+    <view class="cu-capsule radius">
+      <view class="cu-tag bg-gray xian-gray">单位</view>
+      <view class="cu-tag bg-white line-gray">元</view>
+    </view>
+  </view>
+  <view class="cu-form-group" bindtap="showHrNumber" data-target="goods_srprice" data-title="吊牌价">
+    <view class="title m-tw text-bold">吊牌价</view>
+    <input name="goods[goods_name]" disabled="{{true}}"  model:value="{{goods_srprice}}" type="digit" placeholder="请输入吊牌价"></input>
+    <text class="cuIcon-roundclose lg text-gray padding-lr margin-right-xs" wx:if="{{goods_srprice}}" data-clearkey="goods_srprice" catchtap="clearV" ></text>
+
+    <view class="cu-capsule radius">
+      <view class="cu-tag bg-gray xian-gray">单位</view>
+      <view class="cu-tag bg-white line-gray">元</view>
+    </view>
+  </view>
+  <view class="cu-form-group" bindtap="showHrNumber" data-target="goods_wprice" data-title="批发价">
+    <view class="title m-tw text-bold">批发价</view>
+    <input name="goods[goods_name]" disabled="{{true}}"  model:value="{{goods_wprice}}" type="digit" placeholder="请输入批发价"></input>
+    <text class="cuIcon-roundclose lg text-gray padding-lr margin-right-xs" wx:if="{{goods_wprice}}" data-clearkey="goods_wprice" catchtap="clearV" ></text>
+
+    <view class="cu-capsule radius">
+      <view class="cu-tag bg-gray xian-gray">单位</view>
+      <view class="cu-tag bg-white line-gray">元</view>
+    </view>
+  </view>
+  <!-- <view class="cu-form-group" bindtap="showHrNumber" data-target="integral" data-title="积分">
+    <view class="title m-tw text-bold">积分</view>
+    <input name="goods[goods_name]" disabled="{{true}}"  model:value="{{integral}}" type="digit" placeholder="请输入积分"></input>
+    <text class="cuIcon-roundclose lg text-gray padding-lr margin-right-xs" wx:if="{{integral}}" data-clearkey="integral" catchtap="clearV" ></text>
+  </view> -->
+  <view class="cu-form-group">
+    <view class="title m-tw text-bold">积分</view>
+    <input name="goods[goods_name]" model:value="{{integral}}" type="number" placeholder="请输入积分数量"></input>
+    <text class="cuIcon-roundclose lg text-gray padding-lr margin-right-xs" wx:if="{{integral}}" data-clearkey="integral" catchtap="clearV" ></text>
+  </view>
+  <view class="cu-form-group margin-top-xs">
+    <view class="title m-tw text-bold">商品颜色</view>
+    <view class="hr-picker" catchtap="onSingleShowPanel" data-type="color">
+      <view class="text">{{checkData.color.text == ''?'选择商品颜色':checkData.color.text}}</view>
+    </view>
+  </view> 
+  <view class="cu-form-group">
+    <view class="title m-tw text-bold">商品尺码</view>
+    <view class="hr-picker" catchtap="onSingleShowPanel" data-type="size">
+      <view class="text">{{checkData.size.text == ''?'选择商品尺码':checkData.size.text}}</view>
+    </view>
+  </view>
+  <view class="cu-form-group margin-top-xs">
+    <view class="title m-tw text-bold">上架</view>
+    <switch class="goldb radius sm" checked="{{goods_status}}" bindtap="goodsStatusChange"></switch>
+  </view>
+</form>
+<button class="bg-gold-new radius margin" bindtap="submit">保存</button>
+<hr-number showModal="{{hrnum.show}}" bindConfirm="onNumberConfirm" title="{{hrnum.content}}" value="{{hrnum.value}}" />
+
+<!-- 单选 和多选弹窗-->
+<view class="cu-modal bottom-modal {{singleshow ? 'show' : ''}}" bindtap="onSingleHidePanel">
+  <view class="cu-dialog" catchtap>
+    <view class="padding bg-white justify-end flex">
+      <view>
+        <button class="cu-btn sm line-orange" bindtap="addGoodsManageModal">添加</button>
+      </view>
+      <view class="flex-sub">{{listdata.title}}</view>
+      <view>
+        <button class="cu-btn sm bg-cyan" bindtap="affirmChange" wx:if="{{nowshow!='type'}}">确定</button>
+        <button class="cu-btn sm bg-white" wx:if="{{nowshow=='type'}}"><text space="emsp">  </text></button>
+      </view>
+    </view>
+    <view class="solid-top">
+      <!-- <scroll-view scroll-y catchtap style="max-height:800rpx;min-height:500rpx;" refresher-enabled="true"> -->
+      <scroll-view scroll-y catchtap style="max-height:800rpx;min-height:500rpx;">
+        <checkbox-group class="block" bindchange="onSingleChange">
+          <view class="cu-list menu text-left">
+            <label class="cu-item flex justify-between align-center flex-sub bg-red" wx:for="{{listdata.list}}"
+              wx:key="index">
+              <view class="flex-sub text-red">{{item.name}}</view>
+              <checkbox class="round" value="{{index}}" checked="{{item.checked}}" disabled="{{item.disabled}}"  style="{{item.disabled?'filter: grayscale(100%);':''}}"></checkbox>
+            </label>
+          </view>
+        </checkbox-group>
+      </scroll-view>
+    </view>
+  </view>
+</view>
+<!-- 添加商品分类，颜色，尺寸 -->
+<view class="cu-modal {{addModalShow?'show':''}}">
+  <view class="cu-dialog">
+    <view class="cu-bar bg-white justify-end">
+      <view class="content">{{addGoods.all_name}}</view>
+      <view class="action" bindtap="onHideAddGoodsManageModal">
+        <text class="cuIcon-close text-red"></text>
+      </view>
+    </view>
+    <view class="solid-top solid-bottom" style="--white:#eee;">
+      <view class="cu-form-group">
+        <view class="title">{{addGoods.name_text}}</view>
+        <input placeholder="{{'请输入'+addGoods.name_text}}" maxlength="{{addGoods.name_lenth}}" class="save" 
+        model:value="{{addGoodsName}}" />
+        <view class="cu-capsule radius margin-left">
+          <view class="cu-tag bg-blue">长度</view>
+          <view class="cu-tag line-blue">{{addGoods.name_lenth}}</view>
+        </view>
+      </view>
+      <view class="cu-form-group" wx:if="{{nowshow!='type'}}">
+        <view class="title">{{addGoods.code_text}}</view>
+        <input placeholder="英文开头+数字" maxlength="{{addGoods.code_lenth}}" class="save" model:value="{{addGoodsCode}}" />
+        <view class="cu-capsule radius margin-left">
+          <view class="cu-tag bg-blue">长度</view>
+          <view class="cu-tag line-blue">{{addGoods.code_lenth}}</view>
+        </view>
+      </view>
+    </view>
+    <view class="cu-bar bg-white">
+      <view class="action margin-0 flex-sub text-green padding" bindtap="onHideAddGoodsManageModal">取消</view>
+      <view class="action margin-0 flex-sub solid-left padding" bindtap="confirmAddGoodsManage">确定</view>
+    </view>
+  </view>
+</view>

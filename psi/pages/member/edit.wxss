@@ -1,0 +1,42 @@
+/* pages/member/edit.wxss */
+.title{
+	/* text-align: right !important; */
+	/* display: inline-block !important;
+	text-align: justify !important;
+  text-align-last:justify !important; 
+*/
+width: 6em;
+}
+.sex{
+  width: 78%;
+  display: flex;
+  align-items: center;
+}
+.dateBox{
+  justify-content: flex-start;
+}
+.cu-form-group picker{
+  flex: 0 1 auto;
+}
+.cu-form-group picker .picker{
+  text-align: left;
+}
+.sex label{
+  margin-right: 20rpx;
+}
+.sex label radio{
+  transform: scale(.7);  
+}
+
+.storyBox{
+  position: relative;
+}
+.storyBox .textarea{
+padding: 10rpx !important;
+}
+.storyBox .clearV{
+  position: absolute;
+  right: 40rpx;
+  bottom: 40rpx;
+  z-index: 999;
+}

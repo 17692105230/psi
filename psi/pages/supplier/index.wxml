@@ -1,0 +1,56 @@
+<wxs module="num">
+  module.exports = {
+    toFix: function(value) {
+      value = !value ? 0 : value;
+      return value.toFixed(2)
+    }
+  }
+</wxs>
+<cu-custom id="navbar" bgColor="bg-gold-new" isCustom="{{true}}">
+  <view slot="content">供应商管理</view>
+</cu-custom>
+<view>
+  <view class="cu-list menu" wx:if="{{supplierList.length > 0}}">
+    <view class="cu-item {{item.isDefault?'cur':''}}" wx:for="{{supplierList}}" wx:key="index" data-address-id="{{item.id}}">
+      <view class='content padding-top-sm padding-bottom-xs'>
+        <view>
+          <text class='text-bold'>{{item.supplier_name}}</text>
+          <view class='cu-tag line-orange radius margin-lr-sm sm' wx:if="{{index==0}}">默认</view>
+        </view>
+        <view class='text-red text-sm text-cut'>
+          {{item.supplier_mphone}}
+        </view>
+        <view>
+          <text class='margin-right-sm'>{{item.supplier_director}}</text>
+
+        </view>
+        <view class='margin-tb-xs flex' style="align-items: center;">
+          <view class="cu-capsule radius margin-right-sm cu-capsule-border-goldb">
+            <view class="cu-tag bg-cyan" id="discount">折扣</view>
+            <view class="cu-tag" id="discount-val">{{item.supplier_discount}}</view>
+          </view>
+          <view class="cu-capsule radius margin-right-sm cu-capsule-border-EB2020">
+            <view class="cu-tag bg-grey" id="balance">账户余额</view>
+            <view class="cu-tag text-price" id="balance-val">{{item.supplier_money}}</view>
+          </view>
+        </view>
+        <view class='text-gray text-sm text-cut' wx:if="{{item.supplier_address}}">
+          {{item.supplier_address}}
+        </view>
+
+      </view>
+      <view class='action flex flex-direction text-xl'>
+        <text class='cuIcon-delete text-red padding-bottom-sm' data-index="{{index}}"   wx:if="{{qxList[2].haveQx}}"  catchtap="delSupplierTip"></text>
+        <text class='cuIcon-edit text-green margin-top-sm' data-index="{{index}}"   wx:if="{{qxList[1].haveQx}}"  catchtap="onEdit"></text>
+      </view>
+    </view>
+  </view>
+  <view style="height:110rpx"></view>
+  <view class="cu-bar bg-white foot justify-center padding-sm"   wx:if="{{qxList[0].haveQx}}" >
+    <button class='cu-btn bg-goldb solid shadow block lg' style="width:100%;" data-address-id="0" bindtap="onAdd">
+      <text class='cuIcon-add'> </text> 新建地址
+    </button>
+  </view>
+</view>
+
+<hr-sheet show="{{tipShow}}" tips="{{tips}}" item-list="{{tipItemList}}" mask-closable="{{tipMaskClosable}}" color="{{tipColor}}" size="{{tipSize}}" is-cancel="{{tipIsCancel}}" bind:click="{{tipItemClickName}}"  bind:cancel="tipClose"></hr-sheet>

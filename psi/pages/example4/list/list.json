@@ -1,0 +1,5 @@
+{
+  "usingComponents": {
+    "bills_list": "/components/bills_list/index"
+  }
+}

@@ -1,0 +1,14 @@
+.m-tw {
+  width: 150rpx;
+}
+.title{
+	/* text-align: right !important; */
+	/* display: inline-block !important;
+	text-align: justify !important;
+	text-align-last:justify !important; */
+}
+.cu-btn.df {
+	padding: 0 30rpx;
+	font-size: 26rpx;
+	height: 60rpx;
+}

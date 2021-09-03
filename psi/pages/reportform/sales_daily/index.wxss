@@ -1,0 +1,76 @@
+.z-relative{
+  position: relative;
+  z-index: 1110;
+}
+
+/*header 下拉选择*/
+
+.tui-scroll-box {
+  width: 100%;
+  height: 480rpx;
+  box-sizing: border-box;
+  position: relative;
+  z-index: 99;
+  color: #fff;
+  font-size: 30rpx;
+  word-break: break-all;
+}
+
+.tui-drop-item {
+  color: #333;
+  height: 80rpx;
+  font-size: 28rpx;
+  padding: 20rpx 40rpx 20rpx 40rpx;
+  box-sizing: border-box;
+  display: inline-block;
+  width: 50%;
+}
+
+.tui-drop-btnbox {
+  width: 100%;
+  height: 100rpx;
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  box-sizing: border-box;
+  display: flex;
+}
+
+.tui-drop-btn {
+  width: 100% !important;
+  border-radius: 0 !important;
+  font-size: 32rpx !important;
+  text-align: center;
+  height: 100rpx;
+  line-height: 100rpx;
+  border: 0;
+}
+
+.tui-btn-white {
+  border-radius: 0;
+}
+.date {
+  width: 30%;
+  display: block;
+  flex: initial;
+}
+/*header 下拉选择*/
+
+
+
+.date-cu-item {
+  padding: 0;
+  margin: 0;
+  width: 88rpx;
+  height: 48rpx;
+  border-radius: 24rpx;
+  line-height: 46rpx;
+  border: 1px solid #B2B2B2;
+  color: #666666;
+  background-color: #F0F0F0;
+}
+.date-active {
+  color: #489AF4;
+  background-color: #E9F3FF;
+  border: 1rpx solid #489AF4;
+}

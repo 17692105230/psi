@@ -1,0 +1,8 @@
+{
+  "usingComponents": {
+    "tui-list-cell": "/components/list-cell/list-cell",
+    "ec-canvas": "/components/ec-canvas/ec-canvas",
+    "hr-top-dropdown": "/components/hr-top-dropdown/top-dropdown",
+    "slide_list": "/components/slide_list/index"
+  }
+}

@@ -1,0 +1,52 @@
+<!--pages/reportform/debt_order/debt_order_ details/index.wxml-->
+<cu-custom id="navbar" bgColor="bg-gold-new" isCustom="{{true}}" arrData="{{searchData}}">
+  <view slot="content">
+    <view>{{name}}<text class="text-sm">（{{names}}）</text></view>
+  </view>
+</cu-custom>
+<view class="bg-white padding-sm flex justify-center align-center text-center">
+  <view class="bg-gray padding-xs flex-sub radius">
+    <picker mode="date" value="{{strDate}}" bindchange="strDateChange">
+      {{strDate}}
+      <text class="picker cuIcon-calendar text-green margin-left"></text>
+    </picker>
+  </view>
+  <view class="margin-left margin-right">至</view>
+  <view class="bg-gray padding-xs flex-sub radius">
+    <picker mode="date" value="{{endDate}}" bindchange="endDateChange">
+      {{endDate}}
+      <text class="picker cuIcon-calendar text-green margin-left"></text>
+    </picker>
+  </view>
+</view>
+<view class="bg-white flex margin-top-sm text-center padding-top padding-bottom">
+  <view class="flex-sub">
+    <view class="text-bold text-lg margin-bottom-xs">{{initialMoney}}</view>
+    <view class="text-gray">初期金额（元）</view>
+  </view>
+  <view class="flex-sub">
+    <view class="text-bold text-lg margin-bottom-xs">{{currentPeriodMoney}}</view>
+    <view class="text-gray">本期增加金额（元）</view>
+  </view>
+  <view class="flex-sub">
+    <view class="text-bold text-lg margin-bottom-xs">{{allMoney}}</view>
+    <view class="text-gray">累计金额（元）</view>
+  </view>
+</view>
+<scroll-view id="scroll-box" scroll-y="true" style="height:{{scroll_height}}px">
+  <view wx:for="{{list}}" wx:for-index="index" wx:key="index">
+    <view class="padding-sm text-gray">{{item.date}}</view>
+    <view class="bg-white padding-sm line-gray {{ind==0?'':'solid-top'}}" wx:for="{{item.formList}}" wx:for-item="items"
+      wx:for-index="ind" wx:key="ind">
+      <view class="flex align-center">
+        <view class="text-gray flex-sub">
+          <view class="text-bold text-lg text-black margin-bottom-xs">{{items.name}}</view>
+          <view>{{items.code}}</view>
+          <view class="margin-bottom-xxs margin-top-xxs">操作前余额：{{items.beforeMoney}}</view>
+          <view>操作后余额：{{items.afterMoney}}</view>
+        </view>
+        <view class="text-red text-bold">{{items.money}}</view>
+      </view>
+    </view>
+  </view>
+</scroll-view>

@@ -1,0 +1,8 @@
+{
+  "usingComponents": {
+    "goods": "/components/goods/index",
+    "hr-sheet": "/components/hr-sheet/sheet",
+    "tui-swipe-action": "/components/swipe-action/swipe-action",
+    "hr-number": "/components/hr-number/index"
+  }
+}

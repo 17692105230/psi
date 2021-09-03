@@ -1,0 +1,116 @@
+<!--pages/count_ account/index.wxml-->
+<cu-custom id="navbar" bgColor="bg-gold-new" isCustom="{{true}}">
+  <view slot="content">结算账户</view>
+</cu-custom>
+<block wx:if="{{list.length>0}}">
+  <view class="flex align-center padding-sm solid-bottom bg-white line-gray text-black" wx:for="{{list}}"
+    wx:key="index">
+    <view class="flex-sub">
+      <view>{{item.settlement_name}}</view>
+      <view class="margin-top-xs margin-bottom-xs">{{item.settlement_code}}</view>
+      <view class="cu-capsule radius cu-capsule-border-EB2020">
+        <view class="cu-tag " id="balance">
+          账户余额
+        </view>
+        <view class="cu-tag" id="balance-val">{{item.settlement_money}}</view>
+      </view>
+    </view>
+    <view class="text-xxl">
+      <view class="cuIcon-delete text-red" bindtap="delDataTip" wx:if="{{qxList[2].haveQx}}"
+        data-id="{{item.settlement_id}}" data-lockversion="{{item.lock_version}}"></view>
+      <view class="cuIcon-edit text-green margin-top-sm" bindtap="getDataById" wx:if="{{qxList[1].haveQx}}"
+        data-id="{{item.settlement_id}}" data-lockversion="{{item.lock_version}}"></view>
+    </view>
+  </view>
+</block>
+<block wx:else>
+  <view class="null-content text-sl text-gray padding-xl text-shadow" style="height:500rpx;">
+    <text class="cuIcon-bad"></text>
+    <text class="text-sm margin-top-xs">暂无信息</text>
+  </view>
+</block>
+<hr-sheet show="{{tipShow}}" tips="{{tips}}" item-list="{{tipItemList}}" mask-closable="{{tipMaskClosable}}"
+  color="{{tipColor}}" size="{{tipSize}}" is-cancel="{{tipIsCancel}}" bind:click="{{tipItemClickName}}"
+  bind:cancel="tipClose">
+</hr-sheet>
+<view style="height:140rpx"></view>
+<view class="cu-bar bg-white foot justify-center flex-direction padding-sm" wx:if="{{qxList[0].haveQx}}">
+  <button class='cu-btn bg-goldb solid shadow block lg' style="width:100%" bindtap="showAdd" wx:if="{{qxList[0].haveQx}}">
+    <text class='cuIcon-add'> </text> 新建结算账户
+  </button>
+</view>
+<!-- <view bindtap="showAdd" wx:if="{{qxList[0].haveQx}}"
+  class="text-xl bg-red padding round flex align-center justify-center"
+  style="position:fixed;width:80rpx;height:80rpx;bottom:20rpx;right:20rpx;">
+  <text class="cuIcon-add"></text>
+</view> -->
+<view class="cu-modal {{isSizeShow?'show':''}}">
+  <view class="cu-dialog">
+    <view class="cu-bar bg-white justify-end">
+      <view class="content">添加结算账户</view>
+      <view class="action" bindtap="onHideCancel">
+        <text class="cuIcon-close text-red"></text>
+      </view>
+    </view>
+    <view class="solid-top solid-bottom" style="--white:#eee;">
+      <view class="cu-form-group">
+        <view class="title">账　　号</view>
+        <view class="right_box">
+          <input placeholder="请输入账号" maxlength="20" class="save" model:value="{{formData.settlement_code}}"
+            bindinput="bindinput" data-name="settlement_code" />
+          <text class="cuIcon-roundclose lg text-gray padding-lr" wx:if="{{formData.settlement_code}}"
+            data-clearkey="formData.settlement_code" catchtap="clearV"></text>
+
+        </view>
+
+      </view>
+      <view class="cu-form-group">
+        <view class="title">账户名称</view>
+        <input placeholder="请输入账户名称" maxlength="10" class="save" model:value="{{formData.settlement_name}}"
+          bindinput="bindinput" data-name="settlement_name" />
+        <text class="cuIcon-roundclose lg text-gray padding-lr" wx:if="{{formData.settlement_name}}"
+          data-clearkey="formData.settlement_name" catchtap="clearV"></text>
+
+      </view>
+      <view class="cu-form-group">
+        <view class="title">开户姓名</view>
+        <input placeholder="请输入开户姓名" maxlength="10" class="save" model:value="{{formData.account_holder}}"
+          bindinput="bindinput" data-name="account_holder" />
+        <text class="cuIcon-roundclose lg text-gray padding-lr" wx:if="{{formData.account_holder}}"
+          data-clearkey="formData.account_holder" catchtap="clearV"></text>
+
+      </view>
+      <view class="cu-form-group">
+        <view class="title">账户余额</view>
+        <input type="digit" bindfocus="onNumberModalShow" placeholder="请输入账户余额" maxlength="10" class="save"
+          model:value="{{formData.settlement_money}}" />
+        <text class="cuIcon-roundclose lg text-gray padding-lr" wx:if="{{formData.settlement_money}}"
+          data-clearkey="formData.settlement_money" catchtap="clearV"></text>
+
+      </view>
+      <view class="cu-form-group remark_box">
+        <view class="title">备注信息</view>
+        <input placeholder="请输入备注信息" class="save" model:value="{{formData.settlement_remark}}" bindinput="bindinput"
+          data-name="settlement_remark" />
+
+        <!-- <textarea cols="30" rows="10" placeholder="请输入备注信息" class="save textarea_box" model:value="{{formData.settlement_remark}}"
+          bindinput="bindinput" data-name="settlement_remark">     </textarea> -->
+        <text class="cuIcon-roundclose lg text-gray padding-lr" wx:if="{{formData.settlement_remark}}"
+          data-clearkey="formData.settlement_remark" catchtap="clearV"></text>
+
+
+
+
+      </view>
+      <view class="cu-form-group">
+        <view class="title">状　　态</view>
+        <switch checked="{{formData.settlement_status}}" bindchange="statusChange"></switch>
+      </view>
+    </view>
+    <view class="cu-bar bg-white">
+      <view class="action margin-0 flex-sub text-green padding" catchtap="onHideCancel">取消</view>
+      <view class="action margin-0 flex-sub solid-left padding" catchtap="onHideAdd">确定</view>
+    </view>
+  </view>
+</view>
+<hr-number showModal="{{hrnum.show}}" bindConfirm="onNumberConfirm" content="{{hrnum.content}}" />

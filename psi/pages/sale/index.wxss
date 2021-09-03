@@ -1,0 +1,6 @@
+.border-radius{
+  border-radius: 6rpx;
+}
+.border-gray{
+  border:1rpx solid #e6e6e6;
+}

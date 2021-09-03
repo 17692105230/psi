@@ -1,0 +1,17 @@
+<view class="cu-bar bg-white padding-top" style="min-height: 60rpx;">
+  <view class="action">
+    商品图片
+  </view>
+  <view class="action"></view>
+</view>
+<view class="cu-form-group">
+  <view class="grid col-4 grid-square flex-sub">
+    <view class="bg-img sunsin_picture_item solid" wx:for="{{imgList}}" wx:key="index">
+      <text class="cuIcon-cameraadd" data-index="{{index}}" bindtap="chooseImg" />
+      <image src='{{item.spath}}' binderror="errImg" wx:if="{{item.percent >= 100}}" mode='aspectFill' data-index="{{index}}" bindtap="previewImg" />
+      <view class="cu-tag bg-red cuIcon-close" style="width:50rpx;display:{{isDel}}" wx:if="{{item.percent == 100}}" catchtap="deleteImg" data-index="{{index}}" />
+      <view class="sunsin_upload_progress" wx:if="{{item.percent < 100 && item.lpath != ''}}" data-index="{{index}}">{{item.percent}}%</view>
+      <view class="sunsin_upload_name text-white" wx:if="{{item.percent < 100}}">{{item.name}}</view>
+    </view>
+  </view>
+</view>

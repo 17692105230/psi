@@ -1,0 +1,48 @@
+<!--pages/reportform/debt_order/index.wxml-->
+<cu-custom id="navbar" bgColor="bg-gold-new" isCustom="{{true}}" arrData="{{searchData}}">
+  <view slot="content">资产负债表</view>
+</cu-custom>
+<view class="bg-white padding-sm">
+  <view class="flex solid align-center padding-sm shadow">
+    <view class="flex-sub">截止今日({{date}})</view>
+    <picker mode="date" value="{{date}}" bindchange="bindDateChange">
+      <view class="picker cuIcon-calendar text-green"></view>
+    </picker>
+  </view>
+</view>
+<view class="bg-white margin-sm padding-lg text-center radius">
+  <view class="text-red text-bold text-xl margin-bottom-xs">{{money}}</view>
+  <view class="text-gray">资产合计(元)</view>
+</view>
+<view class="bg-white margin-sm radius">
+  <view class="flex text-center">
+    <view class="flex-sub padding-lg {{navShow?'text-bold':'bg-fdfdfd solid-right solid-bottom'}}" bindtap="navChange"
+      data-id="0">资产</view>
+    <view class="flex-sub padding-lg {{navShow?'bg-fdfdfd solid-left solid-bottom':'text-bold'}}" bindtap="navChange"
+      data-id="1">负债和所有者权益</view>
+  </view>
+  <view class="padding-top padding-left padding-right">
+    <view class="padding-xs padding-left-sm padding-right-sm bg-b2f0f2 radius">
+      <text>项目</text>
+      <text class="fr">期末余额(元)</text>
+    </view>
+    <view class="" wx:for="{{lists}}" wx:key="index" wx:for-index="index">
+      <view class="flex padding-sm text-bold line-gray text-black align-center {{index==0?'':'solid-top'}}">
+        <view class="flex-sub">{{item.name}}</view>
+        <view>合计：{{item.money}}</view>
+        <view class="cuIcon-right text-white" style="font-size:32rpx"></view>
+      </view>
+      <view class="flex padding-sm solid-top line-gray text-black align-center" wx:for="{{item.list}}" wx:key="ind"
+        wx:for-item="items" wx:for-index="ind" bindtap="urlTo" data-index="{{index}}" data-ind="{{ind}}">
+        <view class="flex-sub">{{items.name}}</view>
+        <view>{{items.money}}</view>
+        <view class="cuIcon-right {{item.pid!=4?'text-gray':'text-white'}}" style="font-size:32rpx"></view>
+      </view>
+    </view>
+  </view>
+</view>
+<view style="height:124rpx;"></view>
+<view class="flex bg-white foot solid-top line-gray text-black align-center">
+  <view class="flex-sub">{{footName}}</view>
+  <view class="text-bold text-lg">{{money}}</view>
+</view>

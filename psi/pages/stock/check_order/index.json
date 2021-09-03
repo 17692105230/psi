@@ -1,0 +1,10 @@
+{
+  "usingComponents": {
+    "cu-search": "/components/cu-search/index",
+    "goods": "/components/goods/index",
+    "goods-list": "/components/goods-list/index",
+    "goods-list-new": "/components/goods-list-new/index",
+    "hr-sheet": "/components/hr-sheet/sheet",
+    "hr-top-dropdown": "/components/hr-top-dropdown/top-dropdown"
+  }
+}

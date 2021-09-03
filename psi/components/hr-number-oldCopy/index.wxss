@@ -1,0 +1,116 @@
+.page_box {
+  width: 100%;
+  height: auto;
+  background: #f3f7f7;
+  overflow: hidden;
+}
+
+.input_view {
+  width: 700rpx;
+  background: #fff;
+  box-sizing: border-box;
+}
+
+.title {
+  display: block;
+  line-height: 50rpx;
+  font-size: 30rpx;
+  color: #999;
+}
+
+.input_box {
+  /* background: #ffc; */
+  display: flex;
+  padding: 20rpx 0;
+}
+
+.input_label {
+  font-size: 35rpx;
+  color: #999;
+  font-weight: bold;
+  margin-right: 5rpx;
+}
+
+.content {
+  font-size: 80rpx;
+  line-height: 90rpx;
+  font-weight: bold;
+  letter-spacing: 5rpx;
+}
+
+.className {
+  width: 6rpx;
+  height: 90rpx;
+  background: #666;
+  border-radius: 6rpx;
+  animation: twinkling 1s infinite;
+}
+
+.animated {
+  animation-duration: 1s;
+  animation-fill-mode: both;
+}
+
+.pay {
+  display: block;
+  width: 100%;
+  height: 120rpx;
+  border-radius: 12rpx;
+  background: #62b900;
+  color: #fff;
+  text-align: center;
+  line-height: 120rpx;
+  font-size: 40rpx;
+}
+
+.keyboard {
+  width: 100%;
+  background: #fff;
+}
+
+.complete {
+  background: #fff;
+}
+
+.key_box {
+  overflow: hidden;
+}
+
+.keys {
+  float: left;
+  width: 33.33%;
+  height: 140rpx;
+  text-align: center;
+  line-height: 140rpx;
+  font-size: 50rpx;
+  font-weight: bold;
+  color: #333;
+  border-left: 1px solid #eee;
+  box-sizing: border-box;
+  border-top: 1px solid #eee;
+}
+
+.border0 {
+  border-left: 0;
+}
+
+.bb-1 {
+  border-bottom: 1px solid #eee;
+}
+
+.bg_color {
+  background: #eee;
+}
+
+.dis-flex {
+  display: flex !important;
+  /* flex-wrap: wrap; */
+}
+
+.flex-box {
+  flex: 1;
+}
+
+.flex-x-end {
+  justify-content: flex-end;
+}

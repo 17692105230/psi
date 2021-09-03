@@ -1,0 +1,5 @@
+{
+  "usingComponents": {
+    "hr-top-dropdown": "/components/hr-top-dropdown/top-dropdown"
+  }
+}

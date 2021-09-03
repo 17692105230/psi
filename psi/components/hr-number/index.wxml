@@ -1,0 +1,55 @@
+<view class="cu-modal {{showModal?'show':''}}">
+  <view class="cu-dialog">
+    <view class="cu-bar bg-white justify-end">
+      <view class="content" style="font-size:38rpx;">{{title}}</view>
+      <view class="action"></view>
+    </view>
+
+
+  <view class='keyboard'>
+    <view class="result">
+      <view class="result-num">{{value}}</view>
+      <view class="result-op">{{op}}</view>
+    </view>
+    <view class="btns">
+      <view>
+        <view hover-class="bg" bindtap="opBtn" data-val="+">+</view>
+        <view hover-class="bg" bindtap="opBtn" data-val="-">-</view>
+        <view hover-class="bg" bindtap="opBtn" data-val="*">×</view>
+        <view hover-class="bg" bindtap="opBtn" data-val="/">÷</view>
+      </view>
+
+      <view>
+        <view hover-class="bg" bindtap="numBtn" data-val="1">1</view>
+        <view hover-class="bg" bindtap="numBtn" data-val="2">2</view>
+        <view hover-class="bg" bindtap="numBtn" data-val="3">3</view>
+        <view hover-class="bg" bindtap="numBtn" data-val="4">4</view>
+      </view>
+      <view>
+        <view hover-class="bg" bindtap="numBtn" data-val="5">5</view>
+        <view hover-class="bg" bindtap="numBtn" data-val="6">6</view>
+        <view hover-class="bg" bindtap="numBtn" data-val="7">7</view>
+        <view hover-class="bg" bindtap="numBtn" data-val="8">8</view>
+      </view>
+      <view>
+        <view hover-class="bg" bindtap="numBtn" data-val="9">9</view>
+        <view hover-class="bg" bindtap="numBtn" data-val="0">0</view>
+        <view hover-class="bg" bindtap="dotBtn">.</view>
+        <view hover-class="bg" bindtap="opBtn" data-val="=">=</view>
+      </view>
+      <view>
+        <view hover-class="bg" bindtap="resetBtn" class="c">C</view>
+        <view hover-class="bg" bindtap="delBtn" class="del">
+          <image style='width:50rpx;height:50rpx;' mode="aspectFit" src='/images/backspace.png' />
+        </view>
+        <view hover-class="bg" bindtap="onCancel">取消</view>
+        <view hover-class="bg" bindtap="onConfirm">确定</view>
+      </view>
+    </view>
+  </view>
+
+
+
+
+  </view>
+</view>

@@ -1,0 +1,42 @@
+<!--pages/reportform/Inventory_analysis/index.wxml-->
+<cu-custom id="navbar" bgColor="bg-gold-new" isCustom="{{true}}" arrData="{{searchData}}">
+  <view slot="content">库存分析</view>
+</cu-custom>
+<scroll-view scroll-x class="bg-white nav">
+  <view class="flex text-center">
+    <view class="cu-item flex-sub text-bold {{index==TabCur?'text-orange cur':''}}" wx:for="{{tabList}}" wx:key="index"
+      bindtap="tabChange" data-id="{{index}}">
+      {{item}}
+    </view>
+  </view>
+</scroll-view>
+<view class="margin-sm padding-sm bg-white radius">
+  <view class="flex align-center padding-xs" style="background:#efe6e6;">
+    <view class="flex-sub flex align-center {{index==0?'':'justify-center'}}" wx:for="{{navList}}" wx:key="index"
+      bindtap="navTab" data-id="{{index}}">
+      <view class="">{{item.name}}</view>
+      <view class="text-xxl">
+        <view class="cuIcon-triangleupfill {{item.type==1?'text-blue':'text-gray'}}"></view>
+        <view class="cuIcon-triangledownfill {{item.type==2?'text-blue':'text-gray'}}" style="margin-top:-35rpx"></view>
+      </view>
+    </view>
+  </view>
+  <scroll-view id="scroll-box" scroll-y="true" style="max-height:{{scroll_height}}px">
+    <view class="flex padding-xs padding-top-sm padding-bottom-sm align-center " wx:for="{{list}}" wx:key="index">
+    <view class="flex-sub name">
+      <view class="text-bold">{{item.name}}</view>
+    </view>
+    <view class="flex-sub text-center">
+      <view class="">{{item.num}}</view>
+    </view>
+    <view class="flex-sub text-center">
+      <view class="">{{item.money}}</view>
+    </view>
+  </view>
+</scroll-view>
+</view>
+<view class="flex bg-white foot align-center text-bold">
+  <view class="flex-sub">合计值</view>
+  <view class="flex-sub text-center">{{all_num}}</view>
+  <view class="flex-sub text-center">{{all_money}}</view>
+</view>

@@ -1,0 +1,55 @@
+{
+  "pages": [
+    "pages/home/index",
+    "pages/example1_new/index",
+    "pages/example4/index",
+    "pages/example4/list/list",
+    "pages/settings/color/index",
+    "pages/example6/index",
+    "pages/example2/index",
+    "pages/supplier/index",
+    "pages/supplier/edit",
+    "pages/settings/size/index",
+    "pages/login/login",
+    "pages/example5/index",
+    "pages/count_ account/index",
+    "pages/common/common_list/index",
+    "pages/sale/index",
+    "pages/sale/sale_order/index",
+    "pages/sale/sale_order_list/index",
+    "pages/my/index",
+    "pages/authority_management/index",
+    "components/hr-top-dropdown/top-dropdown",
+    "pages/goods_type/index",
+    "pages/purchase/index",
+    "pages/stock/index",
+    "pages/finance/index",
+    "pages/reportform/index",
+    "pages/stock/check_order/index",
+    "pages/stock/allot_order/index",
+    "pages/reportform/purchase_analysis/index",
+    "pages/reportform/Inventory_query/index",
+    "pages/reportform/Inventory_query/Inventory_details/index",
+    "pages/reportform/Inventory_analysis/index",
+    "pages/reportform/sales_daily/index",
+    "pages/member/index",
+    "pages/member/edit",
+    "pages/orders_statistic/index",
+    "pages/member/detail"
+  ],
+  "window": {
+    "navigationBarBackgroundColor": "#39b54a",
+    "navigationBarTitleText": "QiYu Member",
+    "navigationStyle": "custom",
+    "navigationBarTextStyle": "white"
+  },
+  "usingComponents": {
+    "cu-custom": "/colorui/components/cu-custom"
+  },
+  "sitemapLocation": "sitemap.json",
+  "permission": {
+    "scope.userLocation": {
+      "desc": "你的位置信息将用于为您提供更合适您的服务"
+    }
+  }
+}

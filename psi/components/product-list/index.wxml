@@ -1,0 +1,31 @@
+<tui-list-view>
+  <tui-list-cell wx:for="{{list}}"  wx:key="goods_id" arrow bindtap="onTapGoods" data-index="{{index}}">
+    <view class="flex flex-direction" style="" >
+      <view class="flex flex-sub">
+        <view class="product-box-1 flex align-center solid">
+          <image src="{{item.images[0].assist_url!=null?item.images[0].assist_url:'/images/my/default_img.png'}}"  binderror="errImg" data-index="{{index}}"
+          mode="aspectFill" class="bg-gray"></image>
+        </view>
+        <view class="flex-sub flex flex-direction justify-between padding-left-sm text-sm">
+          <view class="text-bold text-30 padding-bottom-xs text-block">{{item.goods_name}}</view>
+          <view class=" padding-tb-xs text-grey">货号 : {{item.goods_code}}</view>
+          <view class=" padding-tb-xs text-grey">条码 : {{item.goods_barcode==null?'无':item.goods_barcode}}</view>
+        </view>
+      </view>
+      <view class="flex padding-right margin-top">
+        <view class="cu-capsule radius">
+          <view class="cu-tag bg-orange">
+            采购价
+          </view>
+          <view class="cu-tag line-orange">{{item.goods_pprice}}</view>
+        </view>
+        <view class="cu-capsule radius">
+          <view class="cu-tag bg-cyan">
+            零售价
+          </view>
+          <view class="cu-tag line-cyan">{{item.goods_rprice}}</view>
+        </view>
+      </view>
+    </view>
+  </tui-list-cell>
+</tui-list-view>

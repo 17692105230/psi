@@ -1,0 +1,7 @@
+{
+  "enablePullDownRefresh":true,
+  "usingComponents": {
+    "hr-sheet": "/components/hr-sheet/sheet",
+    "hr-number": "/components/hr-number/index"
+  }
+}

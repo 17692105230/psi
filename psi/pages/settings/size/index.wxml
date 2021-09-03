@@ -1,0 +1,74 @@
+<cu-custom id="navbar" bgColor="bg-gold-new" isCustom="{{true}}">
+  <view slot="content">尺码管理</view>
+</cu-custom>
+<view class="cu-bar bg-white">
+  <view class="action">
+    尺码管理
+  </view>
+  <view class="action">
+    {{list.length}}/{{maxNum}}
+  </view>
+</view>
+<scroll-view scroll-y catchtap style="height:calc(100vh - {{CustomBar}}px);" refresher-background="#eee"
+  refresher-enabled="true">
+  <view class="grid col-4 padding-sm">
+    <view class="padding-xs" wx:for="{{list}}" wx:key="index" bindtap="onShowSizeEdit" data-id="{{item.id}}"
+      data-index="{{index}}">
+      <view class="bg-gradual-red padding-sm radius text-center shadow-blur" style="height:130rpx;">
+        <view class="cu-tag badge cuIcon-close lg bg-gray size-del" wx:if="{{qxList[2].haveQx}}" catchtap="delSizeTip"
+          data-id="{{item.id}}" data-lock_version="{{item.lock_version}}"></view>
+        <view class="text-lg">{{item.name}}</view>
+        <view class="margin-top-xs line"></view>
+        <view class="margin-top-xs">{{item.code}}</view>
+      </view>
+    </view>
+    <view class="padding-xs" bindtap="onShowSizeAdd" wx:if="{{list.length < maxNum && qxList[0].haveQx}}">
+      <view class="padding-xl radius text-center shadow-blur"
+        style="height:135rpx;border: 1rpx solid rgba(0, 0, 0, 0.1);">
+        <text class="cuIcon-add"></text>
+      </view>
+    </view>
+  </view>
+</scroll-view>
+<!-- 设置折扣 -->
+<view class="cu-modal {{isSizeShow?'show':''}}">
+  <view class="cu-dialog">
+    <view class="cu-bar bg-white justify-end">
+      <view class="content">尺码</view>
+      <view class="action" bindtap="onHideSizeCancel">
+        <text class="cuIcon-close text-red"></text>
+      </view>
+    </view>
+    <view class="solid-top solid-bottom bg-white">
+      <view class="cu-form-group">
+        <view class="title">尺码名称</view>
+        <input placeholder="请输入尺码名称" maxlength="8" class="save" model:value="{{sizeName}}" />
+        <text class="cuIcon-roundclose lg text-gray padding-lr margin-right clearV" wx:if="{{sizeName}}" data-clearkey="sizeName" catchtap="clearV"></text>
+
+        <view class="cu-capsule radius margin-left">
+          <view class="cu-tag bg-blue">长度</view>
+          <view class="cu-tag line-blue">8</view>
+        </view>
+      </view>
+      <view class="cu-form-group" style="border-top:none !important;">
+        <view class="title">尺码编码</view>
+        <input placeholder="请输入尺码编码" maxlength="8" class="save" model:value="{{sizeCode}}" />
+        <text class="cuIcon-roundclose lg text-gray padding-lr margin-right clearV" wx:if="{{sizeCode}}"
+          data-clearkey="sizeCode" catchtap="clearV"></text>
+
+        <view class="cu-capsule radius margin-left">
+          <view class="cu-tag bg-blue">长度</view>
+          <view class="cu-tag line-blue">8</view>
+        </view>
+      </view>
+    </view>
+    <view class="cu-bar bg-white">
+      <view class="action margin-0 flex-sub text-green padding" catchtap="onHideSizeCancel">取消</view>
+      <view class="action margin-0 flex-sub solid-left padding" catchtap="onHideSizeAdd">确定</view>
+    </view>
+  </view>
+</view>
+
+<hr-sheet show="{{tipShow}}" tips="{{tips}}" item-list="{{tipItemList}}" mask-closable="{{tipMaskClosable}}"
+  color="{{tipColor}}" size="{{tipSize}}" is-cancel="{{tipIsCancel}}" bind:click="{{tipItemClickName}}"
+  bind:cancel="tipClose"></hr-sheet>

@@ -1,0 +1,13 @@
+/* pages/common/common_list/index.wxss */
+.item{
+  position: relative;
+  /* padding-bottom: 80rpx; */
+}
+.active{
+  background-color: #f7f7f9 !important;
+}
+.btn{
+  position: absolute;
+  right: 20rpx;
+  bottom: 20rpx;
+}

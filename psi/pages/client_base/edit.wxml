@@ -1,0 +1,79 @@
+<cu-custom id="navbar" bgColor="bg-gold-new" isCustom="{{true}}">
+  <view slot="content">{{page_name}}客户</view>
+</cu-custom>
+<form bindsubmit="formSubmit" report-submit="true">
+  <view class="cu-form-group">
+    <view class="title m-tw text-bold ">客户名称</view>
+    <input name="client_name" model:value="{{client_name}}" placeholder="请输入客户名称" class="text-right"></input>
+    <text class="cuIcon-roundclose lg text-gray padding-lr" wx:if="{{client_name}}" data-clearkey="client_name" catchtap="clearV" ></text>
+  </view>
+    <view class="cu-form-group">
+    <view class="title m-tw text-bold ">客户编号</view>
+    <input name="client_code" model:value="{{client_code}}" placeholder="请输入客户编号" class="text-right"></input>
+    <text class="cuIcon-roundclose lg text-gray padding-lr" wx:if="{{client_code}}" data-clearkey="client_code" catchtap="clearV" ></text>
+
+  </view>
+  <view class="cu-form-group margin-top-xs">
+    <view class="title m-tw text-bold ">折扣</view>
+    <input name="client_discount" model:value="{{client_discount}}" type="number" placeholder="请输入折扣"></input>
+    <text class="cuIcon-roundclose lg text-gray padding-lr margin-right-xs" wx:if="{{client_discount}}" data-clearkey="client_discount" catchtap="clearV" ></text>
+
+    <view class="cu-capsule radius">
+      <view class="cu-tag bg-d4d4d4">单位</view>
+      <view class="cu-tag line-d4d4d4">%</view>
+    </view>
+  </view>
+  <view class="cu-form-group">
+    <view class="title m-tw text-bold ">账户金额</view>
+    <input name="account_money" model:value="{{account_money}}" type="digit" placeholder="请输入账户金额"></input>
+    <text class="cuIcon-roundclose lg text-gray padding-lr margin-right-xs" wx:if="{{account_money||account_money===0}}" data-clearkey="account_money" catchtap="clearV" ></text>
+
+    <view class="cu-capsule radius">
+      <view class="cu-tag bg-d4d4d4">单位</view>
+      <view class="cu-tag line-d4d4d4">元</view>
+    </view>
+  </view>
+  <view class="cu-form-group">
+    <view class="title m-tw  text-bold ">状态</view>
+    <view class="flex" style="align-items: center;">
+      <text class="margin-right-sm">是否可用</text>
+      <switch name="client_status" class="goldb radius" checked="{{client_status}}" bindtap="switchChange"></switch>
+    </view>
+  </view>
+  <view class="cu-form-group margin-top-xs">
+    <view class="title m-tw text-bold ">联系电话</view>
+    <input name="client_phone" model:value="{{client_phone}}" maxlength="11" type="number" placeholder="请输入联系电话" class="text-right"></input>
+    <text class="cuIcon-roundclose lg text-gray padding-lr" wx:if="{{client_phone}}" data-clearkey="client_phone" catchtap="clearV" ></text>
+
+  </view>
+
+<view class="cu-form-group">
+    <view class="title m-tw text-bold ">电子邮箱</view>
+    <input name="client_email" model:value="{{client_email}}" placeholder="请输入电子邮箱" class="text-right"></input>
+    <text class="cuIcon-roundclose lg text-gray padding-lr" wx:if="{{client_email}}" data-clearkey="client_email" catchtap="clearV" ></text>
+
+  </view>
+
+
+
+  <view class="cu-form-group">
+    <view class="title m-tw text-bold ">地址</view>
+    <input name="client_address" model:value="{{client_address}}" placeholder="请输入供应商地址" class="text-right"></input>
+    <text class="cuIcon-roundclose lg text-gray padding-lr" wx:if="{{client_address}}" data-clearkey="client_address" catchtap="clearV" ></text>
+
+  </view>
+
+  <view class="cu-form-group">
+    <view class="title m-tw text-bold ">客户描述</view>
+    <input name="client_story" model:value="{{client_story}}" placeholder="请输入客户描述" class="text-right"></input>
+    <text class="cuIcon-roundclose lg text-gray padding-lr" wx:if="{{client_story}}" data-clearkey="client_story" catchtap="clearV" ></text>
+
+  </view>
+</form>
+
+<view style="height:110rpx"></view>
+  <view class="cu-bar bg-white foot justify-center flex-direction padding-sm">
+    <button class='cu-btn bg-goldb solid shadow block lg' style="width:100%"  bindtap="submit">
+      保存
+    </button>
+  </view>

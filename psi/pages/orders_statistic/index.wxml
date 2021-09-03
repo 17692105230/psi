@@ -1,0 +1,119 @@
+<wxs module="arrHandle">
+  var arrIndexOf = function (arr, item) {
+  return arr.indexOf(item) >= 0 ? true : false;
+  }
+  module.exports = {
+  arrIndexOf: arrIndexOf
+  }
+</wxs>
+<wxs module="util" src="/utils/util.wxs"></wxs>
+
+<cu-custom id="navbar" bgColor="bg-gold-new" isCustom="{{true}}">
+  <view slot="content">单据综合统计</view>
+</cu-custom>
+
+<!-- 顶部内容 -->
+    <view  id="header" class="bg-white flex justify-center align-center">
+      <!-- 日期筛选 -->
+      <!-- <view class="text-center padding-top padding-bottom-sm text-black flex-sub" bindtap="onShowMore">
+        {{date_list[date_index[tabsIndex]]}}<text class="cuIcon-triangledownfill"></text>
+      </view> -->
+
+      <view class="text-center padding-top padding-bottom-sm text-black" style="width:65%">
+        <!-- 自定义日期 -->
+        <view class="padding-lr-lg padding-tb-sm flex text-black justify-between align-center bg-white">
+          <view>
+            <picker mode="date" value="{{start_date}}" bindchange="bindDateStart">
+              <view class="solid line-blue padding-xs">
+                {{start_date}}
+              </view>
+            </picker>
+          </view>
+          <view>至</view>
+          <view>
+            <picker mode="date" value="{{end_date}}" bindchange="bindDateEnd">
+              <view class="solid line-blue padding-xs">
+                {{end_date}}
+              </view>
+            </picker>
+          </view>
+        </view>
+      </view>
+      <!-- 单据筛选 -->
+      <view class="text-center padding-top padding-bottom-sm text-black flex justify-center align-center" style="width:35%"
+        bindtap="onShowOrderType">
+        {{order_type[order_type_index]}}
+        <text class="cuIcon-triangledownfill"></text>
+
+        <button class="hr-avatar cuIcon-search radius shadow" style="line-heght:1.2em" catchtap="searchList"/>
+
+      </view>
+
+    </view>
+
+
+
+
+
+
+<!-- 日期 下拉框 -->
+<hr-top-dropdown show="{{0&&data_select_show}}" paddingbtm="110" translatey="{{CustomBar}}" translateyCompany="px">
+  <scroll-view class="tui-scroll-box" scroll-y scroll-top="{{scrollTop}}">
+    <view class="padding-sm">
+      <view class="grid col-3 text-center">
+        <view class="padding-lr padding-tb-sm" wx:for="{{date_list}}" wx:key="index">
+          <button class="cu-btn {{index==date_index[tabsIndex] ? 'bg-blue' : 'bg-grey'}}" style="width:100%;"
+            data-index="{{index}}" data-dateindex="{{tabsIndex}}" bindtap="change_purchase_date">{{item}}</button>
+        </view>
+      </view>
+      <!-- 自定义日期 -->
+      <view class="padding-lr-lg padding-tb-sm flex text-black justify-between bg-white"
+        wx:if="{{date_index[tabsIndex]==7}}">
+        <view>
+          <picker mode="date" value="{{start_date}}" bindchange="bindDateStart">
+            <view class="solid line-blue padding-lr padding-tb-sm">
+              {{start_date}}
+            </view>
+          </picker>
+        </view>
+        <view class="padding-lr padding-tb-sm">至</view>
+        <view>
+          <picker mode="date" value="{{end_date}}" bindchange="bindDateEnd">
+            <view class="solid line-blue padding-lr padding-tb-sm">
+              {{end_date}}
+            </view>
+          </picker>
+        </view>
+      </view>
+    </view>
+  </scroll-view>
+  <view class="tui-drop-btnbox">
+    <view class="tui-drop-btn btn-primary" hover-class="btn-hover" hover-stay-time="150" bindtap="btnCloseDrop">确定
+    </view>
+  </view>
+</hr-top-dropdown>
+
+<!-- 单据 下拉框 -->
+<hr-top-dropdown show="{{order_type_show}}" paddingbtm="110" translatey="{{CustomBar}}" height="330" translateyCompany="px">
+  <scroll-view class="tui-scroll-box" scroll-y scroll-top="{{scrollTop}}">
+    <view class="grid col-3 text-center">
+      <view class="padding-lr padding-tb-sm" wx:for="{{order_type}}" wx:key="index">
+        <button class="cu-btn {{index==order_type_index ? 'bg-blue' : 'bg-grey'}}" style="width:100%;"
+          data-index="{{index}}" bindtap="change_warehouse">{{item}}</button>
+      </view>
+    </view>
+  </scroll-view>
+  <view class="tui-drop-btnbox">
+    <view class="tui-drop-btn btn-primary" hover-class="btn-hover" hover-stay-time="150" bindtap="onCloseWarehouse">确定
+    </view>
+  </view>
+</hr-top-dropdown>
+
+
+
+
+
+<!-- 列表 -->
+<view class="box-radius">
+  <slide_list listHead="{{pageData.listHead}}" listFoot="{{pageData.listFoot}}" list="{{pageData.list}}" variateList="{{variateList}}" id="scroll-box" scroll_height="{{saleScrollViewHeight - 100}}" bind:tolower_parentEvent='tolower' nomore="{{nomore}}"></slide_list>
+</view>

@@ -1,0 +1,276 @@
+{
+  "setting": {},
+  "condition": {
+    "plugin": {
+      "list": []
+    },
+    "game": {
+      "list": []
+    },
+    "gamePlugin": {
+      "list": []
+    },
+    "miniprogram": {
+      "list": [
+        {
+          "name": "财务",
+          "pathName": "pages/finance/index",
+          "query": "",
+          "scene": null
+        },
+        {
+          "name": "通用列表页",
+          "pathName": "pages/common/common_list/index",
+          "query": "type=pdd",
+          "scene": null
+        },
+        {
+          "name": "库存分析",
+          "pathName": "pages/reportform/Inventory_analysis/index",
+          "query": "",
+          "scene": null
+        },
+        {
+          "name": "库存查询",
+          "pathName": "pages/reportform/Inventory_query/index",
+          "query": "",
+          "scene": null
+        },
+        {
+          "name": "销售模块列表页",
+          "pathName": "pages/sale/index",
+          "query": "",
+          "scene": null
+        },
+        {
+          "name": "销售分析",
+          "pathName": "pages/reportform/sales_analysis/sales_analysis",
+          "query": "",
+          "scene": null
+        },
+        {
+          "name": "销售退货单",
+          "pathName": "pages/sale/sale_return_order/index",
+          "query": "",
+          "scene": null
+        },
+        {
+          "name": "销售退货单编辑",
+          "pathName": "pages/sale/sale_return_order/index",
+          "query": "code=SRO210524131425287",
+          "scene": null
+        },
+        {
+          "name": "积分设置",
+          "pathName": "pages/sale/integral/index",
+          "query": "code=SRO210524131425287",
+          "scene": null
+        },
+        {
+          "name": "盘点单edit",
+          "pathName": "pages/stock/check_order/index",
+          "query": "",
+          "scene": null
+        },
+        {
+          "name": "库存列表",
+          "pathName": "pages/stock/index",
+          "query": "",
+          "scene": null
+        },
+        {
+          "name": "销售订单",
+          "pathName": "pages/sale/sale_pre_order/index",
+          "query": "",
+          "scene": null
+        },
+        {
+          "name": "盘点单",
+          "pathName": "pages/common/common_list/index",
+          "query": "type=pdd",
+          "scene": null
+        },
+        {
+          "name": "采购订单",
+          "pathName": "pages/purchase/purchase_pre_order/index",
+          "query": "type=pdd",
+          "scene": null
+        },
+        {
+          "name": "goods",
+          "pathName": "pages/example6/index",
+          "query": "",
+          "scene": null
+        },
+        {
+          "name": "pages/example3/popup",
+          "pathName": "pages/example3/popup",
+          "query": "",
+          "scene": null
+        },
+        {
+          "name": "采购单",
+          "pathName": "pages/example4/index",
+          "query": "",
+          "scene": null
+        },
+        {
+          "name": "pages/stock/index",
+          "pathName": "pages/stock/index",
+          "query": "",
+          "scene": null
+        },
+        {
+          "name": "pages/example4/list/list",
+          "pathName": "pages/example4/list/list",
+          "query": "",
+          "scene": null
+        },
+        {
+          "name": "pages/example4/index",
+          "pathName": "pages/example4/index",
+          "query": "",
+          "scene": null
+        },
+        {
+          "name": "pages/sale/sale_order/index",
+          "pathName": "pages/sale/sale_order/index",
+          "query": "",
+          "scene": null
+        },
+        {
+          "name": "type=pdd",
+          "pathName": "pages/common/common_list/index",
+          "query": "type=pdd",
+          "scene": null
+        },
+        {
+          "name": "pages/example2/index",
+          "pathName": "pages/example2/index",
+          "query": "type=edit&goods_id=12",
+          "scene": null
+        },
+        {
+          "name": "pages/example2/index",
+          "pathName": "pages/example2/index",
+          "query": "type=edit&goods_id=10",
+          "scene": null
+        },
+        {
+          "name": "pages/supplier/edit",
+          "pathName": "pages/supplier/edit",
+          "query": "type=edit&supplier_id=3&lock_version=0",
+          "scene": null
+        },
+        {
+          "name": "权限管理",
+          "pathName": "pages/authority_management/index",
+          "query": "",
+          "scene": null
+        },
+        {
+          "name": "pages/authority_management/index",
+          "pathName": "pages/authority_management/index",
+          "query": "TabCur=2",
+          "scene": null
+        },
+        {
+          "name": "会员管理",
+          "pathName": "pages/member/index",
+          "query": "",
+          "scene": null
+        },
+        {
+          "name": "pages/member/edit",
+          "pathName": "pages/member/edit",
+          "query": "",
+          "scene": null
+        },
+        {
+          "name": "收银台",
+          "pathName": "pages/example1_new/index",
+          "query": "",
+          "scene": null
+        },
+        {
+          "name": "结算确认",
+          "pathName": "pages/example5/index",
+          "query": "",
+          "scene": null
+        },
+        {
+          "name": "登录",
+          "pathName": "pages/home/index",
+          "query": "type=login",
+          "scene": null
+        },
+        {
+          "name": "pages/authority_management/index",
+          "pathName": "pages/authority_management/index",
+          "query": "",
+          "scene": null
+        },
+        {
+          "name": "pages/orders_statistic/index",
+          "pathName": "pages/orders_statistic/index",
+          "query": "",
+          "scene": null
+        },
+        {
+          "name": "pages/example6/index",
+          "pathName": "pages/example6/index",
+          "query": "",
+          "scene": null
+        },
+        {
+          "name": "pages/orders_statistic/index",
+          "pathName": "pages/orders_statistic/index",
+          "query": "",
+          "scene": null
+        },
+        {
+          "name": "hy",
+          "pathName": "pages/member/index",
+          "query": "",
+          "scene": null
+        },
+        {
+          "name": "pages/member/detail",
+          "pathName": "pages/member/detail",
+          "query": "id=12",
+          "scene": null
+        },
+        {
+          "name": "pages/example1_new/index",
+          "pathName": "pages/example1_new/index",
+          "query": "",
+          "scene": null
+        },
+        {
+          "name": "pages/reportform/index",
+          "pathName": "pages/reportform/index",
+          "query": "",
+          "scene": null
+        },
+        {
+          "name": "pages/client_base/index",
+          "pathName": "pages/client_base/index",
+          "query": "",
+          "scene": null
+        },
+        {
+          "name": "pages/client_base/index",
+          "pathName": "pages/client_base/index",
+          "query": "",
+          "scene": null
+        },
+        {
+          "name": "pages/reportform/purchase_analysis/index",
+          "pathName": "pages/reportform/purchase_analysis/index",
+          "query": "",
+          "scene": null
+        }
+      ]
+    }
+  }
+}

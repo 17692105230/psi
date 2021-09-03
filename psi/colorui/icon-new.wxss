@@ -1,0 +1,25 @@
+@font-face {
+  font-family: 'cuIconNew';  /* project id 2239911 */
+  src: url('//at.alicdn.com/t/font_2239911_ebzup4nkwd.eot');
+  src: url('//at.alicdn.com/t/font_2239911_ebzup4nkwd.eot?#iefix') format('embedded-opentype'),
+  url('//at.alicdn.com/t/font_2239911_ebzup4nkwd.woff2') format('woff2'),
+  url('//at.alicdn.com/t/font_2239911_ebzup4nkwd.woff') format('woff'),
+  url('//at.alicdn.com/t/font_2239911_ebzup4nkwd.ttf') format('truetype'),
+  url('//at.alicdn.com/t/font_2239911_ebzup4nkwd.svg#iconfont') format('svg');
+}
+.cuIconNew {
+  font-family: "cuIconNew" !important;
+  font-style: normal;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.cuIconNew-qiehuan:before {
+  content: "\e60f";
+}
+.cuIconNew-qiehuan-round:before {
+  content: "\e662";
+}
+.cuIconNew-paixu:before {
+  content: "\e78a";
+}

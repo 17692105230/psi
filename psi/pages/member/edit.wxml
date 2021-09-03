@@ -1,0 +1,96 @@
+<!--pages/member/edit.wxml-->
+<cu-custom bgColor="bg-gold-new" isCustom="{{true}}">
+  <view slot="content">{{edit?'编辑':'新增'}}会员</view>
+</cu-custom>
+
+<form>
+  <view class="cu-form-group">
+    <view class="title m-tw text-bold ">会员名称 <text class="text-red">*</text> </view>
+    <input class="text-right" model:value="{{member_name}}" placeholder="请输入会员名称"></input>
+    <text class="cuIcon-roundclose lg text-gray padding-lr" wx:if="{{member_name}}" data-clearkey="member_name" catchtap="clearV" ></text>
+  </view>
+
+  <view class="cu-form-group">
+    <view class="title m-tw text-bold ">联系电话 <text class="text-red">*</text> </view>
+    <input class="text-right" model:value="{{member_phone}}" placeholder="请输入联系电话" type="tel" maxlength="11"></input>
+    <text class="cuIcon-roundclose lg text-gray padding-lr" wx:if="{{member_phone}}" data-clearkey="member_phone" catchtap="clearV" ></text>
+  </view>
+  <view class="cu-form-group">
+    <view class="title m-tw text-bold ">身份证号 <text class="text-red">*</text> </view>
+    <input class="text-right" model:value="{{member_idcode}}" placeholder="请输入身份证号" type="idcard"></input>
+    <text class="cuIcon-roundclose lg text-gray padding-lr" wx:if="{{member_idcode}}" data-clearkey="member_idcode" catchtap="clearV" ></text>
+  </view>
+  <!-- <view class="cu-form-group">
+    <view class="title m-tw text-bold ">会员账号</view>
+    <input model:value="{{member_code}}" placeholder="请输入会员账号"></input>
+  </view> -->
+  <view class="cu-form-group">
+    <view class="title m-tw text-bold ">生日</view>
+    <picker class="data" mode="date" model:value="{{ member_birthday}}" start="1900-01-01" bindchange="DateChange">
+			<view class="picker">
+				{{member_birthday}}
+			</view>
+		</picker>
+  </view>
+  <view class="cu-form-group">
+    <view class="title m-tw text-bold ">性别</view>
+    <radio-group bindchange="sexChange" class="sex justify-end">
+      <label>
+        <radio value="1" checked="{{member_sex==1}}"/>男
+      </label>
+      <label>
+        <radio value="0"  checked="{{member_sex==0}}"/>女
+      </label>
+    </radio-group>
+
+  </view>
+
+  <view class="cu-form-group">
+    <view class="title m-tw text-bold ">邮箱</view>
+    <input class="text-right" model:value="{{member_email}}" placeholder="请输入会员邮箱"></input>
+    <text class="cuIcon-roundclose lg text-gray padding-lr" wx:if="{{member_email}}" data-clearkey="member_email" catchtap="clearV" ></text>
+  </view>
+  <view class="cu-form-group">
+    <view class="title m-tw text-bold ">Q Q</view>
+    <input class="text-right" model:value="{{member_qq}}" placeholder="请输入会员QQ号"></input>
+    <text class="cuIcon-roundclose lg text-gray padding-lr" wx:if="{{member_qq}}" data-clearkey="member_qq" catchtap="clearV" ></text>
+  </view>
+  <view class="cu-form-group">
+    <view class="title m-tw text-bold ">微信号</view>
+    <input class="text-right" model:value="{{member_wechat}}" placeholder="请输入会员微信号"></input>
+    <text class="cuIcon-roundclose lg text-gray padding-lr" wx:if="{{member_wechat}}" data-clearkey="member_wechat" catchtap="clearV" ></text>
+  </view>
+  <view class="cu-form-group">
+    <view class="title m-tw text-bold ">年龄</view>
+    <input class="text-right" model:value="{{member_age}}" placeholder="请输入会员年龄" type="number" min="0" max="120"></input>
+    <text class="cuIcon-roundclose lg text-gray padding-lr" wx:if="{{member_age}}" data-clearkey="member_age" catchtap="clearV" ></text>
+  </view>
+  <view class="cu-form-group">
+    <view class="title m-tw text-bold ">身高</view>
+    <input class="text-right" model:value="{{member_height}}" placeholder="请输入会员身高" type="number" min="0" max="300"></input>
+    <text class="cuIcon-roundclose lg text-gray padding-lr" wx:if="{{member_height}}" data-clearkey="member_height" catchtap="clearV" ></text>
+  </view>
+  <view class="cu-form-group">
+    <view class="title m-tw text-bold ">地址</view>
+    <input class="text-right" model:value="{{member_address}}" placeholder="请输入会员地址"></input>
+    <text class="cuIcon-roundclose lg text-gray padding-lr" wx:if="{{member_address}}" data-clearkey="member_address" catchtap="clearV" ></text>
+  </view>
+
+  <view class="cu-form-group storyBox">
+    <view class="title m-tw text-bold ">描述</view>
+    <input class="text-right" placeholder="请输入会员描述" model:value="{{member_story}}" />
+    <!-- <textarea class="solid textarea" placeholder="请输入会员描述" model:value="{{member_story}}" cols="30" rows="10"></textarea> -->
+    <text class="cuIcon-roundclose lg text-gray padding-lr clearV" wx:if="{{member_story}}" data-clearkey="member_story" catchtap="clearV" ></text>
+  </view>
+  <view class="cu-form-group">
+    <view class="title m-tw text-bold ">会员状态</view>
+    <view class="text">
+      <switch type="checkbox" model:checked="{{member_status}}" type="switch" />
+      <!-- {{member_status?'开启':'关闭'}} -->
+    </view>
+  </view>
+
+  <view class='padding'>
+    <button class='cu-btn block lg bg-goldb' bindtap="submit">保存</button>
+  </view>
+</form>

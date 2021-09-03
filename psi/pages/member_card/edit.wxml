@@ -1,0 +1,42 @@
+<cu-custom id="navbar" bgColor="bg-gold-new" isCustom="{{true}}">
+  <view slot="content">{{page_name}}会员卡</view>
+</cu-custom>
+<form bindsubmit="formSubmit" report-submit="true">
+  <view class="cu-form-group">
+    <view class="title m-tw text-bold text-red">会员姓名</view>
+    <input name="member_name" model:value="{{member_name}}" placeholder="请输入会员姓名"></input>
+  </view>
+  <view class="cu-form-group">
+    <view class="title m-tw text-bold text-red">手机号</view>
+    <input name="member_phone" model:value="{{member_phone}}" placeholder="请输入手机号"></input>
+  </view>
+  <view class="cu-form-group">
+    <view class="title m-tw text-bold text-red">生日</view>
+    <picker mode="date" value="{{member_birthday}}" bindchange="DateChange">
+      <view class="picker">
+        {{member_birthday}}
+      </view>
+    </picker>
+  </view>
+  <view class="cu-form-group">
+    <view class="title text-bold text-red">状态</view>
+    <view class="flex" style="align-items: center;">
+      <text class="margin-right-sm">是否激活</text>
+      <switch name="member_status" class="orange radius" checked="{{member_status}}" bindtap="switchChange"></switch>
+    </view>
+  </view>
+
+  <view class="cu-form-group">
+    <view class="title m-tw">当前积分</view>
+    <input name="member_accumulative_integral" model:value="{{member_accumulative_integral}}"></input>
+  </view>
+
+  <view class="cu-form-group">
+    <view class="title m-tw">地址</view>
+    <input name="member_address" model:value="{{member_address}}" placeholder="请输入地址"></input>
+  </view>
+
+  <view class='padding'>
+    <button class='cu-btn bg-orange block lg' bindtap="submit">保存</button>
+  </view>
+</form>

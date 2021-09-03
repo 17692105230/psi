@@ -1,0 +1,273 @@
+<cu-custom id="navbar" bgColor="bg-goldb" isCustom="{{true}}">
+  <view slot="content">{{isRetail?'零售单':'销售单'}}</view>
+</cu-custom>
+<view id="header">
+  <form>
+    <view id='order' style="display:{{showHeader}};">
+      <view class="hr-form-group z-relative">
+        <view class="title">客户</view>
+        <picker range="{{clientList}}" range-key="client_name" value="{{clientList_index}}" bindchange="clientListchange"
+        disabled="{{!loadOk || orders_status==9}}">          
+          <view class="picker text-gray" wx:if="{{clientList.length>0&&clientList_index>-1}}">{{clientList[clientList_index].client_name || member_name}}</view>
+          <view class="picker text-gray" wx:else>暂无客户</view>
+        </picker>
+      </view>
+      <view class="hr-form-group z-relative">
+        <view class="title">销售员</view>
+        <picker range="{{userList}}" range-key="user_name" value="{{userList_index}}" bindchange="userListchange"
+        disabled="{{!loadOk || orders_status==9}}">          
+          <view class="picker text-gray" wx:if="{{userList.length>0&&userList_index>-1}}">{{userList[userList_index].user_name}}</view>
+          <view class="picker text-gray" wx:else>暂无销售员</view>
+        </picker>
+      </view>
+      <view class="hr-form-group z-relative">
+        <view class="title">仓库</view>
+        <picker range="{{organizationList}}" range-key="org_name" value="{{organizationList_index}}" bindtap="orgChange" bindchange="organizationListchange"
+        disabled="{{!loadOk || orders_status==9}}">          
+          <view class="picker text-gray" wx:if="{{organizationList.length>0&&organizationList_index>-1}}">{{organizationList[organizationList_index].org_name}}</view>
+          <view class="picker text-gray" wx:else>暂无仓库</view>
+        </picker>
+      </view>
+      <view id="btnOrder" class="flex bg-white hr-solid-top z-relative" style="padding:0rpx 20rpx;">
+        <!-- <button class="flex-treble cu-btn bg-green margin-tb-xs df shadow">保存采购单</button> -->
+        <!-- <button class="flex-sub cu-btn bg-grey margin-tb-xs df margin-left-sm shadow" bindtap="onShowMore">更多信息</button> -->
+        <button class="flex-sub cu-btn margin-tb-xs df margin-sm text-yellowNew" bindtap="onShowMore" style="background:none;">更多信息<text class="margin-left {{fold ? 'cuIcon-fold' : 'cuIcon-unfold'}}"></text></button>
+      </view>
+    </view>
+  </form>
+  <view id="mainBar" class="hr-bar bg-white">
+    <button class="hr-avatar radius cuIcon-full" bindtap="onShowHeader" />
+    <view class="search-form radius" bindtap="showHrNumber" data-target="trueMoney">
+      <text class="text-df">实收金额</text>
+      <input placeholder-class="phcolor" disabled="true" value="{{trueMoney}}" class="tui-input text-right" name="" placeholder="实付金额" maxlength="12" type="digit" />      
+    </view>
+    <view class="action">
+      <!-- <button class="hr-avatar cuIcon-settings radius shadow" catchtap="onShowDiscountSetting" /> -->
+      <!-- <button class="hr-avatar cuIcon-delete radius shadow" /> -->
+      <button class="hr-avatar cuIcon-search radius shadow" catchtap="onShowSearchGoods" wx:if="{{(!orders_status)||(orders_status!=9)}}"/>
+    </view>
+  </view>
+</view>
+<!-- 商品列表 -->
+<!-- <scroll-view scroll-y="true" style="height:{{mScrollViewHeight}}px;" refresher-enabled="{{isRefresher}}" refresher-threshold="{{45}}" refresher-default-style="black" refresher-triggered="{{triggered}}" bindrefresherpulling="onPulling" bindrefresherrefresh="onRefresh"
+  bindrefresherrestore="onRestore" bindrefresherabort="onAbort" bindscrolltolower="onMore" scroll-top="{{goodsScrollTop}}" scroll-with-animation="{{true}}"> -->
+
+  <scroll-view scroll-y="true" style="height:{{mScrollViewHeight}}px;" refresher-threshold="{{45}}" refresher-default-style="black" refresher-triggered="{{triggered}}" bindrefresherpulling="onPulling" bindrefresherrefresh="onRefresh"
+  bindrefresherrestore="onRestore" bindrefresherabort="onAbort" bindscrolltolower="onMore" scroll-top="{{goodsScrollTop}}" scroll-with-animation="{{true}}">
+  <goods-list-new list="{{list}}" twoname="list" bindDelGoods="onDelGoodsTip" bindEditGoods="onEditGoods" bindListChange="onListChange" edit="{{orders_status==9}}"/>
+  <!-- <block wx:if="{{list.length<=0}}"> -->
+  <block>
+    <view class="padding-xl text-center" wx:if="{{list.length <= 0}}">
+      <view class="null-content text-sl text-gray padding-xl text-shadow" style="height:500rpx;">
+        <text class="cuIcon-bad"></text>
+        <text class="text-sm margin-top-xs">暂无商品</text>
+        <button class="cu-btn round bg-autumn button-hover margin-top padding-lr-lg" style="color:white;"
+          bindtap="onShowSearchGoods">添加商品</button>
+      </view>
+      <!-- <view>请搜索或扫码增加商品</view>
+      <view class="padding-xl flex justify-center">
+        <button class="hr-avatar cuIcon-search radius shadow" catchtap="onShowSearchGoods" />
+        <button class="hr-avatar cuIcon-scan radius shadow" catchtap="onScanGoods" />
+      </view> -->
+    </view>
+  </block>
+</scroll-view>
+<!-- 底部工具栏 -->
+<view id="tabBar" class="cu-bar tabbar  {{loadOk?'bg-white foot':''}} ">
+  <view class="action text-orange solid-right" catchtap="onScanGoods" wx:if="{{loadOk && ((!orders_status)||(orders_status!=9))}}">
+    <view class="cuIcon-scan text-xl"></view> 扫码
+  </view><!-- <view wx:else  style="width:160rpx;" data-type="扫码占位"></view> -->
+  <view class="action text-gray solid-right" wx:if="{{loadOk}}">
+    <view class="text-center margin-bottom-xs">
+      <text class="text-df text-gray">金额</text>
+      <text class="text-df text-gray">/数量</text>
+    </view>
+    <view class="text-center ">
+      <text class="text-df text-red text-bold">￥{{sumprice}}</text>
+      <text class="text-df text-black text-bold">/{{sumcount}}</text>
+    </view>
+  </view>
+  <view class="action text-gray add-action" wx:if="{{loadOk && ((!orders_status)||(orders_status!=9))}}">
+    <button class="cu-btn cuIcon-baocun bg-goldb" bindtap="saveTip"></button>
+  </view>
+</view>
+
+<!-- 商品选择 -->
+<goods words="{{words}}" goods="{{goods}}" list="{{listGoods}}" mSelectIndex="{{mSelectIndex}}" mSelectType="{{mSelectType}}" mIsDisplay="{{mIsDisplay}}" bindReturnGoodsData="onReturnGoodsData" bindReturnRealTimeData="onReturnRealTimeData" />
+
+<!-- 设置折扣 -->
+<view class="cu-modal {{showDiscountSetting?'show':''}}">
+  <view class="cu-dialog">
+    <view class="cu-bar bg-white justify-end">
+      <view class="content">设置整体折扣</view>
+      <view class="action" bindtap="onHideDiscountSetting">
+        <text class="cuIcon-close text-red"></text>
+      </view>
+    </view>
+    <view class="solid-top solid-bottom" style="--white:#eee;">
+      <view class="cu-form-group">
+        <view class="title">商品折扣</view>
+        <input placeholder="请输入折扣" type="number" model:value="{{discount}}" style="text-align:left;border-bottom: 1rpx solid rgba(0, 0, 0, 0.3);" />
+        <view class="cu-capsule radius margin-left">
+          <view class="cu-tag bg-blue">折扣</view>
+          <view class="cu-tag line-blue">数字</view>
+        </view>
+      </view>
+      <view class="text-gray text-sm" style="background-color:#eee;padding:0 0 20rpx 20rpx;text-align:left;">
+        <text class="cuIcon-warn margin-right-xs"></text>折扣这顶必须为数字。例如设置95折请输入：95</view>
+    </view>
+    <view class="cu-bar bg-white">
+      <view class="action margin-0 flex-sub text-green solid-left" catchtap="onHideDiscountSetting">取消</view>
+      <view class="action margin-0 flex-sub solid-left" catchtap="setDiscount">确定</view>
+    </view>
+  </view>
+</view>
+
+<hr-top-dropdown show="{{dropShow}}" paddingbtm="110" translatey="{{moreInfoHeight}}" translateyCompany="px" height="{{isRetail?'480':'730'}}" bind:close="btnCloseDrop">
+  <scroll-view class="tui-scroll-box" scroll-y="{{!isRetail}}" scroll-top="{{scrollTop}}" style="{{isRetail?'height:380rpx':'height:620rpx;'}}">
+    <view class="padding-sm text-black">
+      <view class="cu-form-group">
+        <view class="title">日期选择</view>
+        <picker mode="date" value="{{date}}" start="{{startDate}}" end="2099-12-31" bindchange="DateChange"
+        disabled="{{!loadOk || orders_status==9}}">
+          <view class="picker">
+            {{date}}
+          </view>
+        </picker>
+      </view>
+    </view>
+    <view class="padding-sm text-black padding-top-0">
+      <view class="cu-form-group" bindtap="showHrNumber" data-target="moveFload">
+        <view class="title">抹零</view>
+        <input placeholder-class="phcolor" disabled="true" value="{{moveFload}}" class="tui-input text-right" name="" placeholder="请输入抹零金额" maxlength="12" type="digit" />
+      </view>
+    </view>
+    <view class="padding-sm text-black padding-top-0" wx:if="{{!isRetail}}">
+      <view class="cu-form-group">
+        <view class="title">其他费用</view>
+        <picker mode="selector" value="{{otherMoneyListIndex}}" bindchange="OtherMoneyChange" range="{{otherMoneyList}}" range-key="dict_name"
+        disabled="{{!loadOk || orders_status==9}}">
+          <view class="picker">
+            {{otherMoneyList[otherMoneyListIndex].dict_name}}
+          </view>
+        </picker>
+      </view>
+    </view>
+    <view class="padding-sm text-black padding-top-0"  wx:if="{{!isRetail}}">
+      <view class="cu-form-group" bindtap="showHrNumber" data-target="otherMoney">
+        <view class="title">费用金额</view>
+        <input placeholder-class="phcolor" value="{{otherMoney}}" disabled="true" class="tui-input text-right" name="" placeholder="请输入金额" maxlength="12" type="digit" />
+      </view>
+    </view>
+    <view class="padding-sm text-black padding-top-0"  wx:if="{{!isRetail}}">
+      <view class="cu-form-group">
+        <view class="title">发货方式</view>
+        <picker mode="selector" value="{{deliveryListIndex}}" bindchange="deliveryChange" range="{{deliveryList}}" range-key="dict_name"
+        disabled="{{!loadOk || orders_status==9}}">
+          <view class="picker">
+            {{deliveryList[deliveryListIndex].dict_name}}
+          </view>
+        </picker>
+      </view>
+    </view>
+    <view class="padding-sm text-black padding-top-0">
+      <view class="cu-form-group">
+        <view class="title">结算账户</view>
+        <picker mode="selector" value="{{settlementListIndex}}" bindchange="settlementChange" range="{{settlementList}}" range-key="settlement_name"
+        disabled="{{!loadOk || orders_status==9}}">
+          <view class="picker">
+            {{settlementList[settlementListIndex].settlement_name}}
+          </view>
+        </picker>
+      </view>
+    </view>
+    <!-- <view class="padding-sm text-black padding-top-0">
+      <view class="cu-form-group">
+        <view class="title">垫付方式</view>
+        <picker mode="selector" value="{{advancePaymentIndex}}" bindchange="advancePaymentChange" range="{{advancePayment}}" range-key="name">
+          <view class="picker">
+            {{advancePayment[advancePaymentIndex].name}}
+          </view>
+        </picker>
+      </view>
+    </view> -->
+    <view class="padding-sm text-black padding-top-0"  wx:if="{{!isRetail}}">
+      <view class="cu-form-group">
+        <view class="title">备注信息</view>
+        <input type="text" placeholder-class="phcolor" bindblur="savePurchaseOrderCache" model:value="{{remark}}" class="tui-input text-right" name="" placeholder="{{orders_status==9?'无备注':'请输入备注'}}" 
+        disabled="{{!loadOk || orders_status==9}}"/>
+      </view>
+    </view>
+    <view class="padding-sm text-black padding-top-0" bindtap="chooseFile"  wx:if="{{!isRetail}}">
+      <view class="cu-form-group">
+        <view class="title">选择附件</view>
+        <view  class="textOverflow" style="width:70%;">{{fileName}}</view> 
+        <view class="cuIcon-file" style="color:green;"></view>
+      </view>
+    </view>
+  </scroll-view>
+  <view class="tui-drop-btnbox">
+    <view class="tui-drop-btn btn-primary" hover-class="btn-hover" hover-stay-time="150" bindtap="btnCloseDrop">确定</view>
+  </view>
+</hr-top-dropdown>
+
+  
+<!-- 商品查询列表 -->
+<view class="cu-modal {{isGoodsSearchShow?'show':''}} selectGoodsLst" style="z-index:10000;" bindtap="onHideSearchGoods">
+  <view class="cu-dialog" catchtap style="padding-bottom:10rpx;">
+    <view class="cu-bar bg-goldb search" style="border-top-left-radius:6rpx;border-top-right-radius:6rpx;">
+      <view class="search-form radius" style="margin-right:0rpx;">
+        <text class="cuIcon-search"></text>
+        <input type="text" model:value="{{searchGoodsName}}" placeholder="使用货号、名称搜索商品" class="text-left" confirm-type="search"></input>
+        <text class="cuIcon-roundclose lg text-gray" wx:if="{{searchGoodsName}}" catchtap="clearV" data-clearkey="searchGoodsName"></text>
+      </view>
+      <view class="action" style="margin-right:0rpx;">
+        <button class="cu-btn bg-goldb" bindtap="searchGoods">搜索</button>
+      </view>
+    </view>
+    <scroll-view scroll-y style="min-height:500rpx;max-height:860rpx;">
+      <view class="cu-list menu-avatar" style="min-height:500rpx;">
+        <view class="cu-item cur item-goods-selset" wx:for="{{searchGoodsList}}" wx:key="index" catchtap="onSelectGoods" data-index="{{index}}">
+          <view class="cu-avatar radius lg" style="background-image:url({{item.images[0].assist_url}});">
+            <view class="cu-tag badge" wx:if="{{item.stockQuantity||item.stockQuantity===0}}" >{{item.stockQuantity>99?'99+':item.stockQuantity}}</view>
+          </view>
+          <view class="content">
+            <view>
+              <text class="text-cut">{{item.goods_name}}</text>
+              <view class="cu-tag round bg-orange sm" wx:if="{{false}}" >6人</view>
+            </view>
+            <view class="text-gray text-sm flex">
+              <view class="cu-capsule radius cu-capsule-border-goldb">
+                <view class="cu-tag margin-left-0" id="discount">
+                  采购价
+                </view>
+                <view class="cu-tag margin-left-0 text-price" id="discount-val">
+                  {{item.goods_pprice}}
+                </view>
+              </view>
+              <view class="cu-capsule radius cu-capsule-border-7DB8F8">
+                <view class="cu-tag" id="balance">
+                  零售价
+                </view>
+                <view class="cu-tag margin-left-0 text-price" id="balance-val">
+                  {{item.goods_rprice}}
+                </view>
+              </view>
+            </view>
+
+          </view>
+          <!-- <view class="action">
+            <view class="text-grey text-xs">22:20</view>
+            <view class="cuIcon-notice_forbid_fill text-gray"></view>
+          </view> -->
+        </view>
+<view wx:if="{{searchGoodsListOk&&searchGoodsList.length==0}}" class="zwsjBox goodsSearch">
+	<image src="/images/my/zwsj.png"></image>
+	<view class="text-center margin text-gray zwsjTxt">暂无数据</view>
+</view>
+      </view>
+    </scroll-view>
+  </view>
+</view>
+<hr-number showModal="{{hrnum.show}}" bindConfirm="onNumberConfirm" content="{{hrnum.content}}" value="{{hrnum.value}}" />
+<hr-sheet show="{{tipShow}}" tips="{{tips}}" item-list="{{tipItemList}}" mask-closable="{{tipMaskClosable}}" color="{{tipColor}}" size="{{tipSize}}" is-cancel="{{tipIsCancel}}" bind:click="{{tipItemClickName}}"  bind:cancel="tipCloseActionSheet"></hr-sheet>

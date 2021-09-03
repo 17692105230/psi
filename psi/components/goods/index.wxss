@@ -1,0 +1,217 @@
+/* ==================
+         表单 兵临城下
+ ==================== */
+
+.cu-form-group-new {
+  background-color: var(--white);
+  padding: 1rpx 30rpx;
+  display: flex;
+  align-items: center;
+  min-height: 100rpx;
+  justify-content: space-between;
+}
+
+.cu-form-group-new .title {
+  text-align: right;
+  padding-right: 30rpx;
+  font-size: 30rpx;
+  position: relative;
+  width: 150rpx;
+  height: 60rpx;
+  line-height: 60rpx;
+}
+
+.cu-form-group-new input {
+  flex: 1;
+  font-size: 30rpx;
+  color: #555;
+  padding-right: 20rpx;
+}
+
+
+
+.cu-form-group-new picker {
+  overflow: hidden;
+  position: relative;
+}
+
+.cu-form-group-new picker .picker {
+  line-height: 100rpx;
+  font-size: 28rpx;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+  width: 100%;
+  text-align: right;
+}
+
+/*
+.cu-form-group-new textarea[disabled],
+.cu-form-group-new textarea[disabled] .placeholder {
+  color: transparent;
+}
+*/
+
+.cu-form-picker picker {
+  flex: 1;
+  padding-right: 40rpx;
+  overflow: hidden;
+  position: relative;
+}
+
+.cu-form-picker picker .picker {
+  line-height: 100rpx;
+  font-size: 28rpx;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+  width: 100%;
+  text-align: right;
+}
+
+.cu-form-picker picker::after {
+  font-family: "cuIcon";
+  display: block;
+  content: "\e6a3";
+  position: absolute;
+  font-size: 34rpx;
+  color: var(--grey);
+  line-height: 100rpx;
+  width: 60rpx;
+  text-align: center;
+  top: 0;
+  bottom: 0;
+  right: -20rpx;
+  margin: auto;
+}
+
+/*--------------------------*/
+.typeBox .cu-dialog {
+  padding-top: 80rpx;
+  background-color: transparent !important;
+}
+
+.typeBox .modal-clear {
+  right: 180rpx;
+  top: 21rpx;
+  border-top-right-radius: 10rpx;
+  border-top-left-radius: 10rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 120rpx;
+  height: 60rpx;
+  background: #fff;
+  position: absolute;
+  color: green;
+}
+
+.typeBox .modal-close {
+  right: 20rpx;
+  top: 21rpx;
+  border-top-right-radius: 10rpx;
+  border-top-left-radius: 10rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 120rpx;
+  height: 60rpx;
+  background: #fff;
+  position: absolute;
+  color: #333;
+}
+
+.typeBox .modal-bd {
+  text-align: left;
+  background: #fff;
+}
+
+.typeBox .cu-modal.bottom-modal::before {
+  vertical-align: bottom;
+}
+
+.typeBox .cu-modal.bottom-modal .modal-dialog {
+  width: 100%;
+  border-radius: 0;
+}
+
+.typeBox .cu-modal.bottom-modal {
+  margin-bottom: -500px;
+}
+
+.typeBox .cu-modal.bottom-modal.cur {
+  margin-bottom: 0;
+}
+
+.typeBox .modal-bd {
+  padding: 10rpx 20rpx;
+}
+
+.type-goods {
+  display: flex;
+  padding-bottom: 5rpx;
+  margin-bottom: 10rpx;
+}
+
+.type-goods .flex-sub {
+  padding-left: 10px;
+  padding-top: 0px;
+}
+
+.type-goods image {
+  width: 120px;
+  height: 120px;
+  margin-top: -35px;
+  border-radius: 3px;
+  border: 2px solid #fff;
+}
+
+/*------------------------------------------*/
+
+.MsTab.nav {
+  background-color: #fff;
+}
+
+.MsTab.nav .cu-item {
+  height: auto;
+  border: 0px;
+  line-height: 40rpx;
+  text-align: center;
+  padding: 15rpx 20rpx 10rpx 20rpx;
+  border-radius: 10rpx;
+  width: 140rpx;
+  margin-left: 0rpx;
+}
+
+.MsTab.nav .cu-item .time {
+  font-size: 32rpx;
+}
+
+.MsTab.nav .cu-item .text {
+  font-size: 22rpx;
+}
+
+/* 设置 switch */
+
+.wx-switch-input {
+  width: 80rpx !important;
+  height: 44rpx !important;
+}
+
+.wx-switch-input::before {
+  width: 80rpx !important;
+  height: 44rpx !important;
+}
+
+.wx-switch-input::after {
+  width: 50rpx !important;
+  height: 44rpx !important;
+}
+
+.switch-music::after {
+  content: "\e75b";
+}
+
+.switch-music::before {
+  content: "\e75c";
+}

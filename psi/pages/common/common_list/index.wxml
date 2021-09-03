@@ -1,0 +1,82 @@
+<cu-custom id="navbar" bgColor="bg-goldb" isCustom="{{true}}">
+	<view slot="content">{{title}}</view>
+</cu-custom>
+
+<scroll-view scroll-x class="bg-white nav" id="navBar">
+	<view class="flex text-center">
+		<view class="cu-item flex-sub {{item.index==TabCur?'text-orange cur':''}}" wx:for="{{statusList}}" wx:key="index"
+			bindtap="tabSelect" data-status="{{item.index}}">
+			{{item.item}}
+		</view>
+	</view>
+</scroll-view>
+
+<scroll-view scroll-y style="height:{{saleScrollViewHeight}}px;" refresher-enabled="{{true}}" refresher-triggered="{{triggered}}" bindrefresherrefresh="onRefresh" bindscrolltolower="tolower">
+	<view class="padding-top-sm" wx:if="{{list.length>0}}">
+		<view style="{{bottomText?'margin-bottom:130px;':''}}" class=" flex flex-direction align-center">
+			<view class="margin-bottom-sm bg-white padding-sm item {{active[index]?'active':''}} radius"
+				wx:for="{{list}}" wx:key="index" bindtap="details" data-qx="{{item.editqx.haveQx}}" data-id="{{item.id}}" data-index="{{index}}" style="width:95%;">
+
+				<view class="flex align-center padding-bottom-sm solid-bottom line-gray">
+					<view class="flex align-center justify-center" style="font-size:56rpx">
+						<!-- 单据 图标 -->
+						<image wx:if="{{item.orders_status == 9}}" class="orders_icon" src="/images/my/zsIcon.png"></image>
+						<image wx:else="{{item.orders_status == 0}}" class="orders_icon" src="/images/my/cgIcon.png"></image>
+					</view>
+					<view class="margin-left-sm text-blod flex-sub">
+						<view class="text-orange">{{item.orders_status == 9?'正式':'草稿'}}单据</view>
+						<view class=" margin-top-xs flex-sub text-black text-bold" wx:if="{{item.outorg}}">{{item.outorg}} 调入
+							{{item.inorg}}</view>
+						<view class="margin-top-xs  flex-sub text-black text-bold" wx:if="{{item.client}}">{{item.client}}</view>
+					</view>
+					<view class="cuIcon-right" style="font-size:38rpx"></view>
+				</view>
+
+
+				<view class="padding-top-sm" wx:if="{{item.money}}">
+					金额：
+					<text class="text-price text-red text-bold text-lg">{{item.money}}</text>
+				</view>
+				<view class="grid col-1 padding-top-sm text-grey">
+					<view class="text-cut" wx:if="{{item.salesman}}">
+						<view class="">业务员：{{item.salesman}}</view>
+					</view>
+					<view class="text-cut" wx:if="{{item.goods_number||item.goods_number===0}}">
+						<view class="">{{sumNumberName}}总数：{{item.goods_number}}</view>
+					</view>
+					<view class="text-cut" wx:if="{{item.goods_plnumber||item.goods_plnumber===0}}">
+						<view class="">盈亏数量：{{item.goods_plnumber}}</view>
+					</view>
+					<view class=" text-cut" wx:if="{{item.user_id}}">
+						<view class="">制单员：{{item.user.user_name}}</view>
+					</view>
+					<view>
+						<view>日期：{{item.date}}						
+						</view>
+					</view>
+				</view>
+				<view class="btn" wx:if="{{item.delqx.haveQx}}" >
+					<button wx:if="{{item.orders_status != 9}}" class="cu-btn bg-gray round" catchtap="delete" data-code="{{item.orders_code}}"
+						data-state="{{item.state}}" data-version="{{item.lock_version}}" data-id="{{item.id}}">删除</button>
+				</view>
+			</view>
+		</view>
+		<view class="text-center padding text-gray" wx:if="{{nomore}}">没有更多了</view>
+		<!-- 底部 合计 -->
+		<view class="grid col-2" style="position:fixed;bottom:0;wdth:100%;left: 0;right: 0;" wx:if="{{bottomText}}">
+			<view class="bg-white padding-top padding-bottom padding-left-sm">
+				<text class="text-lg">合计:</text><text class="text-red">￥{{allMoney}}</text>
+			</view>
+			<view class="bg-cyan padding-top padding-bottom text-center text-white" bindtap="to" data-page="{{toPage}}">
+				{{bottomText}}
+			</view>
+		</view>
+
+	</view>
+	<view wx:if="{{loadOk&&list.length==0}}" class="zwsjBox padding">
+		<image src="/images/my/zwsj.png"></image>
+		<view class="text-center margin text-gray zwsjTxt">暂无数据</view>
+	</view>
+
+
+</scroll-view>

@@ -1,0 +1,59 @@
+<view wx:for="{{list}}" wx:for-item="item" wx:for-index="index" wx:key="index">
+	<!-- 一级 -->
+	<view class="flex align-center bg-white padding-sm solids-bottom" bindtap="onItemClick" data-index="{{index}}">
+		<view class="cuIcon-cascades text-blue margin-right-sm text-bold"></view>
+		<view class="flex-sub cu-card"> 
+			<view class="text-lg text-1">{{item.goods_name}}</view>
+			<view class="margin-top-xs flex">
+				<view class="bg-gray padding-xs text-green margin-right-sm text-sm">
+					<text>{{item.inputQuantity}}</text>
+					<text style="margin:0 10rpx;">×</text>
+					<text class="text-price">{{item.goods_rprice||item.goods_price}}</text>
+					<text style="margin:0 10rpx;">=</text>
+					<text class="text-price">{{item.inputQuantity*(item.goods_rprice||item.goods_price)}}</text>
+				</view>
+				<view class="bg-gray padding-xs text-red text-price text-sm">
+					<!-- {{item.goods_tmoney}} -->
+					{{item.inputQuantity*(item.goods_rprice||item.goods_price)}}
+				</view>
+			</view>
+		</view>
+		<view class="action margin-right">
+			<button class="cu-btn round bg-orange shadow sm text-xxl margin-right-sm" catchtap="onDelGoods" data-index="{{index}}" wx:if="{{!edit}}">
+				<text class="cuIcon-delete text-ml"></text>
+			</button> 
+			<button class="cu-btn round bg-green shadow sm text-xxl" catchtap="onEditGoods" data-index="{{index}}"  wx:if="{{!edit}}">
+				<text class="cuIcon-edit text-ml"></text>
+			</button>
+		</view>
+		<!-- <view class="{{cuIcon_right?'cuIcon-unfold':'cuIcon-right'}} text-ml"></view> -->
+		<view class="cuIcon-right text-ml"></view>
+	</view>
+	<!-- </view> -->
+	<!-- 二级 -->
+
+	<view wx:for="{{item[twoname]}}" wx:for-index="colorIndex" wx:if="{{color.inputQuantity}}" wx:for-item="color" wx:key="colorIndex" hidden='{{!item.colorShow}}'>
+		<view class="flex bg-white margin-left-xl padding-sm align-center {{colorIndex==0?'':'solids-top'}}" bindtap="onColorClick" data-index="{{index}}" data-colorindex="{{colorIndex}}">
+			<view class="cuIcon-discover margin-right-xs text-grey"></view>
+			<view class="flex-sub text-grey">{{color.color_name}}</view>
+			<view class="bg-orange round padding-xs text-sm margin-right">
+				<text>{{color.inputQuantity}}</text>
+				<text style="margin:0 10rpx;">×</text>
+				<text class="text-price">	{{item.goods_rprice||item.goods_price}}</text>
+				<text style="margin:0 10rpx;">=</text>
+				<text class="text-price">{{color.inputQuantity*(item.goods_rprice||item.goods_price)}}</text>
+			</view>
+			<!-- <view class="{{cuIcon_right2[colorIndex]?'cuIcon-unfold':'cuIcon-right'}} text-ml"></view> -->
+			<view class="cuIcon-right text-ml"></view>
+		</view>
+		<!-- 三级 -->
+		<view class="bg-white margin-left-ml padding-left-sm padding-right-sm asd" wx:for="{{color[threename]}}" wx:if="{{size.inputQuantity}}" wx:for-index="sizeIndex " wx:for-item="size" wx:key="sizeIndex"  hidden='{{!color.sizeShow}}'>
+			<view class="{{sizeIndex==0?'':'solids-top'}} flex align-center padding-top-xs padding-bottom-xs">
+				<view class="text-grey cuIcon-title"></view>
+				<view class="text-grey margin-left-sm flex-sub">{{size.size_name}}</view>
+				<view class="bg-blue padding-xs radius">{{size.inputQuantity}}</view>
+			</view>
+		</view>
+	</view>
+
+</view>

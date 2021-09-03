@@ -1,0 +1,294 @@
+<cu-custom id="navbar" bgColor="bg-c99a58" isCustom="{{true}}" BackPage="{{BackPage}}">
+  <view slot="content">{{title[titleIndex]}}</view>
+</cu-custom>
+<scroll-view wx:if="{{showList}}" scroll-x class="bg-white nav" id="navBar">
+  <view class="flex text-center">
+    <view wx:for="{{tabList}}" class="cu-item flex-sub {{index==TabCur?'text-orange cur':''}}" wx:key="id"
+      bindtap="tabSelect" data-id="{{item.id}}">
+      {{item.name}}管理
+    </view>
+  </view>
+</scroll-view>
+
+<scroll-view scroll-y wx:if="{{showList&&saleScrollViewHeight}}"
+  style="height:{{saleScrollViewHeight}}px;background-color:#f1f1f1">
+  <view style="height:{{saleScrollViewHeight}}px;">
+    <view style="height:20rpx"></view>
+
+    <view class="cu-list menu" wx:if="{{list.length > 0}}">
+      <view class="cu-item margin-sm bg-white radius" wx:for="{{list}}" wx:key="id" data-index="{{index}}"
+        style="padding:20rpx;position:relative;" data-role_id="{{item.role_id?item.role_id:''}}"
+        data-org_id="{{item.org_id?item.org_id:''}}" data-user_id="{{item.user_id?item.user_id:''}}" catchtap="edit">
+        <view class='content'>
+          <view>
+            <text class='text-bold'>{{item.role_name||item.org_name||item.user_name}}</text>
+          </view>
+          <view class='flex' style="align-items: center;">
+            <text class='margin-right-sm' wx:if="{{item.code}}">{{item.code}}</text>
+            <view class="cu-capsule radius margin-right-sm" wx:if="{{item.org_head}}">
+              <view class="cu-tag bg-cyan">负责人</view>
+              <view class="cu-tag line-cyan">{{item.org_head}}</view>
+            </view>
+            <view class="cu-capsule radius margin-right-sm" wx:if="{{item.org_phone||item.user_phone}}">
+              <view class="cu-tag bg-cyan">联系电话</view>
+              <view class="cu-tag line-cyan">{{item.org_phone||item.user_phone}}</view>
+            </view>
+            <view class="cu-capsule radius margin-right-sm" wx:if="{{item.discount}}">
+              <view class="cu-tag bg-cyan">折扣</view>
+              <view class="cu-tag line-cyan">{{item.discount}}</view>
+            </view>
+            <view class="cu-capsule radius margin-right-sm" wx:if="{{item.money}}">
+              <view class="cu-tag bg-grey">账户余额</view>
+              <view class="cu-tag line-grey text-price">{{item.money}}</view>
+            </view>
+          </view>
+          <view class='text-gray text-sm text-cut' wx:if="{{item.address}}">
+            {{item.address}}
+          </view>
+          <view class='text-gray text-sm text-cut' wx:if="{{item.user_story}}">
+            {{item.user_story}}
+          </view>
+          <view class='text-gray text-sm text-cut' wx:if="{{item.role_remark}}">
+            {{item.role_remark}}
+          </view>
+
+        </view>
+        <!-- !item.disabled 不可编辑的角色 -->
+        <view class='action text-xl' wx:if="{{!item.disabled}}">
+          <text class='cuIcon-edit text-green margin-top-sm' data-index="{{index}}"
+            style="position:absolute;top:0;right:20rpx" data-role_id="{{item.role_id?item.role_id:''}}"
+            data-org_id="{{item.org_id?item.org_id:''}}" data-user_id="{{item.user_id?item.user_id:''}}"
+            catchtap="edit"></text>
+          <text class='cuIcon-delete  padding-bottom-sm' data-index="{{index}}"
+            style="position:absolute;bottom:0;right:20rpx" data-version="{{item.lock_version}}"
+            data-role_id="{{item.role_id?item.role_id:''}}" data-org_id="{{item.org_id?item.org_id:''}}"
+            data-user_id="{{item.user_id?item.user_id:''}}" wx:if="{{!item.user_id}}" catchtap="del"></text>
+
+        </view>
+      </view>
+    </view>
+
+    <view wx:if="{{loadOk&&list.length==0}}" class="zwsjBox padding">
+      <image src="/images/my/zwsj.png"></image>
+      <view class="text-center margin text-gray zwsjTxt">暂无数据</view>
+    </view>
+
+
+
+  </view>
+</scroll-view>
+
+<view wx:if="{{!showList}}">
+  <form wx:if="{{TabCur==0}}">
+    <view class="cu-form-group">
+      <view class="title m-tw text-bold ">名称</view>
+      <input model:value="{{org_name}}" placeholder="请输入组织机构名称"></input>
+      <text class="cuIcon-roundclose lg text-gray padding-lr" wx:if="{{org_name}}" data-clearkey="org_name"
+        catchtap="clearV"></text>
+    </view>
+    <view class="cu-form-group">
+      <view class="title m-tw text-bold ">负责人</view>
+      <input model:value="{{org_head}}" placeholder="请输入组织机构负责人"></input>
+      <text class="cuIcon-roundclose lg text-gray padding-lr" wx:if="{{org_head}}" data-clearkey="org_head"
+        catchtap="clearV"></text>
+    </view>
+    <view class="cu-form-group">
+      <view class="title m-tw text-bold ">联系电话</view>
+      <input model:value="{{org_phone}}" placeholder="请输入联系电话" type="tel" maxlength="11"></input>
+      <text class="cuIcon-roundclose lg text-gray padding-lr" wx:if="{{org_phone}}" data-clearkey="org_phone"
+        catchtap="clearV"></text>
+    </view>
+    <view class="cu-form-group" wx:if="{{org_list.length>0}}">
+      <view class="title m-tw text-bold ">上级</view>
+      <picker mode='selector' range="{{org_list}}" range-key="org_name" model:value="{{org_pid_index}}">
+        <view class="picker">
+          {{org_list[org_pid_index].org_name}}
+        </view>
+      </picker>
+
+    </view>
+    <view class="cu-form-group">
+      <view class="title m-tw text-bold ">类型</view>
+      <picker mode='selector' range="{{org_type_list}}" model:value="{{org_type}}">
+        <view class="picker">
+          {{org_type_list[org_type]}}
+        </view>
+      </picker>
+    </view>
+    <view class="cu-bar bg-white foot justify-center flex-direction padding-sm">
+      <button class='cu-btn bg-goldb solid shadow block lg' style="width:100%" bindtap="submit_org">保存</button>
+    </view>
+
+  </form>
+  <form wx:if="{{TabCur==1}}">
+    <view class="cu-form-group">
+      <view class="title m-tw text-bold ">角色名称</view>
+      <input model:value="{{role_name}}" disabled="{{disabled_role}}" placeholder="请输入客户名称"></input>
+      <text class="cuIcon-roundclose lg text-gray padding-lr" wx:if="{{role_name}}" data-clearkey="role_name"
+        catchtap="clearV"></text>
+    </view>
+    <view class="cu-form-group">
+      <view class="title m-tw text-bold ">角色描述</view>
+      <input placeholder="请输入角色描述" model:value="{{role_remark}}" disabled="{{disabled_role}}" />
+      <!-- <textarea class="solid textarea" placeholder="请输入角色描述" model:value="{{role_remark}}"   wx:if="{{!disabled_role}}" cols="30"
+        rows="10"></textarea>
+      <view wx:else  class="solid textarea" style="width:100%;height:140rpx;margin:30rpx 0;box-sizing:border-box;flex: 1;">
+        {{role_remark}}
+      </view> -->
+    </view>
+    <view class="cu-form-group">
+      <view class="title m-tw text-bold ">角色权限</view>
+    </view>
+    <view class="nodeBox">
+
+      <view class=" bg-white padding-left" wx:for="{{node_list}}" wx:key="id">
+        <!-- 一级 -->
+        <view class="cu-item yiji" data-id="{{item.id}}" data-index="{{index}}" bindtap="tiggerr_yiji">
+          <view class="itemBox">
+            <!-- 选择 -->
+            <text class="{{item.checked?'cuIcon-roundcheck':'cuIcon-round'}} text-blue" data-id="{{item.id}}"
+              data-index="{{index}}" data-checked="checked" catchtap="tiggerr_yiji"></text>
+            <!-- name -->
+            {{item.node_name}}
+            <!-- 箭头 -->
+            <text wx:if="{{item.children}}" class="rightIcon {{item.unfold?'cuIcon-unfold':'cuIcon-right'}}"></text>
+          </view>
+
+          <!-- 二级 -->
+          <view class="erji" wx:if="{{item.unfold}}" wx:for="{{item.children}}" wx:for-item="child" wx:key="id"
+            wx:for-index="index2" data-id="{{child.id}}" data-index="{{index}}" data-index2="{{index2}}"
+            catchtap="tiggerr_erji">
+            <view class="itemBox">
+              <!-- 选择 -->
+              <text class="{{child.checked?'cuIcon-roundcheck':'cuIcon-round'}} text-blue" data-id="{{child.id}}"
+                data-index="{{index}}" data-index2="{{index2}}" data-checked="checked" catchtap="tiggerr_erji">
+                <!-- name -->
+              </text>{{child.node_name}}
+              <!-- 箭头 -->
+              <text wx:if="{{child.children}}" class="rightIcon {{child.unfold?'cuIcon-unfold':'cuIcon-right'}}"></text>
+            </view>
+
+            <view class="itemBox sanji" wx:if="{{child.unfold}}" wx:for="{{child.children}}" wx:for-item="node"
+              wx:key="id" wx:for-index="index3" data-id="{{node.id}}" data-index="{{index}}" data-index2="{{index2}}"
+              data-index3="{{index3}}" catchtap="tiggerr_sanji">
+              <text class="{{node.checked?'cuIcon-roundcheck':'cuIcon-round'}} text-blue">
+              </text>{{node.node_name}}
+            </view>
+          </view>
+        </view>
+      </view>
+    </view>
+    <view wx:if="{{!disabled_role}}">
+      <view style="height:130rpx"></view>
+      <view class="cu-bar bg-white foot justify-center flex-direction padding-sm">
+        <button class='cu-btn bg-goldb solid shadow block lg' style="width:100%" bindtap="submit_role">保存</button>
+      </view>
+    </view>
+  </form>
+  <form wx:if="{{TabCur==2}}">
+    <view class="cu-form-group">
+      <view class="title m-tw text-bold ">用户名</view>
+      <input model:value="{{user_name}}" maxlength="12" placeholder="请输入用户名"></input>
+      <text class="cuIcon-roundclose lg text-gray padding-lr" wx:if="{{user_name}}" data-clearkey="user_name"
+        catchtap="clearV"></text>
+    </view>
+    <view class="cu-form-group">
+      <view class="title m-tw text-bold ">密码</view>
+      <input model:value="{{password}}" type="password" maxlength="12"
+        placeholder="{{isEdit?'如需修改密码请重新输入':'请输入密码'}}"></input>
+      <text class="cuIcon-roundclose lg text-gray padding-lr" wx:if="{{password}}" data-clearkey="password"
+        catchtap="clearV"></text>
+    </view>
+    <view class="cu-form-group">
+      <view class="title m-tw text-bold ">联系电话</view>
+      <input model:value="{{user_phone}}" placeholder="请输入联系电话" type="tel" maxlength="11"></input>
+      <text class="cuIcon-roundclose lg text-gray padding-lr" wx:if="{{user_phone}}" data-clearkey="user_phone"
+        catchtap="clearV"></text>
+    </view>
+    <view class="cu-form-group">
+      <view class="title m-tw text-bold ">身份证号</view>
+      <input model:value="{{idcode}}" placeholder="请输入身份证号" type="tel"></input>
+      <text class="cuIcon-roundclose lg text-gray padding-lr" wx:if="{{idcode}}" data-clearkey="idcode"
+        catchtap="clearV"></text>
+    </view>
+    <view class="cu-form-group" wx:if="{{noAdmin}}">
+      <view class="title m-tw text-bold ">角色</view>
+      <view class="text-right textOverflow" style="width:78%" catchtap="selectRole">
+        {{checkData.role.text == ''?'请选择角色':checkData.role.text}}
+      </view>
+      <text class="cuIcon-right text-right"></text>
+    </view>
+
+    <view class="cu-form-group" wx:if="{{noAdmin}}">
+      <view class="title m-tw text-bold ">组织机构</view>
+      <view class="text-right textOverflow" style="width:73%" catchtap="selectorOrg">
+        {{checkData.org.text == ''?'请选择组织机构':checkData.org.text}}
+      </view>
+      <text class="cuIcon-right text-right"></text>
+
+    </view>
+    <view class="cu-form-group" wx:if="{{noAdmin}}">
+      <view class="title m-tw text-bold ">用户状态</view>
+      <view class="text">
+        <switch type="checkbox" model:checked="{{user_status}}" type="switch" />
+        {{user_status?'开启':'关闭'}}
+      </view>
+    </view>
+    <view class="cu-form-group">
+      <view class="title m-tw text-bold ">用户描述</view>
+      <input placeholder="请输入用户描述" model:value="{{user_story}}" />
+      <!-- <textarea class="solid textarea" placeholder="请输入用户描述" model:value="{{user_story}}" cols="30"
+        rows="10"></textarea> -->
+    </view>
+
+
+
+    <!-- 单选 和多选弹窗-->
+    <view class="cu-modal bottom-modal {{singleshow ? 'show' : ''}}" bindtap="hidePanel">
+      <view class="cu-dialog" catchtap>
+        <view class="padding bg-white justify-end flex">
+          <view>
+            <button class="cu-btn sm bg-grey" bindtap="hidePanel">取消</button>
+
+          </view>
+          <view class="flex-sub">{{select_name}}</view>
+          <view>
+            <button class="cu-btn sm bg-cyan" bindtap="hidePanel">确定</button>
+          </view>
+        </view>
+        <view class="solid-top">
+          <!-- <scroll-view scroll-y catchtap style="max-height:800rpx;min-height:500rpx;" refresher-enabled="true"> -->
+          <scroll-view scroll-y catchtap style="max-height:800rpx;min-height:500rpx;">
+            <checkbox-group class="block" bindchange="selectChange">
+              <view class="cu-list menu text-left">
+                <label class="cu-item flex justify-between align-center flex-sub" wx:for="{{select_list}}"
+                  wx:key="index">
+                  <view class="flex-sub ">{{select_type=='role'?item.role_name:item.org_name}}</view>
+                  <checkbox class="round" value="{{select_type=='role'?item.role_id:item.org_id}}"
+                    checked="{{item.checked}}"></checkbox>
+                </label>
+                <view class="text-center paddng" wx:if="{{select_list.length==0}}">
+                  暂无数据,请先创建{{select_type}}
+                </view>
+              </view>
+            </checkbox-group>
+          </scroll-view>
+        </view>
+      </view>
+    </view>
+      <view class="cu-bar bg-white foot justify-center flex-direction padding-sm">
+        <button class='cu-btn bg-goldb solid shadow block lg' style="width:100%" bindtap="submit_user">保存</button>
+      </view>
+  </form>
+
+
+</view>
+
+<view wx:if="{{showList}}" id="foot">
+  <view style="height:120rpx"></view>
+  <view class="cu-bar bg-white foot justify-center flex-direction padding-sm">
+    <button class='cu-btn bg-goldb solid shadow block lg' style="width:100%" bindtap="add">
+      <text class='cuIcon-add'> </text> 新建{{tabList[TabCur].name}}
+    </button>
+  </view>
+</view>

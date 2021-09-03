@@ -1,0 +1,44 @@
+/* pages/reportform/Inventory_query/index.wxss */
+.relative{
+  position: relative;
+  z-index: 9999;
+}
+.tui-drop-btnbox {
+  width: 100%;
+  height: 100rpx;
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  box-sizing: border-box;
+  display: flex;
+}
+
+.tui-drop-btn {
+  width: 50% !important;
+  border-radius: 0 !important;
+  font-size: 32rpx !important;
+  text-align: center;
+  height: 100rpx;
+  line-height: 100rpx;
+  border: 0;
+}
+
+.tui-btn-white {
+  border-radius: 0;
+}
+.list-img{
+  width: 180rpx;
+  height: 180rpx;
+}
+.foot{
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+}
+.box-radius{
+  border-radius: 20rpx;
+}
+.margin-to-no{
+  margin-top: 0!important;
+}

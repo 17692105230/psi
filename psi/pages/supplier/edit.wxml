@@ -1,0 +1,60 @@
+<cu-custom id="navbar" bgColor="bg-gold-new" isCustom="{{true}}">
+  <view slot="content">{{page_name}}供应商</view>
+</cu-custom>
+<form bindsubmit="formSubmit" report-submit="true">
+  <view class="cu-form-group">
+    <view class="title m-tw text-bold ">名称</view>
+    <input name="supplier[name]" model:value="{{supplier_name}}" placeholder="请输入供应商名称" class="text-right"></input>
+    <text class="cuIcon-roundclose lg text-gray padding-lr" wx:if="{{supplier_name}}" data-clearkey="supplier_name" catchtap="clearV" ></text>
+  </view>
+  <view class="cu-form-group">
+    <view class="title m-tw text-bold ">负责人</view>
+    <input name="supplier[manager]" model:value="{{supplier_director}}" placeholder="请输入负责人名称" class="text-right"></input>
+    <text class="cuIcon-roundclose lg text-gray padding-lr" wx:if="{{supplier_director}}" data-clearkey="supplier_director" catchtap="clearV" ></text>
+  </view>
+  <view class="cu-form-group margin-top-xs">
+    <view class="title m-tw text-bold ">折扣</view>
+    <input name="supplier[discount]" model:value="{{supplier_discount}}" type="number" placeholder="请输入折扣"></input>
+    <text class="cuIcon-roundclose lg text-gray padding-lr margin-right" wx:if="{{supplier_discount}}" data-clearkey="supplier_discount" catchtap="clearV" ></text>
+    <view class="cu-capsule radius">
+      <view class="cu-tag bg-d4d4d4">单位</view>
+      <view class="cu-tag line-d4d4d4 ">折</view>
+    </view>
+  </view>
+  <view class="cu-form-group">
+    <view class="title m-tw text-bold ">账户余额</view>
+    <input name="supplier[discount]" model:value="{{supplier_money}}" type="digit" placeholder="请输入账户余额"></input>
+    <text class="cuIcon-roundclose lg text-gray padding-lr margin-right" wx:if="{{supplier_money}}" data-clearkey="supplier_money" catchtap="clearV" ></text>
+    <view class="cu-capsule radius">
+      <view class="cu-tag bg-d4d4d4">单位</view>
+      <view class="cu-tag line-d4d4d4 ">元</view>
+    </view>
+  </view>
+  <view class="cu-form-group">
+    <view class="title m-tw  text-bold ">状态</view>
+    <view class="flex" style="align-items: center;">
+      <text class="margin-right-sm">是否可用</text>
+      <switch name="supplier[isDefault]" class="orange radius" checked="{{supplier_status}}" bindtap="switchChange"></switch>
+    </view>
+  </view>
+  <view class="cu-form-group margin-top-xs">
+    <view class="title m-tw text-bold ">联系电话</view>
+    <input name="supplier[mobile]" model:value="{{supplier_mphone}}" maxlength="11" type="number" placeholder="请输入联系电话" class="text-right"></input>
+    <text class="cuIcon-roundclose lg text-gray padding-lr" wx:if="{{supplier_mphone}}" data-clearkey="supplier_mphone" catchtap="clearV" ></text>
+  </view>
+  <view class="cu-form-group">
+    <view class="title m-tw  text-bold ">地址</view>
+    <input name="supplier[detailedAddress]" model:value="{{supplier_address}}" type="number" placeholder="请输入供应商地址" class="text-right"></input>
+    <text class="cuIcon-roundclose lg text-gray padding-lr" wx:if="{{supplier_address}}" data-clearkey="supplier_address" catchtap="clearV" ></text>
+  </view>
+  <!-- <view class='padding'>
+    <button class='cu-btn bg-orange block lg' bindtap="submit">保存</button>
+  </view> -->
+</form>
+
+
+<view style="height:110rpx"></view>
+  <view class="cu-bar bg-white foot justify-center padding-sm">
+    <button class='cu-btn bg-goldb solid shadow block lg' style="width:100%;" bindtap="submit">保存
+    </button>
+  </view>

@@ -1,0 +1,73 @@
+<wxs module="num">
+  module.exports = {
+    toFix: function(value) {
+      value = !value ? 0 : value;
+      return value.toFixed(2)
+    }
+  }
+</wxs>
+<cu-custom id="navbar" bgColor="bg-goldb" isCustom="{{true}}">
+  <view slot="content">销售</view>
+</cu-custom>
+<!-- 销售业务 -->
+<view class="padding-xs text-sm margin-top padding-left">销售业务</view>
+<view class="padding-sm">
+  <view class="grid col-1">
+    <view class="padding-xs" wx:for="{{quickList}}" wx:key="index">
+      <view class="padding-tb-sm padding-left-sm flex border-radius bg-white">
+        <view style="width:80%;" class="text-left" catchtap="toUrl" data-qx="{{item.qx}}" data-url="{{item.listpage}}">
+          <view class="flex align-center text-30">
+            <view class="{{item.icon}} padding-right-xs"></view> 
+            <view class="text-bold text-black text-df">{{item.name}}</view>
+          </view>
+          <view class="text-sm text-greyLight margin-top-xs">{{item.introduce}}</view>
+        </view>
+        <view catchtap="toUrl" data-url="{{item.addpage}}"  data-qx="{{item.addqx}}" wx:if="{{item.isadd}}" class="flex justify-center align-center solid-left line-gray text-red" style="width:20%;margin:0px;">
+          <view class="text-red text-3xl"><view class="cuIcon-add"></view></view>
+        </view>
+      </view>
+    </view>
+  </view>
+</view>
+
+<!-- 会员业务 -->
+<!-- <view class="padding-xs text-sm padding-left">会员业务</view>
+<view class="padding-sm">
+  <view class="grid col-1">
+    <view class="padding-xs" wx:for="{{memberList}}" wx:key="index">
+      <view class="padding-tb-sm padding-left-sm flex border-radius bg-white">
+        <view style="width:80%;" class="text-left" catchtap="toUrl" data-url="{{item.listpage}}">
+          <view class="flex align-center text-30">
+            <view class="{{item.icon}} padding-right-xs"></view> 
+            <view class="text-bold text-black text-df">{{item.name}}</view>
+          </view>
+          <view class="text-sm text-greyLight margin-top-xs">{{item.introduce}}</view>
+        </view>
+        <view catchtap="toUrl" data-url="{{item.addpage}}" wx:if="{{item.isadd}}" class="flex justify-center align-center solid-left line-gray text-red" style="width:20%;margin:0px;">
+          <view class="text-red text-3xl"><view class="cuIcon-add"></view></view>
+        </view>
+      </view>
+    </view>
+  </view>
+</view> -->
+
+<!-- 销售明细 -->
+<!-- <view class="padding-xs text-sm padding-left">销售明细</view>
+<view class="padding-sm">
+  <view class="grid col-1">
+    <view class="padding-xs" wx:for="{{detailList}}" wx:key="index">
+      <view class="padding-tb-sm padding-left-sm flex border-radius bg-white">
+        <view style="width:80%;" class="text-left" catchtap="toUrl" data-url="{{item.listpage}}">
+          <view class="flex align-center text-30">
+            <view class="{{item.icon}} padding-right-xs"></view> 
+            <view class="text-bold text-black text-df">{{item.name}}</view>
+          </view>
+          <view class="text-sm text-greyLight margin-top-xs">{{item.introduce}}</view>
+        </view>
+        <view catchtap="toUrl" data-url="{{item.addpage}}" wx:if="{{item.isadd}}" class="flex justify-center align-center solid-left line-gray text-red" style="width:20%;margin:0px;">
+          <view class="text-red text-3xl"><view class="cuIcon-add"></view></view>
+        </view>
+      </view>
+    </view>
+  </view>
+</view> -->

@@ -1,0 +1,21 @@
+/* pages/ceshi/ceshi.wxss */
+.text-1{
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+.text-ml{
+  font-size: 32rpx;
+}
+.margin-left-ml{
+  margin-left: 100rpx;
+}
+.solids-bottom::after{
+	border-bottom: 5rpx solid #eee;
+}
+.solids-top::after {
+	border-top: 5rpx solid #eee;
+}
+.cuIcon-unfold{
+  font-weight: 800 !important;
+}

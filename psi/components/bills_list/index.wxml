@@ -1,0 +1,41 @@
+<view class=" flex flex-direction align-center">
+  <view wx:if="{{data_list.length>0}}"
+    class="margin-bottom-sm bg-white padding-sm radius bg-video  {{active[index]?'active':''}}" wx:for="{{data_list}}"
+    wx:key="index" bindtap="details" data-qx="{{item.editqx.haveQx}}" data-id="{{item.orders_code}}" data-index="{{index}}"
+    style="width:95%"
+    >
+    <view class="flex align-center padding-bottom-sm solid-bottom line-gray">
+      <view class="flex align-center justify-center">
+        <!-- 单据 图标 -->
+        <image wx:if="{{item.orders_status == 9}}" class="orders_icon" src="/images/my/zsIcon.png"></image>
+        <image wx:else="{{item.orders_status == 0}}" class="orders_icon" src="/images/my/cgIcon.png"></image>
+      </view>
+      <view class="margin-left-sm text-blod flex-sub">
+        <view class="text-orange" wx:if="{{item.orders_status == 9}}">正式单据</view>
+        <view class="text-orange" wx:else="{{item.orders_status == 0}}">草稿单据</view>
+        <view class="margin-top-xs text-black">
+          <text>数量 {{item.goods_number}}</text>
+          <text class="margin-left">金额 <text class="text-price">{{item.orders_rmoney}}</text></text>
+        </view>
+      </view>
+      <view class="cuIcon-right" style="font-size:38rpx"></view>
+    </view>
+    <view class="padding-top-sm text-grey">
+      <view><text space="emsp">单 号：</text>{{item.orders_code}}</view>
+      <view class="margin-top-xxs margin-bottom-xxs">供应商：{{item.supplier_name}}</view>
+      <view class="margin-bottom-xxs">入库仓：{{item.org_name}}</view>
+      <view><text space="emsp">日 期：</text>{{item.update_time || item.create_time || item.orders_date}}
+
+      </view>
+    </view>
+    <view class="btn" wx:if="{{item.delqx.haveQx}}">
+      <button class="cu-btn bg-gray round" wx:if="{{item.orders_status != 9}}" catchtap="delete" catchtap="delete"
+        data-version="{{item.lock_version}}" data-code="{{item.orders_code}}" data-id="{{item.orders_id}}">删除</button>
+      <!-- <button class="cu-btn bg-orange round margin-left-sm">去审核</button> -->
+    </view>
+  </view>
+  <view wx:if="{{loadOk&&data_list.length==0}}" class="zwsjBox padding">
+      <image src="/images/my/zwsj.png"></image>
+      <view class="text-center margin text-gray zwsjTxt">暂无数据</view>
+    </view>
+</view>

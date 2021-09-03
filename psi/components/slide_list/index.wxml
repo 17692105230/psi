@@ -1,0 +1,59 @@
+<!--components/slide_list/index.wxml-->
+<!-- 组件作用：滑动表格，第一列上下冻结，每列第一行左右冻结。
+    组件传值：listHead头部标题文字数组，variateList储存数据变量名的数组，list展示数据数组，scroll_height上下滚动区域的高度、组件高度减去第一列和底部的高度,
+             listFoot:底部 fixed to the bottom
+  -->
+<view class="text-center text-sm" wx:if="{{list.length>0}}">
+  <view class="flex solid-bottom line-gray text-black">
+    <scroll-view class="bg-white nav" style="width:40%">
+      <view class="cu-item line-gray text-black bg-f5dfdf solid-right" style="width:100%">{{listHead[0]}}</view>
+    </scroll-view>
+    <scroll-view scroll-x class="bg-white nav bg-blue" scroll-left="{{scrollLeft}}" bindscroll="scroll"
+      style="width:60%">
+      <view class="cu-item line-gray text-black bg-f5dfdf {{index==1?'':'solid-left'}}  {{index==2?'reciprocal':''}}" wx:for="{{listHead}}"
+        wx:key="index" wx:if="{{index!=0}}">{{item}}</view>
+    </scroll-view>
+  </view>
+  <scroll-view id="scroll-box" scroll-y style="max-height:{{scroll_height}}px"  bindscrolltolower="tolower_child">
+    <view class="flex">
+      <scroll-view  class="bg-white nav" style="width:40%">
+        <view wx:for="{{list}}" wx:key="index">
+          <view class="cu-item {{index==0?'':'solid-top'}}  {{index==2?'reciprocal':''}}line-gray text-black solid-right" style="width:100%;"
+          data-id="{{item.orders_id}}" data-code="{{item.orders_code}}"  data-type="{{item.orders_type}}" catchtap="to"
+          >
+           {{item.name}}
+          </view>
+        </view>
+      </scroll-view>
+      <scroll-view scroll-x class="bg-white nav" scroll-left="{{scrollLeft}}" bindscroll="scroll" style="width:60%">
+        <view wx:for="{{list}}" wx:key="index" data-id="{{item.orders_id}}"  data-code="{{item.orders_code}}" data-type="{{item.orders_type}}" catchtap="to">
+          <view
+            class="cu-item line-gray text-black line-gray text-black {{index==0?'':'solid-top'}} {{ind==1?'':'solid-left'}} {{ind==2?'reciprocal':''}}"
+            wx:for="{{variateList}}" wx:key="ind" wx:for-index="ind" wx:for-item="items" wx:if="{{ind!=0}}"
+            
+            >
+            {{item[items]}}
+            </view>
+        </view>
+      </scroll-view>
+    </view>
+    <view wx:if="{{nomore}}" class="padding text-center text-gray">没有更多了</view>
+  </scroll-view>
+
+  <!-- 底部 -->
+  <view class="flex  {{listFoot.length>0?'filex-bottom':'none'}} line-gray text-black" wx:if="{{listFoot.length>0}}">
+    <scroll-view class="bg-white nav" style="width:40%">
+      <view class="cu-item line-gray text-black bg-f5dfdf solid-right" style="width:100%">{{listFoot[0]}}</view>
+    </scroll-view>
+    <scroll-view scroll-x class="bg-white nav bg-blue" scroll-left="{{scrollLeft}}" bindscroll="scroll"
+      style="width:60%">
+      <view class="cu-item line-gray text-black bg-f5dfdf {{index==1?'':'solid-left'}} {{index==2?'reciprocal':''}}" wx:for="{{listFoot}}"
+        wx:key="index" wx:if="{{index!=0}}">{{item}}</view>
+    </scroll-view>
+  </view>
+
+</view>
+<view wx:else class="zwsjBox">
+	<image src="/images/my/zwsj.png"></image>
+	<view class="text-center margin text-gray zwsjTxt">暂无数据</view>
+</view>

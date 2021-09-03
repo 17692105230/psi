@@ -1,0 +1,51 @@
+<view class="cu-list menu">
+	<block wx:for="{{list}}" wx:for-item="item" wx:for-index="itemIndex" wx:key="itemIndex">
+		<view class="cu-item arrow" bindtap="onItemClick" data-index="{{itemIndex}}">
+			<view class="content text-cut padding-tb-sm">
+				<view>
+					<text class="cuIcon-cascades text-blue margin-right-xs"></text>
+					<text class="text-black margin-left-xs">{{item.name}}</text>
+				</view>
+				<view class="text-green text-sm cu-tag radius" style="margin-left:46rpx;">
+					<text>106</text>
+					<text style="margin:0 10rpx;">×</text>
+					<text class="text-price">126.00</text>
+					<text style="margin:0 10rpx;">=</text>
+					<text class="text-price">6299.00</text>
+				</view>
+				<view class="text-red text-sm cu-tag radius margin-left-sm">
+					<text class="text-price">126.00</text>
+				</view>
+			</view>
+			<view class="action">
+				<button class="cu-btn round bg-green shadow sm" catchtap="onEditGoods" data-index="{{itemIndex}}">
+					<text class="cuIcon-edit"></text>
+				</button>
+			</view>
+		</view>
+		<view class="cu-list menu ml-50" style="margin-top:-1px;margin-bottom:1px; display:{{item.expand?'':'none'}};">
+			<block wx:for="{{item.colorList}}" wx:for-item="color" wx:for-index="colorIndex" wx:key="colorIndex">
+				<view class="cu-item arrow" style="min-height:70rpx;border-top: 1rpx solid #eee;">
+					<view class="content text-grey cuIcon-discover">
+						<text class="margin-left-xs">{{color.colorName}}</text>
+					</view>
+					<view class="action cu-tag round bg-orange lg shadow">
+						<text>106</text>
+						<text style="margin:0 10rpx;">×</text>
+						<text class="text-price">126.00</text>
+						<text style="margin:0 10rpx;">=</text>
+						<text class="text-price">6299.00</text>
+					</view>
+				</view>
+				<view class="cu-list menu sm-border ml-50">
+					<view wx:for="{{color.sizeList}}" wx:for-item="size" wx:for-index="sizeIndex" wx:key="sizeIndex" class="cu-item" style="min-height:60rpx;">
+						<view class="content text-grey cuIcon-title">
+							<text class="margin-left-xs text-df">{{size.sizeName}}</text>
+						</view>
+						<view class="action cu-tag radius bg-blue lg">9</view>
+					</view>
+				</view>
+			</block>
+		</view>
+	</block>
+</view>

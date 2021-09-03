@@ -1,0 +1,22 @@
+.box{
+  position: relative;
+}
+.c_arrow:active{
+  background-color: #eeeeee
+}
+.c_arrow:before {
+	position: absolute;
+	top: 0;
+	right: 30rpx;
+	bottom: 0;
+	display: block;
+	margin: auto;
+	width: 30rpx;
+	height: 30rpx;
+	color: var(--grey);
+	content: "\e6a3";
+	text-align: center;
+	font-size: 34rpx;
+	font-family: "cuIcon";
+	line-height: 30rpx
+}

@@ -1,0 +1,110 @@
+<wxs module="num">
+  module.exports = {
+    toFix: function (value) {
+      value = !value ? 0 : value * 1;
+      return value.toFixed(2)
+    }
+  } 
+</wxs>
+<view class="cu-modal bottom-modal typeBox {{mIsDisplay?'show':''}}" catchtap="hideGoods">
+  <!-- catchtap 空的catchtap可以阻止组件隐藏的事件 -->
+  <view class="cu-dialog" catchtap='noHide'>
+    <view class='modal-clear' bindtap='onClearData'>{{words.clear}}</view>
+    <view class='modal-close' bindtap='hideGoodsSelectModal'>{{words.submit}}</view>
+    <view class='modal-bd'>
+      <view class='type-goods solid-bottom'>
+        <view style="position: relative;">
+          <image src='{{goods.images[0].assist_url?goods.images[0].assist_url:"/images/my/default_img.png"}}' mode='aspectFill' binderror="errorImg" />
+          <view class="cu-tag bg-red"
+            style="border: 2px solid #fff; border-radius: 200rpx;position: absolute;top: -80rpx;right: -10rpx;font-size: 20rpx;padding: 0rpx 10rpx;height: 28rpx;">
+            {{goods.stockQuantity}} {{goods.stockQuantity||goods.stockQuantity===0?'/':''}} {{goods.inputQuantity}}</view>
+        </view>
+        <view class='flex-sub'>
+              <!-- 采购价 pprice  零售价 rprice-->
+          <view class='text-red margin-top-xs text-xl'>
+            <!-- <view class="flex justify-between" catchtap="onNumberModalShow"> -->
+            <view class="flex justify-between">
+              <view class="text-price" style="padding-top:5rpx;">{{num.toFix(goods.goods_price?goods.goods_price:goods.goods_rprice)}}</view>
+              <view class="cu-capsule radius">
+                <view class="cu-tag bg-grey text-price lg" style="height:44rpx;">{{num.toFix((goods.goods_price?goods.goods_price:goods.goods_rprice) * goods.inputQuantity)}}</view>
+                <view class="cu-tag line-grey text-price lg" style="height:44rpx;">{{num.toFix(goods.goods_srprice)}}</view>
+              </view>
+            </view>
+
+          </view>
+          <view class='margin-top-xs text-cut' style="max-width:460rpx;">{{goods.goods_name}}</view>
+          <view class='margin-top-xs'>
+            <view class="flex justify-between">
+              <view class="cu-capsule radius">
+                <view class="cu-tag bg-blue lg" style="height:44rpx;">{{words.style_code}}</view>
+                <view class="cu-tag line-grey lg" style="height:44rpx;">{{goods.goods_code}}</view>
+              </view>
+              <switch class="switch-music orange radius" bindchange="onSelectType" checked="{{mSelectType}}"></switch>
+            </view>
+          </view>
+        </view>
+      </view>
+      <view>
+        <scroll-view scroll-x class="bg-white nav MsTab" scroll-with-animation>
+          <view wx:for="{{list}}" wx:key="index" bindtouchstart="bindTouchStart" bindtouchend="bindTouchEnd"
+            bindtap="onSelectColor" bindlongtap="onSelectSizeFromColor" data-index="{{index}}"
+            class="cu-item cu-left cur {{item.checked?'bg-brown':'bg-grey'}}">
+
+            <view class="time">{{item.color_name}}</view>
+            <!-- 库存量/选中量 -->
+            <view class="text">{{item.stockQuantity}} {{item.stockQuantity+''?'/':''}} {{item.inputQuantity}}</view>
+          </view>
+        </scroll-view>
+        <view
+          style="z-index:999;margin-top:10rpx; border-top-left-radius: 5px; border-top-right-radius: 5px; background-color:#ccc">
+          <view class="flex text-30"
+            style="padding:5rpx 5rpx 5rpx 15rpx;height:90rpx;line-height:80rpx;border-bottom: 1px solid #ccc;">
+            <view class="flex-twice" style="text-align:left;">{{words.size_name}}</view>
+            <view class="flex-twice" style="text-align:center;">{{words.number_name}}</view>
+            <view class="flex-treble">
+              <view class="flex">
+                <view class="flex-sub" style="text-align:center;">
+                  <button class="cu-btn cuIcon-move bg-gray" catchtap="onAllReduce"
+                    style="padding:0 20rpx;font-size:20rpx;height:55rpx;" />
+                </view>
+                <view class="flex-sub" style="text-align:center;">
+                  <input value="{{list[mSelectIndex].inputQuantity}}" type="number" disabled class="radius bg-gray"
+                    style="margin:15rpx 0rpx;padding:0rpx;height:55rpx;"></input>
+                </view>
+                <view class="flex-sub" style="text-align:center;">
+                  <button class="cu-btn cuIcon-add bg-gray" catchtap="onAllPlus"
+                    style="padding:0 20rpx;font-size:20rpx;height:55rpx;" />
+                </view>
+              </view>
+            </view>
+          </view>
+          <scroll-view scroll-y class="bg-white" scroll-with-animation style="height:460rpx;">
+            <view wx:for="{{list[mSelectIndex].sizeList}}" wx:key="index" class="flex text-30"
+              style="padding:5rpx 5rpx 5rpx 15rpx;height:90rpx;line-height:80rpx;border-left: 1px solid #eee;border-right: 1px solid #eee;border-bottom: 1px solid #eee;">
+              <view class="flex-twice" style="text-align:left;">{{item.size_name}}</view>
+              <view class="flex-twice" style="text-align:center;">{{item.stockQuantity}}</view>
+              <view class="flex-treble">
+                <view class="flex">
+                  <view class="flex-sub" style="text-align:center;">
+                    <button class="cu-btn cuIcon-move bg-cyan" catchtap="onUnitReduce" data-index="{{index}}"
+                      style="padding:0 20rpx;font-size: 20rpx;height:55rpx;" />
+                  </view>
+                  <view class="flex-sub" style="text-align:center;">
+                    <input value="{{item.inputQuantity}}" type="number" maxlength="4" bindinput="onUnitInput"
+                      data-index="{{index}}" class="radius bg-gray"
+                      style="margin:15rpx 0rpx;padding:0rpx;height:55rpx;"></input>
+                  </view>
+                  <view class="flex-sub" style="text-align:center;">
+                    <button class="cu-btn cuIcon-add bg-cyan" catchtap="onUnitPlus" data-index="{{index}}"
+                      style="padding:0 20rpx;font-size: 20rpx;height:55rpx;" />
+                  </view>
+                </view>
+              </view>
+            </view>
+          </scroll-view>
+        </view>
+      </view>
+    </view>
+  </view>
+</view>
+<hr-number showModal="{{hrnum.show}}" bindConfirm="onNumberConfirm" value="{{hrnum.value}}" />

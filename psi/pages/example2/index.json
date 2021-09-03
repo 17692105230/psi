@@ -1,0 +1,6 @@
+{
+  "usingComponents": {
+    "goods-up-img": "/components/goods-up-img/index",
+    "hr-number": "/components/hr-number/index"
+  }
+}

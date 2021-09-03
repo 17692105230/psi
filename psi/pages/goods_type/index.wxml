@@ -1,0 +1,46 @@
+<cu-custom id="navbar" bgColor="bg-gold-new" isCustom="{{true}}" arrData="{{searchData}}">
+  <view slot="content">分类管理</view>
+</cu-custom>
+<tui-list-view >
+	<tui-list-cell arrow wx:for="{{typelist}}" wx:key="index" bindtap="clickType" data-id="{{item.id}}" data-index="{{index}}" data-name="{{item.name}}" data-lock_version="{{item.lock_version}}">
+		{{item.name}}
+	</tui-list-cell>
+</tui-list-view>
+<hr-sheet show="{{tipShow}}" tips="{{tips}}" item-list="{{tipItemList}}" mask-closable="{{tipMaskClosable}}" color="{{tipColor}}" size="{{tipSize}}" is-cancel="{{tipIsCancel}}" bind:click="{{tipItemClickName}}"  bind:cancel="tipCloseActionSheet"></hr-sheet>
+
+
+<!-- 设置分类 -->
+<view class="cu-modal {{isTypeShow?'show':''}}">
+  <view class="cu-dialog">
+    <view class="cu-bar bg-white justify-end">
+      <view class="content">{{addType?'新增':'编辑'}}分类</view>
+      <view class="action" bindtap="onHideTypeCancel">
+        <text class="cuIcon-close text-red"></text>
+      </view>
+    </view>
+    <view class="solid-top solid-bottom" style="--white:#fff;">
+      <view class="cu-form-group">
+        <view class="title">分类名称</view>
+        <input placeholder="请输入分类名称" maxlength="5" class="save" model:value="{{typename}}" />
+        <text class="cuIcon-roundclose lg text-gray padding-lr margin-right clearV" wx:if="{{typename}}" data-clearkey="typename" catchtap="clearV"></text>
+
+        <view class="cu-capsule radius margin-left">
+          <view class="cu-tag bg-blue">长度</view>
+          <view class="cu-tag line-blue">5</view>
+        </view>
+      </view>
+    </view>
+    <view class="cu-bar bg-white">
+      <view class="action margin-0 flex-sub text-green padding" catchtap="onHideTypeCancel">取消</view>
+      <view class="action margin-0 flex-sub solid-left padding" catchtap="onHideTypeAdd">确定</view>
+    </view>
+  </view>
+</view>
+
+<view style="height:150rpx"></view>
+  <view class="cu-bar bg-white foot padding-sm flex flex-direction" wx:if="{{qxList[0].haveQx}}">
+    <button style="width:100%" class="cu-btn block bg-gold-new lg" bindtap="addType"><text class="cuIcon-add"></text>新增</button>
+  </view>
+ <!-- <view class="padding-sm flex flex-direction"   wx:if="{{qxList[0].haveQx}}" >
+	<button class="cu-btn block bg-gold-new lg" bindtap="addType"><text class="cuIcon-add"></text>新增</button>
+</view>  -->

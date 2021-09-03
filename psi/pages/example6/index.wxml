@@ -1,0 +1,64 @@
+<view class="cu-custom bg-gold-new" style="height:{{CustomBar}}px" id="header">
+  <view class="cu-bar fixed" style="height:{{CustomBar}}px;padding-top:{{StatusBar}}px;">
+    <view class="action border-custom"
+      style="width:{{Custom.width}}px;height:{{Custom.height}}px;margin-left:calc(750rpx - {{Custom.right}}px)">
+      <text class="cuIcon-back" catchtap="back"></text>
+      <text class="cuIcon-add" catchtap="addGoods"></text>
+    </view>
+    <view class="content" style="top:{{StatusBar}}px">
+      商品管理
+    </view>
+  </view>
+</view>
+
+<!-- 筛选条件 -->
+
+<view id="navBar">
+<!-- 搜索框 -->
+<view class="bg-white padding-sm relative">
+  <view class="bg-white flex padding-xs align-center radius-15 solid">
+    <!-- <text class="cuIcon-search margin-right-xs" bindtap="getData"></text> -->
+    <view class="flex-sub">
+      <input model:value="{{search}}" placeholder="请输入商品名称、编号、助记符等" confirm-type="search" />
+    </view>
+    <text class="cuIcon-roundclose lg text-gray padding-left" style="margin-rigth:-60rpx" wx:if="{{search}}" data-clearkey="search" catchtap="clearV" ></text>
+    <view class="margin-left-sm cuIcon-search text-bold" bindtap="dropConfirm" style="font-size:36rpx"></view>
+  </view>
+</view>
+<!-- 导航 筛选 -->
+<scroll-view scroll-x class="bg-white nav relative solid-bottom ">
+  <view class="flex text-center">
+    <view class="cu-item flex-sub " wx:for="{{navList}}" wx:key="index" bindtap="navChange" data-index="{{index}}">
+      {{item.name}}
+      <text class="{{dropShow[index]?'cuIcon-triangleupfill':'cuIcon-triangledownfill' }}"></text>
+    </view>
+  </view>
+</scroll-view>
+</view>
+<view class="dropBox" wx:show="{{dropShow[0]||dropShow[1]}}" style="height:{{dropShow[0]||dropShow[1]?'460rpx':'0px'}};top:{{dropShowTop}}">
+<view style="height:360rpx">
+  <scroll-view class="dropShow bg-white" style="height:360rpx" scroll-y="true" >
+    <view class="flex align-center padding-sm solid-bottom text-black" wx:for="{{TabCur==1?goodsStatus:category}}" wx:key="index"
+      bindtap="dropShowCheckBox" data-index="{{index}}">
+      <view class="flex-sub">{{item.name}}</view>
+      <checkbox class="round" checked="{{item.checked}}" />
+    </view>
+  </scroll-view>
+</view>
+  <view class="btnbox bg-white solid-top text-xl">
+    <view class="padding text-center" bindtap="dropReset"> 重置</view>
+    <view style="width:0px;" class="solid-left"></view>
+    <view class="padding text-center text-orange" bindtap="dropConfirm">确定 </view>
+  </view>
+</view>
+
+<!-- zll 商品列表组件 -->
+<!-- <scroll-view  class="bg-white" scroll-y="true" style="height:{{saleScrollViewHeight}}px;" refresher-enabled="{{!isRefresher}}" bindrefresherrefresh="onrefresh" refresher-triggered="{{triggered}}"> -->
+<scroll-view bindtap="dropHide" class="bg-white {{dropShow[0]||dropShow[1]?'listBox':''}}" scroll-y="true" style="height:{{saleScrollViewHeight}}px;" bindscrolltolower="loadMore">
+  <tui-product-list list="{{goodsList}}" bind:onTapGoods="onTapGoods"></tui-product-list>
+  <view wx:if="{{nomore}}" class="padding text-center text-gray">没有更多了</view>
+  <view wx:if="{{loadOk&&goodsList.length==0}}" class="zwsjBox">
+	<image src="/images/my/zwsj.png"></image>
+	<view class="text-center margin text-gray zwsjTxt">暂无商品信息</view>
+</view>
+</scroll-view>

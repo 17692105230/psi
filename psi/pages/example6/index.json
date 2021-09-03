@@ -1,0 +1,6 @@
+{
+  "usingComponents": {
+    "hr-top-dropdown": "/components/hr-top-dropdown/top-dropdown",
+    "tui-product-list": "/components/product-list/index"
+  }
+}

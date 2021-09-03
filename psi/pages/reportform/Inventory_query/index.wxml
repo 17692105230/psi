@@ -1,0 +1,140 @@
+<!--pages/reportform/Inventory_query/index.wxml-->
+<cu-custom id="navbar" bgColor="bg-gold-new" isCustom="{{true}}" arrData="{{searchData}}">
+  <view slot="content">库存查询</view>
+</cu-custom>
+<!-- 搜索框 -->
+<view class="bg-white padding-sm relative">
+  <view class="bg-gray flex padding-xs align-center radius">
+    <text class="cuIcon-search margin-right-xs" bindtap="getData"></text>
+    <view class="flex-sub">
+      <input model:value="{{search}}" placeholder="请输入商品名称、编号、助记符等" />
+    </view>
+    <text class="cuIcon-roundclose lg text-gray padding-lr" wx:if="{{search}}" catchtap="clearV" data-clearkey="search"></text>
+
+    <view class="margin-left-sm cuIcon-scan text-bold" bindtap="scanCode" style="font-size:36rpx"></view>
+  </view>
+</view>
+<!-- 导航 筛选 -->
+<scroll-view scroll-x class="bg-white nav relative">
+  <view class="flex text-center">
+    <view class="cu-item flex-sub " wx:for="{{navList}}" wx:key="index" bindtap="navChange" data-index="{{index}}">
+      {{item.name}}
+      <text class="{{item.ico}}"></text>
+    </view>
+  </view>
+</scroll-view>
+<view id="dropdown-top"></view>
+<!--header 顶部下拉选择框-->
+<hr-top-dropdown show="{{dropShow}}" paddingbtm="110" translatey="{{translatey}}" translateyCompany="px"
+  bind:close="btnCloseDrop">
+  <!-- 全部店仓 -->
+  <scroll-view class="" scroll-y="true" style="height:100%" wx:if="{{TabCur==0}}">
+    <view class="flex align-center padding-sm line-grey solid-bottom text-black" wx:for="{{warehouse}}" wx:key="index"
+      bindtap="warehouseChecked" data-index="{{index}}">
+      <view class="flex-sub">{{item.name}}</view>
+      <checkbox class="round" checked="{{item.checked}}" />
+    </view>
+  </scroll-view>
+  <view class="tui-drop-btnbox" wx:if="{{TabCur==0}}">
+    <view class="tui-drop-btn btn-white" hover-class="tui-white-hover" hover-stay-time="150" bindtap="warehouseReset">
+      清除</view>
+    <view class="tui-drop-btn btn-primary" hover-class="btn-hover" hover-stay-time="150" bindtap="warehouseConfirm">确定
+    </view>
+  </view>
+  <!-- 全部分类 -->
+  <scroll-view class="" scroll-y="true" style="height:100%" wx:if="{{TabCur==1}}">
+    <view class="flex align-center padding-sm line-grey solid-bottom text-black" wx:for="{{classify}}" wx:key="index"
+      bindtap="classifyChecked" data-index="{{index}}">
+      <view class="flex-sub">{{item.name}}</view>
+      <checkbox class="round" checked="{{item.checked}}" />
+    </view>
+  </scroll-view>
+  <view class="tui-drop-btnbox" wx:if="{{TabCur==1}}">
+    <view class="tui-drop-btn btn-white" hover-class="tui-white-hover" hover-stay-time="150" bindtap="classifyReset">
+      清除</view>
+    <view class="tui-drop-btn btn-primary" hover-class="btn-hover" hover-stay-time="150" bindtap="classifyConfirm">确定
+    </view>
+  </view>
+  <!-- 排序 -->
+  <scroll-view class="" scroll-y="true" style="height:calc(100% + 50px)" wx:if="{{TabCur==2}}">
+    <view class="flex align-center padding-sm line-grey solid-bottom text-black" wx:for="{{sort}}" wx:key="index"
+      bindtap="sortChecked" data-index="{{index}}">
+      <view class="">{{item.name}}</view>
+      <view class="flex-sub text-grey">{{item.text}}</view>
+      <checkbox class="round" checked="{{item.checked}}" />
+    </view>
+  </scroll-view>
+  <!-- 筛选 -->
+  <scroll-view class="" scroll-y="true" style="height:100%" wx:if="{{TabCur==3}}">
+    <!-- <view class="bg-white padding-sm margin-sm radius flex justify-center align-center text-center"
+      wx:if="{{TabCur==navList.length-1}}">
+      <view class="bg-gray padding-xs flex-sub radius">
+        <picker mode="date" value="{{strDate}}" bindchange="strDateChange">
+          {{strDate}}
+          <text class="picker cuIcon-calendar text-green margin-left"></text>
+        </picker>
+      </view>
+      <view class="margin-left-sm margin-right-sm">至</view>
+      <view class="bg-gray padding-xs flex-sub radius"> 
+        <picker mode="date" value="{{endDate}}" bindchange="endDateChange">
+          {{endDate}}
+          <text class="picker cuIcon-calendar text-green margin-left"></text>
+        </picker>
+      </view>
+    </view> -->
+    <view class="flex margin align-center" wx:for="{{filtrate}}" wx:key="index">
+      <view class="flex-sub">{{item.name}}</view>
+      <view class="text-grey margin-right-sm">{{item.checked?'显示':'不显示'}}</view>
+      <switch checked="{{item.checked}}" bindchange="filtrateChecked" data-index="{{index}}" />
+    </view>
+  </scroll-view>
+  <view class="tui-drop-btnbox" wx:if="{{TabCur==3}}">
+    <view class="tui-drop-btn btn-white" hover-class="tui-white-hover" hover-stay-time="150" bindtap="filtrateReset">
+      重置</view>
+    <view class="tui-drop-btn btn-primary" hover-class="btn-hover" hover-stay-time="150" bindtap="filtrateConfirm">确定
+    </view>
+  </view>
+</hr-top-dropdown>
+<!-- 筛选查询end -->
+
+
+<!-- 库存列表 -->
+<view class="flex margin-sm text-gray">
+  <view class="flex-sub">库存总数量：<text class="text-red">{{all_number}}</text></view>
+  <view>库存总金额·：<text class="text-red">{{all_money}}元</text></view>
+</view>
+<scroll-view id="scroll-box" scroll-y="true" style="height:{{scroll_height}}px;">
+  <view class="padding-sm bg-white margin-sm box-radius {{index==0?'margin-to-no':''}}" wx:for="{{list}}" wx:key="index" bindtap="listTab" data-id="{{item.goods_id}}">
+    <view class="flex align-center margin-bottom-sm solid-bottom line-gray padding-bottom-sm text-black" >
+      <view>
+        <image src="{{item.assist_url}}" mode="aspectFill" class="radius cu-avatar lg"></image>
+      </view>
+      <view class="flex-sub margin-left-sm">
+        <view class="text-lg">{{item.goods_name}}</view>
+        <view class="">编号：{{item.goods_code}}</view>
+      </view>
+      <view class="cuIcon-right"></view>
+    </view>
+    <view class="flex">
+      <view class="text-grey flex-sub">实时库存：{{item.stock_number}}个</view>
+      <view class="text-grey flex-sub text-right">库存金额：{{item.goods_pprice * item.stock_number}}元</view>
+    </view>
+
+    <view class="text-grey">成本均价：{{item.goods_pprice}}元 / 个</view>
+  </view>
+  <view class="padding text-center" wx:if="{{more}}">没有更多了</view>
+  <view style="height:70px"></view>
+</scroll-view>
+<!-- 底部 -->
+<view class="flex foot bg-white padding-top-lg padding-bottom-lg">
+  <view class="flex-sub solid-right line-grey text-black text-center align-center">
+    <text class="text-bold">库存不足</text>
+    <text class="text-red margin-left-xs margin-right-xs">{{stock_unenough}}</text>
+    <text class="cuIcon-right text-gray"></text>
+  </view>
+  <view class="flex-sub text-center">
+    <text class="text-bold">库存积压</text>
+    <text class="text-cyan margin-left-xs margin-right-xs">{{stock_enough}}</text>
+    <text class="cuIcon-right text-gray"></text>
+  </view>
+</view>

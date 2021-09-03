@@ -1,0 +1,40 @@
+<view class="cu-modal {{showModal?'show':''}}">
+  <view class="cu-dialog">
+    <view class="cu-bar bg-white justify-end">
+      <view class="content" style="font-size:38rpx;">{{title}}</view>
+      <view class="action"></view>
+    </view>
+    <view class='keyboard'>
+      <view class='complete'>
+        <view class='input_view'>
+          <view class='input_box' style="padding-left:30rpx;">
+            <text class='input_label'>￥</text>
+            <text class='content'>{{value}}</text>
+            <view class='className'></view>
+          </view>
+        </view>
+      </view>
+      <view class='key_box'>
+        <text class='keys border0' catchtap='keyTap' data-keys='1'>1</text>
+        <text class='keys' catchtap='keyTap' data-keys='2'>2</text>
+        <text class='keys' catchtap='keyTap' data-keys='3'>3</text>
+        <text class='keys border0' catchtap='keyTap' data-keys='4'>4</text>
+        <text class='keys' catchtap='keyTap' data-keys='5'>5</text>
+        <text class='keys' catchtap='keyTap' data-keys='6'>6</text>
+        <text class='keys border0' catchtap='keyTap' data-keys='7'>7</text>
+        <text class='keys' catchtap='keyTap' data-keys='8'>8</text>
+        <text class='keys' catchtap='keyTap' data-keys='9'>9</text>
+        <text class='keys border0 bb-1' catchtap='keyTap' data-keys='·'>.</text>
+        <text class='keys bb-1' catchtap='keyTap' data-keys='0'>0</text>
+        <view class='keys bg_color bb-1' catchtap='keyTap' data-keys='<'>
+          <image style='width:50rpx;height:50rpx;' mode="aspectFit" src='/images/backspace.png' />
+        </view>
+      </view>
+    </view>
+    <view class="cu-bar bg-white" style="height:140rpx;">
+      <view wx:if="{{showCancel}}" class="action margin-0 flex-sub" style="color:{{cancelColor}};font-size:36rpx;" catchtap="onCancel">取消</view>
+      <view wx:if="{{showCancel}}" class="action" style="width:1px;background-color:#eee;max-height:100rpx;" />
+      <view class="action margin-0 flex-sub" style="color:{{confirmColor}};font-size:36rpx;" catchtap="onConfirm">确定</view>
+    </view>
+  </view>
+</view>

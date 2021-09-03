@@ -1,0 +1,6 @@
+{
+  "component": true,
+  "usingComponents": {
+    "hr-number": "/components/hr-number/index"
+  }
+}

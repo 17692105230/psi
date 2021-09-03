@@ -1,0 +1,7 @@
+/* pages/reportform/Inventory_query/Inventory_details/index.wxss */
+.box-radius{
+  border-radius: 20rpx;
+}
+.margin-to-no{
+  margin-top: 0!important;
+}

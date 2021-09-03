@@ -1,0 +1,36 @@
+/* pages/member/index.wxss */
+page{
+  background-color:var(--white);
+}
+
+.cu-capsule-border-goldb{
+  border: 1px solid var(--goldb);
+}
+.cu-capsule-border-EB2020{
+  border: 1px solid #EB2020;
+}
+#discout-box {
+  border-radius: 100rpx;
+}
+#discount {
+  border-right: 1px solid var(--goldb);
+
+  background-color: #FDF5E6;
+  color: #FFB523;
+}
+#discount-val {
+  border-left: none;
+  background-color: white;
+  color: #FFB523;
+}
+
+#balance {
+  border-right: 1px solid #EB2020;
+  background-color: #FFEFEF;
+  color: #EB2020;
+}
+#balance-val {
+  background-color: white;
+  border-left: none;
+  color: #EB2020;
+}

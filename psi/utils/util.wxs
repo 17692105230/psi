@@ -1,0 +1,10 @@
+var filter = {
+  numberToFix: function (value) {
+    value = !value ? 0 : parseFloat(value);
+    return value.toFixed(2)
+  }
+}
+
+module.exports = {
+  numberToFix: filter.numberToFix
+}

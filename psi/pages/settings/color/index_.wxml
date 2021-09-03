@@ -1,0 +1,60 @@
+<cu-custom id="navbar" bgColor="bg-gradual-pink" isCustom="{{true}}">
+  <view slot="content">添加颜色</view>
+</cu-custom>
+<view class="cu-bar bg-white">
+  <view class="action">
+    添加颜色
+  </view>
+  <view class="action">
+    {{list.length}}/10
+  </view>
+</view>
+<scroll-view scroll-y catchtap style="height:calc(100vh - {{CustomBar}}px);" refresher-background="#eee" refresher-enabled="true">
+  <view class="grid col-4 padding-sm">
+    <view class="padding-xs" wx:for="{{list}}" wx:key="index">
+      <view class="bg-gradual-blue padding-sm radius text-center shadow-blur" style="height:130rpx;">
+        <view class="text-lg">颜色的</view>
+        <view class="margin-top-xs line"></view>
+        <view class="margin-top-xs text-Abc">C123</view>
+      </view>
+    </view>
+    <view class="padding-xs" bindtap="onShowColorAdd" wx:if="{{list.length < 10}}">
+      <view class="padding-xl radius text-center shadow-blur" style="height:135rpx;border: 1rpx solid rgba(0, 0, 0, 0.1);">
+        <text class="cuIcon-add"></text>
+      </view>
+    </view>
+  </view>
+</scroll-view>
+<!-- 设置折扣 -->
+<view class="cu-modal {{isColorShow?'show':''}}">
+  <view class="cu-dialog">
+    <view class="cu-bar bg-white justify-end">
+      <view class="content">颜色</view>
+      <view class="action" bindtap="onHideColorAdd">
+        <text class="cuIcon-close text-red"></text>
+      </view>
+    </view>
+    <view class="solid-top solid-bottom" style="--white:#eee;">
+      <view class="cu-form-group">
+        <view class="title">颜色名称</view>
+        <input placeholder="请输入颜色名称" maxlength="3" class="save" />
+        <view class="cu-capsule radius margin-left">
+          <view class="cu-tag bg-blue">长度</view>
+          <view class="cu-tag line-blue">3</view>
+        </view>
+      </view>
+      <view class="cu-form-group">
+        <view class="title">颜色编码</view>
+        <input placeholder="请输入颜色编码" maxlength="4" class="save" />
+        <view class="cu-capsule radius margin-left">
+          <view class="cu-tag bg-blue">长度</view>
+          <view class="cu-tag line-blue">4</view>
+        </view>
+      </view>
+    </view>
+    <view class="cu-bar">
+      <view class="action padding-sm flex-sub text-green" catchtap="onHideColorAdd">取消</view>
+      <view class="action padding-sm flex-sub solid-left">确定</view>
+    </view>
+  </view>
+</view>

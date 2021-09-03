@@ -1,0 +1,250 @@
+<wxs module="num">
+  module.exports = {
+  toFix: function(value) {
+  value = !value ? 0 : value;
+  return '￥' + value.toFixed(2)
+  }
+  }
+</wxs>
+<!-- 固定栏 -->
+<view wx:if="{{isLoad}}">
+  <view id="header" class="padding-bottom-sm" style="background-color:#f1f1f1;">
+    <!-- 顶部栏 金额栏 容器 -->
+    <view class="bg-gold-new">
+      <!-- 顶部栏 -->
+      <view class="cu-custom" style="height:{{CustomBar}}px">
+        <view class="cu-bar fixed" style="height:{{CustomBar}}px;padding-top:{{StatusBar}}px;">
+          <!-- <view class="action border-custom"
+            style="width:{{Custom.width}}px;height:{{Custom.height}}px;margin-left:calc(750rpx - {{Custom.right}}px)">
+            <text class="cuIcon-question"></text>
+            <text class="cuIcon-service" catchtap="onLeftShowModal"></text>
+          </view> -->
+          <view class="content" style="top:{{StatusBar}}px">
+            首页
+          </view>
+        </view>
+      </view>
+      <!-- 头部  -->
+      <view class="padding-lg padding-top-sm flex align-center" style="padding-bottom:80rpx;">
+        <view class="flex-sub padding">
+          <view class="text-center text-60" wx:if="{{see}}">
+            {{todayMoney?todayMoney:0}}
+          </view>
+          <view class="text-center text-60" wx:else>
+            ***
+          </view>
+          <view class="text-center text-sm text-bold-100">
+            今日销售额
+          </view>
+        </view>
+        <view class="solid-right line-white" style="height:80rpx;"></view>
+        <view class="flex-sub padding">
+          <view class="text-center text-60" wx:if="{{see}}">
+            {{yesterdayMoney?yesterdayMoney:0}}
+          </view>
+          <view class="text-center text-60" wx:else>
+            ***
+          </view>
+          <view class="text-center text-sm text-bold-100">
+            昨日销售额
+          </view>
+        </view>
+        <view class="text-xl" style="position:absolute;top:150rpx;right:30rpx;" catchtap="seeDo">
+          <view class="{{see ? 'cuIcon-attentionforbid' : 'cuIcon-attention'}}"></view>
+        </view>
+      </view>
+    </view>
+    <!-- 头部快捷按钮 -->
+    <view style="margin-top:-75rpx;">
+      <view class="padding padding-bottom-sm">
+        <view class="bg-white grid col-4 text-center text-xxl radius-15" style="display: flex;justify-content: center;">
+          <view class="padding flex flex-direction align-center" data-url="/pages/purchase/index" data-qx="{{qxList[0]}}" wx:if="{{qxList[0].haveQx}}" bindtap="toUrl">
+            <view class="cuIcon-home bg-red radius text-content home-top-btn shadow"></view>
+            <view class="text-sm text-black margin-top-sm">进货</view>
+          </view>
+          <view class="padding flex flex-direction align-center" data-url="/pages/sale/index" data-qx="{{qxList[1]}}" wx:if="{{qxList[1].haveQx}}" bindtap="toUrl">
+            <view class="cuIcon-cart bg-orange radius text-content home-top-btn shadow"></view>
+            <view class="text-sm text-black margin-top-sm">销售</view>
+          </view>
+          <view class="padding flex flex-direction align-center" data-url="/pages/stock/index" data-qx="{{qxList[2]}}" wx:if="{{qxList[2].haveQx}}" bindtap="toUrl">
+            <view class="cuIcon-top bg-red radius text-content home-top-btn shadow"></view>
+            <view class="text-sm text-black margin-top-sm">库存</view>
+          </view>
+          <view class="padding flex flex-direction align-center" data-url="/pages/finance/index" data-qx="{{qxList[3]}}" wx:if="{{qxList[3].haveQx}}" bindtap="toUrl">
+            <view class="cuIcon-order bg-blue radius text-content home-top-btn shadow"></view>
+            <view class="text-sm text-black margin-top-sm">财务</view>
+          </view>
+        </view>
+      </view>
+    </view>
+    <!-- 推荐 -->
+    <view wx:if="{{tj_title}}">
+      <view class="bg-white flex padding-sm align-center">
+        <view class="padding-lr-xs" style="flex-shrink:0;width:20%;min-width:140rpx;">为您推荐</view>
+        <view class="solid-right line-black" style="height:25rpx;"></view>
+        <view class="padding-left-sm flex justify-between align-center flex-sub" style="width:79%;">
+          <view class="text-cut text-sm text-black" style="width:90%;">{{tj_title}}</view>
+          <view class="cuIcon-right text-right" style="width:8%;"></view>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <scroll-view class="bg-white" scroll-y="true" style="height:{{saleScrollViewHeight}}px;">
+    <!-- 常用功能 宫格 -->
+    <view class="bg-white padding margin-bottom" wx:if="{{false}}">
+      <view class="flex justify-between align-center text-xl">
+        <view class="text-df text-bold text-black">常用功能</view>
+        <view class="cuIcon-edit"></view>
+      </view>
+      <swiper style="min-height:300rpx;">
+        <swiper-item class="grid col-5 margin-bottom text-center text-3xl margin-top-sm" wx:for="{{newIconList}}"
+          wx:for-item="nItem" style="flex:1;">
+          <view class="padding-sm" wx:for="{{nItem}}" wx:key="index" catchtap="toUrl"  data-qx="{{item.qx}}" wx:if="{{item.qx.haveQx}}" data-url="{{item.url}}">
+            <view class="cuIcon-{{item.icon}} text-{{item.color}}"></view>
+            <view class="text-sm margin-top-xs">{{item.name}}</view>
+          </view>
+        </swiper-item>
+      </swiper>
+    </view>
+    <!-- 快捷单据 -->
+    <view class="padding-sm bg-white margin-bottom">
+      <view class="grid col-2">
+        <view class="padding-xs" wx:for="{{quickList}}" wx:if="{{item.qx.haveQx}}" wx:key="index">
+          <view class="padding-tb-sm padding-left-sm flex border-gray border-radius">
+            <view style="width:75%;" class="text-left" catchtap="toUrl"  data-qx="{{item.qx}}" data-url="{{item.listpage}}">
+              <view class="flex align-center text-30">
+                <view class="{{item.icon}} padding-right-xs"></view>
+                <view class="text-bold text-black text-df">{{item.name}}</view>
+              </view>
+              <view class="text-sm text-greyLight margin-top-xs">{{item.introduce}}</view>
+            </view>
+            <view catchtap="toUrl" data-url="{{item.addpage}}" data-qx="{{item.addqx}}" wx:if="{{item.isadd&&item.addqx.haveQx}}"
+              class="flex justify-center align-center solid-left line-gray text-red" style="width:25%;margin:0px;">
+              <view class="text-red text-3xl">
+                <view class="cuIcon-add"></view>
+              </view>
+            </view>
+          </view>
+        </view>
+      </view>
+    </view>
+
+    <!-- 宫格按钮 -->
+    <view class="cu-list grid col-{{gridCol}} solid-top">
+      <view class="cu-item" wx:for="{{iconList}}" wx:key="index" wx:if="{{index<gridCol*3}}" catchtap="toUrl"  data-qx="{{item.qx}}" wx:if="{{item.qx.haveQx}}" 
+        data-url="{{item.url}}">
+        <view class="cuIcon-{{item.icon}} text-{{item.color}}">
+          <!-- <view class="cu-tag badge" wx:if="{{item.badge!=0}}">
+            <block wx:if="{{item.badge!=1}}">{{item.badge>99?"99+":item.badge}}</block>
+          </view> -->
+        </view>
+        <text>{{item.name}}</text>
+      </view>
+    </view>
+  </scroll-view>
+
+
+
+  <view id="tabBar" class="cu-bar tabbar foot bg-white">
+    <view class="action text-blue">
+      <view data-url="/pages/home/index"  catchtap="toUrl"  data-qx="{{syQx}}">
+        <view class="cuIcon-home"></view> 首页
+      </view>
+    </view>
+    <view class="action text-gray"  wx:if="{{qxList[20].haveQx}}" >
+      <view data-url="/pages/example6/index" catchtap="toUrl"  data-qx="{{qxList[20]}}">
+        <view class="cuIcon-clothes"></view> 商品
+      </view>
+    </view>
+    <view class="action text-gray add-action" wx:if="{{qxList[12].haveQx}}">
+      <view data-url="/pages/example1_new/index" catchtap="toUrl"  data-qx="{{qxList[12]}}">
+        <view class="cu-btn cuIcon-sponsor bg-gradual-blue"></view>
+        <text>收银台</text>
+      </view>
+    </view>
+    <view class="action text-gray" wx:if="{{qxList[21].haveQx}}">
+      <view data-url="/pages/reportform/index" catchtap="toUrl" data-qx="{{qxList[21]}}" >
+        <view class="cuIcon-form"></view> 报表
+      </view>
+    </view>
+    <view class="action text-gray">
+      <view data-url="/pages/my/index" catchtap="toUrl" data-qx="{{syQx}}" >
+        <view class="cuIcon-people"></view> 我的
+      </view>
+    </view>
+  </view>
+</view>
+<view wx:if="{{!isLoad}}">
+  <view class="cu-custom bg-goldb" style="height:{{CustomBar}}px">
+    <view class="cu-bar fixed" style="height:{{CustomBar}}px;padding-top:{{StatusBar}}px;">
+      <view class="content text-black" style="top:{{StatusBar}}px">
+        {{isRegister?'注册':'登录'}}
+      </view>
+    </view>
+  </view>
+
+  <!-- <view style="width:80%;margin-left:10%;margin-top:200rpx;"> -->
+  <view wx:if="{{isRegister}}" class="registerBox" style="padding:0 50rpx;">
+    <view class="text-center" style="padding: 50rpx 0;">
+    <image src="../../images/my/20210830102126.png" style="width: 155rpx;height: 155rpx;"></image>
+    </view>
+    <view class="cu-form-group">
+      <view class="title">企业名字</view>
+      <input placeholder="请输入企业名字" model:value="{{company_name}}"></input>
+    </view>
+    <view class="cu-form-group">
+      <view class="title">联系方式</view>
+      <input placeholder="请输入企业联系电话" model:value="{{company_phone}}" type="tel" maxlength="11"></input>
+    </view>
+    <view class="cu-form-group">
+      <view class="title">联系人</view>
+      <input placeholder="请输入企业联系人" model:value="{{company_contact}}"></input>
+    </view>
+    <view class="cu-form-group">
+      <view class="title">用户名</view>
+      <input placeholder="请输入用户名" model:value="{{user_name}}" maxlength="12"></input>
+    </view>
+    <view class="cu-form-group">
+      <view class="title">密码</view>
+      <input placeholder="请输入密码" model:value="{{password}}"  maxlength="12" type="password"></input>
+    </view>
+    <view class="cu-form-group">
+      <view class="title">证件号</view>
+      <input placeholder="请输入用户证件号" model:value="{{idcode}}"></input>
+    </view>
+    <view class="cu-form-group solid-bottom">
+      <view class="title">联系方式</view>
+      <input placeholder="请输入用户联系电话" model:value="{{user_phone}}" type="tel" maxlength="11"></input>
+    </view>
+    <button class="cu-btn  block bg-goldb margin-tb-sm lg" bindtap="register">注册</button>
+    <view class="text-sm skin-main-font-color text-center  margin-sm" bindtap="toggleForm">已有账号,去登录</view>
+  </view>
+  <view wx:if="{{!isRegister}}" class="registerBox loginBox">
+    <view class="text-center" style="padding: 100rpx 0;">
+      <image src="../../images/my/20210830102126.png" style="width: 160rpx;height: 160rpx;"></image>
+    </view>
+    <view class="margin-lr">
+      <view class="padding-lr-sm text-left">
+        <view class="cu-form-group">
+          <view class="title">
+            <text class="cuIcon-my"></text>
+          </view>
+          <input placeholder="请输入您的用户名" model:value="{{l_user_name}}" />
+        </view>
+        <view class="cu-form-group">
+          <view class="title">
+            <text class="cuIcon-lock"></text>
+          </view>
+          <input type="text"  model:value="{{l_password}}" placeholder="请输入您的密码" maxlength="12" type="password"/>
+        </view>
+        <view class="">
+          <button class="cu-btn  block bg-goldb margin-tb-sm lg" bindtap="login">登录</button>
+
+          <view class="text-sm skin-main-font-color text-center margin-sm" bindtap="toggleForm">暂无账号,去注册</view>
+        </view>
+      </view>
+    </view>
+
+  </view>
+</view>
